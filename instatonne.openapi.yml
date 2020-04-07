@@ -1,0 +1,32 @@
+info:
+  title: Instatonne
+  description: Instagram, aber für die Tonne
+  license:
+    name: Apache 2.0
+    url: https://github.com/OAI/OpenAPI-Specification/blob/master/https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.1
+openapi: "3.0.3"
+paths:
+  "/posts":
+    get:
+      summary: Returns a list of posts.
+      operationId: getPosts
+      responses:
+        "200":
+          description: Successfully retrieved posts.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+components:
+  schemas:
+    Post:
+      properties:
+        created:
+          type: string
+          format: date
+        content:
+          type: string
+          format: byte
