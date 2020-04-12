@@ -26,7 +26,6 @@ components:
       properties:
         created:
           type: string
-          format: date
-        content:
+          format: date-time
+        imageUrl:
           type: string
-          format: byte
