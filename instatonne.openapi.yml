@@ -6,11 +6,16 @@ info:
     url: https://github.com/OAI/OpenAPI-Specification/blob/master/https://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.1
 openapi: "3.0.3"
+tags:
+  - name: posts
+  - name: users
 paths:
-  "/posts":
+  "/p":
     get:
       summary: Returns a list of posts.
       operationId: getPosts
+      tags:
+        - posts
       responses:
         "200":
           description: Successfully retrieved posts.
@@ -20,12 +25,90 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Post"
+  "/p/{postId}":
+    get:
+      summary: Returns a single post by id.
+      operationId: getPostById
+      tags:
+        - posts
+      parameters:
+        - in: path
+          name: postId
+          schema:
+            type: string
+          required: true
+          description: The post id in uuid format
+      responses:
+        "200":
+          description: Successfully retrieved post.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  "/u/{username}":
+    get:
+      summary: Returns a single user by username.
+      operationId: getUserByName
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The user's username.
+      responses:
+        "200":
+          description: Successfully retrieved user.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
 components:
   schemas:
+    User:
+      properties:
+        username:
+          type: string
+        created:
+          type: string
+          format: date-time
+        followerCount:
+          type: integer
+        followingCount:
+          type: integer
     Post:
+      properties:
+        id:
+          type: string
+        created:
+          type: string
+          format: date-time
+        author:
+          type: string
+        imageUrl:
+          type: string
+        likeCount:
+          type: integer
+        comments:
+          type: array
+          items:
+            $ref: "#/components/schemas/Comment"
+
+    Comment:
       properties:
         created:
           type: string
           format: date-time
-        imageUrl:
+        author:
           type: string
+        comment:
+          type: string
+  responses:
+    NotFound:
+      description: The specified resource was not found.
