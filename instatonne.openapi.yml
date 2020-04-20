@@ -161,3 +161,11 @@ components:
   responses:
     NotFound:
       description: The specified resource was not found.
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - jwtAuth: []
