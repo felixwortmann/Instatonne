@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6680da43-2e2d-4c42-b1a0-85492d10a4df" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/profile-header/profile-header.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/profile-header/profile-header.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/components/profile-header/profile-header.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/components/profile-header/profile-header.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/comment-model.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/post-model.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/user-model.ts" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1anvmY2UuS3RnSdN3POvjqMjLAT" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+  </component>
+  <component name="RunManager" selected="npm.Angular CLI Server">
+    <configuration name="E2E Tests (instatonne-frontend)" type="JavaScriptTestRunnerProtractor">
+      <config-file value="$PROJECT_DIR$/e2e/protractor.conf.js" />
+      <node-interpreter value="project" />
+      <protractor-options value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200">
+      <method v="2" />
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6680da43-2e2d-4c42-b1a0-85492d10a4df" name="Default Changelist" comment="" />
+      <created>1587384331860</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587384331860</updated>
+      <workItem from="1587384333816" duration="7529000" />
+    </task>
+    <task id="LOCAL-00001" summary="create models from here: https://github.com/felixwortmann/Instatonne/tree/master/backend/src/main/kotlin/de/instatonne/backend/models">
+      <created>1587392523736</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587392523736</updated>
+    </task>
+    <task id="LOCAL-00002" summary="create models from here: https://github.com/felixwortmann/Instatonne/tree/master/backend/src/main/kotlin/de/instatonne/backend/models">
+      <created>1587392694471</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1587392694471</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="create models from here: https://github.com/felixwortmann/Instatonne/tree/master/backend/src/main/kotlin/de/instatonne/backend/models" />
+    <option name="LAST_COMMIT_MESSAGE" value="create models from here: https://github.com/felixwortmann/Instatonne/tree/master/backend/src/main/kotlin/de/instatonne/backend/models" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="768" y="495" width="374" height="558" key="#com.intellij.ide.util.MemberChooser" timestamp="1587392062915">
+      <screen x="0" y="236" width="1920" height="1080" />
+    </state>
+    <state x="768" y="495" width="374" height="558" key="#com.intellij.ide.util.MemberChooser/1920.0.2560.1440/0.236.1920.1080@0.236.1920.1080" timestamp="1587392062915" />
+    <state x="2718" y="327" width="954" height="808" key="CommitChangelistDialog2" timestamp="1587392694398">
+      <screen x="1920" y="0" width="2560" height="1440" />
+    </state>
+    <state x="2718" y="327" width="954" height="808" key="CommitChangelistDialog2/1920.0.2560.1440/0.236.1920.1080@1920.0.2560.1440" timestamp="1587392694398" />
+    <state width="1874" height="288" key="GridCell.Tab.0.bottom" timestamp="1587384426925">
+      <screen x="0" y="236" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="288" key="GridCell.Tab.0.bottom/1920.0.2560.1440/0.236.1920.1080@0.236.1920.1080" timestamp="1587384426925" />
+    <state width="1874" height="288" key="GridCell.Tab.0.center" timestamp="1587384426925">
+      <screen x="0" y="236" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="288" key="GridCell.Tab.0.center/1920.0.2560.1440/0.236.1920.1080@0.236.1920.1080" timestamp="1587384426925" />
+    <state width="1874" height="288" key="GridCell.Tab.0.left" timestamp="1587384426925">
+      <screen x="0" y="236" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="288" key="GridCell.Tab.0.left/1920.0.2560.1440/0.236.1920.1080@0.236.1920.1080" timestamp="1587384426925" />
+    <state width="1874" height="288" key="GridCell.Tab.0.right" timestamp="1587384426925">
+      <screen x="0" y="236" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="288" key="GridCell.Tab.0.right/1920.0.2560.1440/0.236.1920.1080@0.236.1920.1080" timestamp="1587384426925" />
+    <state x="449" y="411" key="SettingsEditor" timestamp="1587387724087">
+      <screen x="0" y="236" width="1920" height="1080" />
+    </state>
+    <state x="449" y="411" key="SettingsEditor/1920.0.2560.1440/0.236.1920.1080@0.236.1920.1080" timestamp="1587387724087" />
+    <state x="2968" y="653" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587393491601">
+      <screen x="1920" y="0" width="2560" height="1440" />
+    </state>
+    <state x="2968" y="653" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.0.2560.1440/0.236.1920.1080@1920.0.2560.1440" timestamp="1587393491601" />
+    <state x="2863" y="349" width="672" height="678" key="search.everywhere.popup" timestamp="1587393055449">
+      <screen x="1920" y="0" width="2560" height="1440" />
+    </state>
+    <state x="2863" y="349" width="672" height="678" key="search.everywhere.popup/1920.0.2560.1440/0.236.1920.1080@1920.0.2560.1440" timestamp="1587393055449" />
+  </component>
+</project>
