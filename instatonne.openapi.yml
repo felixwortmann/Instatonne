@@ -25,6 +25,24 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Post"
+    post:
+      summary: Create a new.
+      operationId: createPost
+      tags:
+        - posts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewPost"
+      responses:
+        "200":
+          description: Successfully created post.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
   "/p/{postId}":
     get:
       summary: Returns a single post by id.
@@ -45,6 +63,29 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Post"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  "/p/{postId}/i.jpg":
+    get:
+      summary: Returns the image of a post.
+      operationId: getPostImageById
+      tags:
+        - posts
+      parameters:
+        - in: path
+          name: postId
+          schema:
+            type: string
+          required: true
+          description: The post id in uuid format
+      responses:
+        "200":
+          description: Successfully retrieved image.
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
         "404":
           $ref: "#/components/responses/NotFound"
   "/u/{username}":
@@ -99,6 +140,14 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Comment"
+    NewPost:
+      properties:
+        text:
+          type: string
+        image:
+          description: A base64 encoded version of the image in jpg format
+          type: string
+          format: base64
 
     Comment:
       properties:

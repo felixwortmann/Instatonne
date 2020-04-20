@@ -3,10 +3,16 @@ package de.instatonne.backend.apis
 import de.instatonne.backend.core.repositories.PostRepository
 import de.instatonne.backend.core.toNullable
 import de.instatonne.backend.generated.apis.PostsApi
+import de.instatonne.backend.generated.models.NewPostApiModel
 import de.instatonne.backend.generated.models.PostApiModel
 import de.instatonne.backend.models.Post
+import org.springframework.core.io.FileSystemResource
+import org.springframework.core.io.Resource
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
+import java.io.File
+import java.io.FileOutputStream
+import java.util.*
 
 @RestController
 class PostsApiController(val postRepository: PostRepository) : PostsApi {
@@ -23,5 +29,26 @@ class PostsApiController(val postRepository: PostRepository) : PostsApi {
         } else {
             ResponseEntity.ok(post.generateAPIVersion())
         }
+    }
+
+    override fun createPost(data: NewPostApiModel): ResponseEntity<PostApiModel> {
+        val post = postRepository.save(Post("", ""))
+
+        post.imageUrl = "/p/${post.id}/i"
+
+        val filePath = "/var/tmp/instatonne/${post.id}.jpg"
+        val file = File(filePath)
+        val fileOS = FileOutputStream(file)
+        val decodedImage = Base64.getDecoder().decode(data.image)
+        fileOS.write(decodedImage)
+        fileOS.close()
+
+        return ResponseEntity.ok(post.generateAPIVersion())
+    }
+
+    override fun getPostImageById(postId: String): ResponseEntity<Resource> {
+        val filePath = "/var/tmp/instatonne/${postId}.jpg"
+        val resource = FileSystemResource(filePath)
+        return ResponseEntity.ok(resource)
     }
 }

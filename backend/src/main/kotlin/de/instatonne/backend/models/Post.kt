@@ -14,7 +14,7 @@ data class Post(
         val id: String,
 
         @Column(nullable = false)
-        val imageUrl: String,
+        var imageUrl: String,
 
         @Column(nullable = false)
         val created: OffsetDateTime = OffsetDateTime.now()
