@@ -17,14 +17,20 @@ class StartupListener(val postRepository: PostRepository, val userRepository: Us
 
     @EventListener
     fun onApplicationEvent(ev: ContextRefreshedEvent) {
-        log.info("Init successfully !")
-        val post = Post("", "http://example.com/80x80.png")
+        val tim = User()
+        tim.id = "*test-id"
+        tim.username = "*test-username"
+        userRepository.save(tim)
 
-        val comment = Comment("", "Log 1 Kommentar", post)
+        val post = Post()
+        post.imageUrl = "http://example.com/80x80.png"
+        post.author = tim
+        tim.posts.add(post)
+
+        val comment = Comment()
+        comment.comment = "*Testkommentar"
+        comment.forPost = post
         post.comments.add(comment)
         postRepository.save(post)
-
-        val tim = User("timgrohmann")
-        userRepository.save(tim)
     }
 }

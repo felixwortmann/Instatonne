@@ -21,7 +21,7 @@ export class ProfileHeaderComponent implements OnInit {
     //     this.user = user;
     //   }
     // );
-    this.user = { "username": "testName", "profileDescription": "testBeschreibung" }
+    this.user = { username: 'testName', profileDescription: 'testBeschreibung' };
   }
 
 }

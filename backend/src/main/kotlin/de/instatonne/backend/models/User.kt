@@ -8,25 +8,34 @@ import javax.persistence.*
 @Entity
 data class User(
         @Id
-        val username: String,
+        var id: String = "",
 
         @Column(nullable = false)
-        val created: OffsetDateTime = OffsetDateTime.now()
+        var username: String = "",
+
+        @Column(nullable = false)
+        var created: OffsetDateTime = OffsetDateTime.now(),
+
+        @Column(nullable = true)
+        var profileDescription: String? = null,
+
+        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "author")
+        var posts: MutableList<Post> = mutableListOf(),
+
+        @ManyToMany(mappedBy = "following")
+        internal var followers: MutableList<User> = mutableListOf(),
+
+        @ManyToMany(cascade = [CascadeType.ALL])
+        @JoinTable(name = "user_followers",
+                joinColumns = [JoinColumn(name = "username")],
+                inverseJoinColumns = [JoinColumn(name = "followed_username")])
+        internal var following: MutableList<User> = mutableListOf()
+
 ) : DatabaseWrapper<UserApiModel> {
-    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "author")
-    val posts: MutableList<Post> = mutableListOf()
-
-    @ManyToMany(mappedBy = "following")
-    internal val followers: MutableList<User> = mutableListOf()
-
-    @ManyToMany(cascade = [CascadeType.ALL])
-    @JoinTable(name = "user_followers",
-            joinColumns = [JoinColumn(name = "username")],
-            inverseJoinColumns = [JoinColumn(name = "followed_username")])
-    internal val following: MutableList<User> = mutableListOf()
 
     override fun generateAPIVersion(): UserApiModel {
         return UserApiModel()
+                .id(id)
                 .username(username)
                 .created(created)
                 .followerCount(followers.size)
