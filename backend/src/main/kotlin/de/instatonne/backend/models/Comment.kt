@@ -11,18 +11,17 @@ data class Comment(
         @Id
         @GeneratedValue(generator = "uuid")
         @GenericGenerator(name = "uuid", strategy = "uuid2")
-        val id: String,
+        val id: String = "",
 
         @Column(nullable = false)
-        val comment: String,
+        var comment: String = "",
 
         @ManyToOne(cascade = [CascadeType.ALL])
-        val forPost: Post,
+        var forPost: Post = Post(),
 
         @Column(nullable = false)
-        val created: OffsetDateTime = OffsetDateTime.now()
+        var created: OffsetDateTime = OffsetDateTime.now()
 ) : DatabaseWrapper<CommentApiModel> {
-
 
     override fun generateAPIVersion(): CommentApiModel {
         return CommentApiModel().comment(comment).created(created)

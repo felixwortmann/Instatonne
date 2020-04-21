@@ -140,6 +140,8 @@ components:
           type: integer
         followingCount:
           type: integer
+        profileDescription:
+          type: string
     Post:
       properties:
         id:

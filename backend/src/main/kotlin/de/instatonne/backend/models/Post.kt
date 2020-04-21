@@ -11,27 +11,28 @@ data class Post(
         @Id
         @GeneratedValue(generator = "uuid")
         @GenericGenerator(name = "uuid", strategy = "uuid2")
-        val id: String,
+        val id: String = "",
 
         @Column(nullable = false)
-        var imageUrl: String,
+        var imageUrl: String = "",
 
         @Column(nullable = false)
-        val created: OffsetDateTime = OffsetDateTime.now()
+        var created: OffsetDateTime = OffsetDateTime.now(),
+
+        @ManyToOne
+        var author: User = User(),
+
+        @OneToMany(cascade = [CascadeType.ALL])
+        var comments: MutableList<Comment> = mutableListOf()
+
 ) : DatabaseWrapper<PostApiModel> {
-
-    @ManyToOne
-    lateinit var author: User
-
-    @OneToMany(cascade = [CascadeType.ALL])
-    val comments: MutableList<Comment> = mutableListOf()
-
 
     override fun generateAPIVersion(): PostApiModel {
         return PostApiModel()
                 .created(created)
                 .imageUrl(imageUrl)
                 .id(id)
+                .author(author.id)
                 .comments(comments.map(Comment::generateAPIVersion))
     }
 }
