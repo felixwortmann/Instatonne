@@ -15,10 +15,10 @@ class UserTest @Autowired constructor(
 
     @Test
     fun followCreatesBidirectionalBinding() {
-        val user1 = User("user1", OffsetDateTime.now())
+        val user1 = User("1", "user1", OffsetDateTime.now())
         userRepository.save(user1)
 
-        val user2 = User("user2", OffsetDateTime.now())
+        val user2 = User("2", "user2", OffsetDateTime.now())
         userRepository.save(user2)
 
         user1.follow(user2)

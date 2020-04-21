@@ -8,6 +8,9 @@ import javax.persistence.*
 @Entity
 data class User(
         @Id
+        val id: String,
+
+        @Column(nullable = false)
         val username: String,
 
         @Column(nullable = false)
@@ -27,6 +30,7 @@ data class User(
 
     override fun generateAPIVersion(): UserApiModel {
         return UserApiModel()
+                .id(id)
                 .username(username)
                 .created(created)
                 .followerCount(followers.size)

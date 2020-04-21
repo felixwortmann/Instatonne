@@ -110,10 +110,27 @@ paths:
                 $ref: "#/components/schemas/User"
         "404":
           $ref: "#/components/responses/NotFound"
+  "/u/me":
+    get:
+      summary: Returns the user identified by the token.
+      operationId: getUserMe
+      tags:
+        - users
+      responses:
+        "200":
+          description: Successfully retrieved user.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
 components:
   schemas:
     User:
       properties:
+        id:
+          type: string
         username:
           type: string
         created:

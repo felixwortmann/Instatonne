@@ -24,7 +24,7 @@ class StartupListener(val postRepository: PostRepository, val userRepository: Us
         post.comments.add(comment)
         postRepository.save(post)
 
-        val tim = User("timgrohmann")
+        val tim = User("+TEST_ID", "+TEST_USER")
         userRepository.save(tim)
     }
 }

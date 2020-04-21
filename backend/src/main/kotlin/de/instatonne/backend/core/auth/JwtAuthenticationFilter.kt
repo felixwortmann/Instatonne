@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse
 class JwtAuthenticationFilter : OncePerRequestFilter() {
     private val log = LoggerFactory.getLogger(JwtAuthenticationFilter::class.java)
 
-    private val CLIENT_ID = "cliid"
+    private val CLIENT_ID = "190934451905-3n1os2sov96uvvu5k58ej7al9ecopfl5.apps.googleusercontent.com"
 
     private val verifier: GoogleIdTokenVerifier = GoogleIdTokenVerifier.Builder(NetHttpTransport(), JacksonFactory()) // Specify the CLIENT_ID of the app that accesses the backend:
             .setAudience(listOf(CLIENT_ID)) // Or, if multiple clients access the backend:
@@ -25,9 +25,13 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
         val requestHeader = req.getHeader("Authorization")
         if (requestHeader != null && requestHeader.startsWith("Bearer ")) {
             val authToken: String = requestHeader.substring(7)
-            val parsedToken = verifier.verify(authToken)
-            if (parsedToken != null) {
-                SecurityContextHolder.getContext().authentication = JwtAuthentication(parsedToken)
+            try {
+                val parsedToken = verifier.verify(authToken)
+                if (parsedToken != null) {
+                    SecurityContextHolder.getContext().authentication = JwtAuthentication(parsedToken)
+                }
+            } catch (e: Exception) {
+                log.info("Token could not be verified.")
             }
         }
         chain.doFilter(req, res)
