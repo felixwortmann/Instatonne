@@ -14,6 +14,13 @@ class UserTest @Autowired constructor(
         var userService: UserService,
         var userRepository: UserRepository
 ) {
+    @Test
+    fun assertTestIsolation() {
+        @Suppress("UsePropertyAccessSyntax")
+        assertThat(userRepository.existsById("*test-id")).isFalse()
+        // this user is normally created in DBTestInit.kt,
+        // but should not be created for test cases due to the active 'test' profile
+    }
 
     @Test
     fun followCreatesBidirectionalBinding() {

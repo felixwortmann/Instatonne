@@ -6,11 +6,13 @@ import de.instatonne.backend.models.Comment
 import de.instatonne.backend.models.Post
 import de.instatonne.backend.models.User
 import org.slf4j.LoggerFactory
+import org.springframework.context.annotation.Profile
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
 
 @Component
+@Profile("!test")
 class StartupListener(val postRepository: PostRepository, val userRepository: UserRepository) {
 
     private val log = LoggerFactory.getLogger(StartupListener::class.java)
