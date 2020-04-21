@@ -1,7 +1,6 @@
-package de.instatonne.backend.models
+package de.instatonne.backend.services
 
 import de.instatonne.backend.core.repositories.UserRepository
-import de.instatonne.backend.services.UserService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @Transactional
-class UserTest @Autowired constructor(
+class UserServiceTest @Autowired constructor(
         var userService: UserService,
         var userRepository: UserRepository
 ) {
