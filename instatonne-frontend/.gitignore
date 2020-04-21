@@ -18,7 +18,7 @@ chrome-profiler-events*.json
 speed-measure-plugin*.json
 
 # IDEs and editors
-/instatonne-frontend/.idea
+.idea
 .project
 .classpath
 .c9/
