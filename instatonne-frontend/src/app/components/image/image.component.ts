@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/app/generated/models';
 
 @Component({
   selector: 'app-image',
@@ -7,14 +8,13 @@ import {Component, OnInit} from '@angular/core';
 
 })
 export class ImageComponent implements OnInit {
-  img = {
-    src: 'https://via.placeholder.com/1080'
-  };
+  post: Post;
 
   constructor() {
   }
 
   ngOnInit(): void {
+    this.post = { "imageUrl": "https://via.placeholder.com/1080" }
   }
 
 }
