@@ -116,6 +116,8 @@ components:
       properties:
         username:
           type: string
+        profileDescription:
+          type: string
         created:
           type: string
           format: date-time
