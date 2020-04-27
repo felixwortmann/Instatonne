@@ -16,7 +16,7 @@ data class Comment(
         @Column(nullable = false)
         var comment: String = "",
 
-        @ManyToOne(cascade = [CascadeType.ALL])
+        @ManyToOne(cascade = [CascadeType.PERSIST])
         var forPost: Post = Post(),
 
         @Column(nullable = false)
