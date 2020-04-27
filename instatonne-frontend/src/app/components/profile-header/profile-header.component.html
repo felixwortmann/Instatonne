@@ -1,4 +1,6 @@
 <mat-toolbar color="primary">
-  <mat-toolbar-row>{{this.user.username}}</mat-toolbar-row>
-  <mat-toolbar-row>{{this.user.profileDescription}}</mat-toolbar-row>
+  <ng-container *ngIf="user$ | async as user">
+    <mat-toolbar-row>{{user.username}}</mat-toolbar-row>
+    <mat-toolbar-row>{{user.profileDescription}}</mat-toolbar-row>
+  </ng-container>
 </mat-toolbar>
