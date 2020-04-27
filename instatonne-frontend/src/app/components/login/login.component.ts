@@ -1,7 +1,10 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef, ApplicationRef, NgZone } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { User } from 'src/app/generated/models';
 
 @Component({
   selector: 'app-login',
@@ -10,18 +13,22 @@ import { tap } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-  username$: Observable<string>;
+  user$: Observable<User>;
+  authUser$: Observable<gapi.auth2.GoogleUser>;
+  shouldRegister$: Observable<boolean>;
 
   constructor(
     private authService: AuthService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.loadGAPI();
     window['onSignIn'] = this.onSignIn.bind(this);
 
-    this.username$ = this.authService.getUsername();
+    this.user$ = this.authService.getUser();
+    this.authUser$ = this.authService.getAuthUser();
   }
 
   public onSignIn(googleUser: gapi.auth2.GoogleUser) {
@@ -32,7 +39,7 @@ export class LoginComponent implements OnInit {
     console.log('Email: ' + profile.getEmail());
     console.log(googleUser.getAuthResponse().id_token);
     this.ngZone.run(() => {
-      this.authService.setUser(googleUser);
+      this.authService.setAuthUser(googleUser);
     });
   }
 
@@ -52,6 +59,12 @@ export class LoginComponent implements OnInit {
       node.async = false;
       document.getElementsByTagName('head')[0].appendChild(node);
     }
+  }
+
+  onRegister(f: NgForm) {
+    if (!f.valid) { return; }
+    this.authService.createUser(f.value.username);
+    console.log(f.value);
   }
 
 }

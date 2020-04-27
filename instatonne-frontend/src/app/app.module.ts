@@ -5,6 +5,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +20,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiInterceptor } from './core/ApiInterceptor';
 import { ApiModule } from './generated/api.module';
 import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -39,10 +42,13 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatToolbarModule,
+    MatButtonModule,
     MatCardModule,
     MatDividerModule,
     MatGridListModule,
+    MatInputModule,
     HttpClientModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
   ],
