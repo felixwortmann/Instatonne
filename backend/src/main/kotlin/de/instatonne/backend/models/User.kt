@@ -6,6 +6,9 @@ import java.time.OffsetDateTime
 import javax.persistence.*
 
 @Entity
+@Table(
+        indexes = [Index(name = "i_username", columnList = "username", unique = true)]
+)
 data class User(
         @Id
         var id: String = "",
@@ -30,8 +33,11 @@ data class User(
                 joinColumns = [JoinColumn(name = "username")],
                 inverseJoinColumns = [JoinColumn(name = "followed_username")])
         internal var following: MutableList<User> = mutableListOf()
-
 ) : DatabaseWrapper<UserApiModel> {
+
+    override fun toString(): String {
+        return "[User@JPA] $id, $username"
+    }
 
     override fun generateAPIVersion(): UserApiModel {
         return UserApiModel()
@@ -42,8 +48,4 @@ data class User(
                 .followingCount(following.size)
     }
 
-    fun follow(user: User) {
-        this.following.add(user)
-        user.followers.add(this)
-    }
 }
