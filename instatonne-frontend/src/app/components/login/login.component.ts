@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, ApplicationRef, NgZone } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
+import { Observable, of, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -7,11 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  username$: Observable<string>;
+
+  constructor(
+    private authService: AuthService,
+    private ngZone: NgZone
+  ) { }
 
   ngOnInit(): void {
     this.loadGAPI();
-    window['onSignIn'] = this.onSignIn;
+    window['onSignIn'] = this.onSignIn.bind(this);
+
+    this.username$ = this.authService.getUsername();
   }
 
   public onSignIn(googleUser: gapi.auth2.GoogleUser) {
@@ -21,6 +31,9 @@ export class LoginComponent implements OnInit {
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail());
     console.log(googleUser.getAuthResponse().id_token);
+    this.ngZone.run(() => {
+      this.authService.setUser(googleUser);
+    });
   }
 
   private loadGAPI() {
