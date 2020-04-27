@@ -10,6 +10,12 @@ class UserService(
 ) {
 
     fun createUser(id: String, username: String): User {
+        if (userRepository.existsById(id)) {
+            throw Exception("UserServcice@createUser called for an id that already exists")
+        }
+        if (userRepository.existsByUsername(username)) {
+            throw Exception("UserServcice@createUser called for a username that already exists")
+        }
         return userRepository.save(User(id, username))
     }
 

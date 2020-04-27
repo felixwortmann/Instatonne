@@ -2,6 +2,7 @@ package de.instatonne.backend.services
 
 import de.instatonne.backend.core.repositories.UserRepository
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -53,5 +54,17 @@ class UserServiceTest @Autowired constructor(
 
         assertThat(user2R.followers)
                 .doesNotContain(user1R)
+    }
+
+    @Test
+    fun creatingTwoUsersWithSameIdIsProhibited() {
+        userService.createUser("*1", "*first-user")
+        assertThatThrownBy { userService.createUser("*1", "*first-double-user") }.hasMessageContaining("id")
+    }
+
+    @Test
+    fun creatingTwoUsersWithSameUsernameIsProhibited() {
+        userService.createUser("*1", "*first-user")
+        assertThatThrownBy { userService.createUser("*2", "*first-user") }.hasMessageContaining("username")
     }
 }

@@ -6,6 +6,9 @@ import java.time.OffsetDateTime
 import javax.persistence.*
 
 @Entity
+@Table(
+        indexes = [Index(name = "i_username", columnList = "username", unique = true)]
+)
 data class User(
         @Id
         var id: String = "",
