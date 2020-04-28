@@ -37,9 +37,14 @@ class UsersApiController(val userRepository: UserRepository, val userService: Us
     override fun createNewUser(newUserApiModel: NewUserApiModel): ResponseEntity<UserApiModel> {
         val auth = SecurityContextHolder.getContext().authentication as JwtAuthentication
 
-        val user = userService.createUser(auth.getUserId(), newUserApiModel.username)
-        user.profileDescription = newUserApiModel.profileDescription
-        userRepository.save(user)
-        return ResponseEntity.ok(user.generateAPIVersion())
+        return try {
+            val user = userService.createUser(auth.getUserId(), newUserApiModel.username)
+            user.profileDescription = newUserApiModel.profileDescription
+            userRepository.save(user)
+            ResponseEntity.ok(user.generateAPIVersion())
+        } catch (e: Exception) {
+            ResponseEntity.badRequest().build()
+        }
+
     }
 }
