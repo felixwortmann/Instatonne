@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../../generated/models/user';
 import { UsersService } from '../../generated/services';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-profile-header',
@@ -9,10 +11,11 @@ import { UsersService } from '../../generated/services';
 })
 export class ProfileHeaderComponent implements OnInit {
 
-  user: User;
+  user$: Observable<User>;
 
   constructor(
     private usersService: UsersService,
+    private authService: AuthService
   ) {
   }
 
@@ -21,7 +24,7 @@ export class ProfileHeaderComponent implements OnInit {
     //     this.user = user;
     //   }
     // );
-    this.user = { username: 'testName', profileDescription: 'testBeschreibung' };
+    this.user$ = this.authService.getUser();
   }
 
 }

@@ -125,6 +125,27 @@ paths:
                 $ref: "#/components/schemas/User"
         "404":
           $ref: "#/components/responses/NotFound"
+  "/u/create":
+    post:
+      summary: Creates a new user.
+      operationId: createNewUser
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewUser"
+      responses:
+        "200":
+          description: Successfully created user.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
 components:
   schemas:
     User:
@@ -140,6 +161,12 @@ components:
           type: integer
         followingCount:
           type: integer
+        profileDescription:
+          type: string
+    NewUser:
+      properties:
+        username:
+          type: string
         profileDescription:
           type: string
     Post:

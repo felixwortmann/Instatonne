@@ -1,3 +1,30 @@
-<p>login works!</p>
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
-<p>Username: {{username$ | async}}</p>
+<div class="container">
+  <div class="inner">
+    <h1>Willkommen bei Instatonne 🗑</h1>
+    <hr>
+    <div *ngIf="(authUser$ | async) as authUser; else signIn">
+      <div *ngIf="(user$ | async) as user; else noUser">
+        Username: {{user.username}}
+      </div>
+      <ng-template #noUser>
+        <h2>Vielen Dank für deine Anmeldung, {{authUser.getBasicProfile().getGivenName()}}!</h2>
+        <p>Such dir nun einen Nutzernamen aus:</p>
+        <form #f="ngForm" (ngSubmit)="onRegister(f)">
+          <mat-form-field class="input-full-width">
+            <mat-label>Nutzername</mat-label>
+            <input autocomplete="off" matInput name="username" ngModel required #first="ngModel">
+          </mat-form-field>
+          <button mat-flat-button color="primary">Registrierung abschließen</button>
+        </form>
+        <button mat-button (click)="logout()">Abbrechen</button>
+      </ng-template>
+    </div>
+
+    <ng-template #signIn>
+      <p>Um Instatonne verwenden zu können, musst Du dich zuerst anmelden.</p>
+      <app-signin-button></app-signin-button>
+    </ng-template>
+
+  </div>
+
+</div>
