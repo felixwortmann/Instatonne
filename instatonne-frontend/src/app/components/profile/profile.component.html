@@ -1,10 +1,10 @@
-<app-profile-header></app-profile-header>
-<mat-grid-list cols="3" rowHeight="1:1">
-  <mat-grid-tile *ngFor="let post of posts$ | async">
-    <mat-card>
-      <app-image [post]="post"></app-image>
-    </mat-card>
-  </mat-grid-tile>
-
-
-</mat-grid-list>
+<div class="container">
+  <app-profile-header></app-profile-header>
+  <mat-grid-list cols="3" rowHeight="1:1">
+    <mat-grid-tile *ngFor="let post of posts$ | async">
+      <mat-card>
+        <app-image [post]="post"></app-image>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

@@ -1,11 +1,12 @@
 package de.instatonne.backend.core.auth
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken
+import de.instatonne.backend.models.User
 import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 
 class JwtAuthentication(
-        private val token: GoogleIdToken
+        private val tokenId: String,
+        private val user: User?
 ) : AbstractAuthenticationToken(listOf(SimpleGrantedAuthority("ROLE_USER"))) {
 
     init {
@@ -16,11 +17,11 @@ class JwtAuthentication(
         return null
     }
 
-    override fun getPrincipal(): GoogleIdToken {
-        return token
+    override fun getPrincipal(): User? {
+        return user
     }
 
     fun getUserId(): String {
-        return token.payload.subject
+        return tokenId
     }
 }
