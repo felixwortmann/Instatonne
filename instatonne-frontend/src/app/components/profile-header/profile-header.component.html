@@ -1,6 +1,18 @@
-<mat-toolbar color="primary">
+<div>
   <ng-container *ngIf="user$ | async as user">
-    <mat-toolbar-row>{{user.username}}</mat-toolbar-row>
+    <h2>{{user.username}}</h2>
+    <div class="avatar-stats-section">
+      <div class="picturewrapper">
+        <img src="https://lh3.googleusercontent.com/a-/AOh14Gjdm-kaIR2ykEjdibuT7JXBlhiWkIgIz-JRKc-WqWM=s96-c"
+          alt="Profilbild" id="profilepicture">
+      </div>
+      <div class="stats">
+        <app-profile-header-stats value="?" title="Beiträge"></app-profile-header-stats>
+        <app-profile-header-stats [value]="user.followerCount" title="Abonnenten"></app-profile-header-stats>
+        <app-profile-header-stats [value]="user.followingCount" title="Abonniert"></app-profile-header-stats>
+      </div>
+    </div>
+
     <mat-toolbar-row>{{user.profileDescription}}</mat-toolbar-row>
   </ng-container>
-</mat-toolbar>
+</div>

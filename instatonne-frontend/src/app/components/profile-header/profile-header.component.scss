@@ -1,1 +1,30 @@
+h2 {
+  text-align: center;
+}
+.picturewrapper {
+  border-radius: 100%;
+  border: 2px solid #cecece;
+  padding: 4px;
+  margin: 0 30px;
+  width: 20%;
+}
 
+#profilepicture {
+  border-radius: 100%;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.avatar-stats-section {
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+}
+
+.stats {
+  display: flex;
+  flex: 1 0;
+  justify-content: space-around;
+  align-items: center;
+}
