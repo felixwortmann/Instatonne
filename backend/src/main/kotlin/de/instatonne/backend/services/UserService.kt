@@ -15,6 +15,7 @@ class UserService(
         val userRepository: UserRepository
 ) {
 
+    @Throws(Exception::class)
     fun createUser(id: String, username: String): User {
         if (userRepository.existsById(id)) {
             throw Exception("UserServcice@createUser called for an id that already exists")
