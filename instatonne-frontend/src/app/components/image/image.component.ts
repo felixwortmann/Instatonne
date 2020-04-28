@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Post } from 'src/app/generated/models';
+import {Component, Input, OnInit} from '@angular/core';
+import {Post} from 'src/app/generated/models';
 
 @Component({
   selector: 'app-image',
@@ -8,13 +8,13 @@ import { Post } from 'src/app/generated/models';
 
 })
 export class ImageComponent implements OnInit {
-  post: Post;
+  @Input() post: Post;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.post = { "imageUrl": "https://via.placeholder.com/1080" }
+
   }
 
 }
