@@ -1,9 +1,9 @@
-import { Injectable, NgZone } from '@angular/core';
-import { Subject, Observable, BehaviorSubject, ReplaySubject, of, empty, EMPTY, combineLatest, throwError } from 'rxjs';
-import { User } from '../generated/models';
-import { switchMap, mapTo, map, tap, catchError, mergeMap, share } from 'rxjs/operators';
-import { UsersService } from '../generated/services';
-import { HttpErrorResponse } from '@angular/common/http';
+import {Injectable, NgZone} from '@angular/core';
+import {BehaviorSubject, combineLatest, EMPTY, Observable, ReplaySubject, Subject, throwError} from 'rxjs';
+import {User} from '../generated/models';
+import {catchError, map, share, switchMap} from 'rxjs/operators';
+import {UsersService} from '../generated/services';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,6 @@ export class AuthService {
   private authInstance: gapi.auth2.GoogleAuth;
   private authUser = new ReplaySubject<gapi.auth2.GoogleUser>(1);
   private reloadUser = new BehaviorSubject<null>(null);
-  private username = new Subject<string>();
 
   private loaded = false;
   private didLoad = new Subject<boolean>();
@@ -35,12 +34,6 @@ export class AuthService {
 
   getToken(): Observable<string> {
     return this.authUser.pipe(map(x => x?.getAuthResponse().id_token));
-  }
-
-  getUsername(): Observable<string> {
-    return this.getUser().pipe(
-      map(x => x.id)
-    );
   }
 
   getAuthUser(): Observable<gapi.auth2.GoogleUser> {
