@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Post} from 'src/app/generated/models';
+import { Component, Input, OnInit } from '@angular/core';
+import { Post } from 'src/app/generated/models';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-image',
@@ -9,6 +10,8 @@ import {Post} from 'src/app/generated/models';
 })
 export class ImageComponent implements OnInit {
   @Input() post: Post;
+
+  env = environment;
 
   constructor() {
   }
