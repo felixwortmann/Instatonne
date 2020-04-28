@@ -21,6 +21,7 @@ import { ApiInterceptor } from './core/ApiInterceptor';
 import { ApiModule } from './generated/api.module';
 import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
+import { SigninButtonComponent } from './components/signin-button/signin-button.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -37,6 +38,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     PostHeaderComponent,
     ProfileComponent,
     ProfileHeaderComponent,
+    SigninButtonComponent,
   ],
   imports: [
     BrowserModule,

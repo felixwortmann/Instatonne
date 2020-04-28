@@ -4,20 +4,22 @@ import { User } from '../generated/models';
 import { switchMap, mapTo, map, tap, catchError, mergeMap, share } from 'rxjs/operators';
 import { UsersService } from '../generated/services';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private authInstance: gapi.auth2.GoogleAuth;
   private authUser = new ReplaySubject<gapi.auth2.GoogleUser>(1);
   private reloadUser = new BehaviorSubject<null>(null);
   private username = new Subject<string>();
 
+  private loaded = false;
+  private didLoad = new Subject<boolean>();
+
   constructor(
     private userService: UsersService,
-    private cookieService: CookieService,
     private ngZone: NgZone
   ) {
     this.loadGAPI();
@@ -32,7 +34,7 @@ export class AuthService {
   }
 
   getToken(): Observable<string> {
-    return this.authUser.pipe(map(x => x.getAuthResponse().id_token));
+    return this.authUser.pipe(map(x => x?.getAuthResponse().id_token));
   }
 
   getUsername(): Observable<string> {
@@ -74,6 +76,11 @@ export class AuthService {
     });
   }
 
+  public async logOut() {
+    await this.authInstance?.signOut();
+    this.authUser.next(null);
+  }
+
   public onSignIn(googleUser: gapi.auth2.GoogleUser) {
     const profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId());
@@ -86,19 +93,43 @@ export class AuthService {
     });
   }
 
+  public async renderButton(id: string) {
+    await this.awaitLoad();
+    console.log('Will render login button into', id);
+    console.log(document.getElementById(id));
+    gapi?.signin2.render(id, {
+      scope: 'email',
+      width: 200,
+      height: 50,
+      longtitle: true,
+      theme: 'dark',
+      onsuccess: this.onSignIn.bind(this),
+      onfailure: null
+    });
+  }
+
+  private async awaitLoad() {
+    if (this.loaded) {
+      return;
+    } else {
+      await this.didLoad.toPromise();
+      this.loaded = true;
+      return;
+    }
+  }
+
   public onAPILoad() {
     gapi.load('auth2', () => {
       gapi.auth2.init({}).then(_ => {
-        const signedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
-        if (signedIn) {
-          this.ngZone.run(() => {
-            this.setAuthUser(gapi.auth2.getAuthInstance().currentUser.get());
-          });
-        }
-        console.log('signed in', gapi.auth2.getAuthInstance().isSignedIn.get());
+        this.authInstance = gapi.auth2.getAuthInstance();
+        const signedIn = this.authInstance.isSignedIn.get();
+        this.ngZone.run(() => {
+          this.didLoad.complete();
+          if (signedIn) {
+            this.setAuthUser(this.authInstance.currentUser.get());
+          }
+        });
       });
-      /*gapi.auth2.getAuthInstance().signIn();
-      console.log('auth api inited');*/
     });
   }
 

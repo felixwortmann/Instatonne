@@ -39,4 +39,7 @@ export class LoginComponent implements OnInit {
     console.log(f.value);
   }
 
+  logout() {
+    this.authService.logOut();
+  }
 }

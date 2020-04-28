@@ -16,14 +16,13 @@
           </mat-form-field>
           <button mat-flat-button color="primary">Registrierung abschließen</button>
         </form>
+        <button mat-button (click)="logout()">Abbrechen</button>
       </ng-template>
     </div>
 
     <ng-template #signIn>
       <p>Um Instatonne verwenden zu können, musst Du dich zuerst anmelden.</p>
-      <div class="signin">
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-      </div>
+      <app-signin-button></app-signin-button>
     </ng-template>
 
   </div>
