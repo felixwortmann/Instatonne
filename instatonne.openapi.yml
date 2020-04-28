@@ -110,6 +110,30 @@ paths:
                 $ref: "#/components/schemas/User"
         "404":
           $ref: "#/components/responses/NotFound"
+  "/u/{username}/p":
+    get:
+      summary: Returns all posts of an user by username
+      operationId: getPostsByUserName
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The user's username.
+      responses:
+        "200":
+          description: Successfully retrieved posts of user.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+        "404":
+          $ref: "#/components/responses/NotFound"
   "/u/me":
     get:
       summary: Returns the user identified by the token.
