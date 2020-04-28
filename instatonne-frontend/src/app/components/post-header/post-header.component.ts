@@ -10,6 +10,6 @@ export class PostHeaderComponent implements OnInit {
   post: Post;
   constructor() { }
   ngOnInit(): void {
-    this.post = { "author": "My Name" };
+    this.post = { author: 'My Name' };
   }
 }

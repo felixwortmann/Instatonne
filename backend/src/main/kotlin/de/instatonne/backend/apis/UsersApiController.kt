@@ -5,7 +5,9 @@ import de.instatonne.backend.core.repositories.UserRepository
 import de.instatonne.backend.core.toNullable
 import de.instatonne.backend.generated.apis.UsersApi
 import de.instatonne.backend.generated.models.NewUserApiModel
+import de.instatonne.backend.generated.models.PostApiModel
 import de.instatonne.backend.generated.models.UserApiModel
+import de.instatonne.backend.models.Post
 import de.instatonne.backend.services.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
@@ -47,4 +49,15 @@ class UsersApiController(val userRepository: UserRepository, val userService: Us
         }
 
     }
+    override fun getPostsByUserName(username: String): ResponseEntity<List<PostApiModel>> {
+        val user = this.userRepository.findById(username).toNullable()
+        return if (user == null) {
+            ResponseEntity.notFound().build()
+        } else {
+            ResponseEntity.ok(user.posts.map(Post::generateAPIVersion))
+        }
+    }
+
+
+
 }
