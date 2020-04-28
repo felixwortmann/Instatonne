@@ -24,16 +24,9 @@ class UsersApiController(val userRepository: UserRepository, val userService: Us
         }
     }
 
-
     override fun getUserMe(): ResponseEntity<UserApiModel> {
-        val auth = SecurityContextHolder.getContext().authentication as JwtAuthentication
-        val userId = auth.getUserId()
-        val user = userRepository.findById(userId).toNullable()
-        return if (user == null) {
-            ResponseEntity.notFound().build()
-        } else {
-            ResponseEntity.ok(user.generateAPIVersion())
-        }
+        val user = userService.getCurrentUser() ?: return ResponseEntity.notFound().build()
+        return ResponseEntity.ok(user.generateAPIVersion())
     }
 
     override fun createNewUser(newUserApiModel: NewUserApiModel): ResponseEntity<UserApiModel> {
@@ -49,15 +42,15 @@ class UsersApiController(val userRepository: UserRepository, val userService: Us
         }
 
     }
+
     override fun getPostsByUserName(username: String): ResponseEntity<List<PostApiModel>> {
-        val user = this.userRepository.findById(username).toNullable()
+        val user = this.userRepository.findByUsername(username).toNullable()
         return if (user == null) {
             ResponseEntity.notFound().build()
         } else {
             ResponseEntity.ok(user.posts.map(Post::generateAPIVersion))
         }
     }
-
 
 
 }

@@ -1,10 +1,16 @@
 package de.instatonne.backend.services
 
+import de.instatonne.backend.core.auth.JwtAuthentication
 import de.instatonne.backend.core.repositories.UserRepository
+import de.instatonne.backend.core.toNullable
 import de.instatonne.backend.models.User
+import org.hibernate.Hibernate
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional
 class UserService(
         val userRepository: UserRepository
 ) {
@@ -31,5 +37,17 @@ class UserService(
         u2.followers.remove(u1)
         userRepository.save(u1)
         userRepository.save(u2)
+    }
+
+    fun findById(id: String): User? {
+        val user = userRepository.findById(id).toNullable()
+        Hibernate.initialize(user?.followers)
+        Hibernate.initialize(user?.following)
+        Hibernate.initialize(user?.posts)
+        return user
+    }
+
+    fun getCurrentUser(): User? {
+        return (SecurityContextHolder.getContext().authentication as JwtAuthentication).principal
     }
 }

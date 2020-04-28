@@ -3,6 +3,7 @@ package de.instatonne.backend.core.auth
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.jackson2.JacksonFactory
+import de.instatonne.backend.services.UserService
 import org.slf4j.LoggerFactory
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 
-class JwtAuthenticationFilter : OncePerRequestFilter() {
+class JwtAuthenticationFilter(val userService: UserService) : OncePerRequestFilter() {
     private val log = LoggerFactory.getLogger(JwtAuthenticationFilter::class.java)
 
     private val CLIENT_ID = "190934451905-3n1os2sov96uvvu5k58ej7al9ecopfl5.apps.googleusercontent.com"
@@ -28,7 +29,9 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
             try {
                 val parsedToken = verifier.verify(authToken)
                 if (parsedToken != null) {
-                    SecurityContextHolder.getContext().authentication = JwtAuthentication(parsedToken)
+                    val id = parsedToken.payload.subject
+                    val user = userService.findById(id)
+                    SecurityContextHolder.getContext().authentication = JwtAuthentication(id, user)
                 }
             } catch (e: Exception) {
                 log.info("Token could not be verified.")
@@ -36,4 +39,5 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
         }
         chain.doFilter(req, res)
     }
+
 }
