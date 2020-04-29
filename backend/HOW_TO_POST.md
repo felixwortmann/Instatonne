@@ -1,6 +1,6 @@
 ### Bilder Posten
 - Funktioniert nur unter UNIX (WSL könnte auch gehen, muss noch getestet werden)
-	- Die Directory ```/var/instatonne``` muss existieren
+	- Die Directory ```/var/tmp/instatonne``` muss existieren
 - Post Request an ```localhost:8080/p``` schicken
 - Authorisation: Bearer Token: Token vom Anmelden mit Google (Im Browser Log beim Anmelden mit Google)
 - In Body (raw,json):
