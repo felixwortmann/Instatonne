@@ -3,8 +3,7 @@
     <h2>{{user.username}}</h2>
     <div class="avatar-stats-section">
       <div class="picturewrapper">
-        <img src="https://lh3.googleusercontent.com/a-/AOh14Gjdm-kaIR2ykEjdibuT7JXBlhiWkIgIz-JRKc-WqWM=s96-c"
-          alt="Profilbild" id="profilepicture">
+        <img [src]="profilePictureUrl$ | async" alt="Profilbild" id="profilepicture">
       </div>
       <div class="stats">
         <app-profile-header-stats value="?" title="Beiträge"></app-profile-header-stats>
