@@ -22,10 +22,6 @@ export class ProfileHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.usersService.getUserByName({username: 'test'}).pipe().subscribe((user: User) => {
-    //     this.user = user;
-    //   }
-    // );
     this.user$ = this.authService.getUser();
     this.profilePictureUrl$ = this.authService.getAuthUser().pipe(
       map(x => new URL(x.getBasicProfile().getImageUrl()))
