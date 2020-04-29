@@ -1,4 +1,4 @@
-### Wie man einen Post durchführt
+### Bilder Posten
 - Funktioniert nur unter UNIX (WSL könnte auch gehen, muss noch getestet werden)
 - Post Request an ```localhost:8080/p``` schicken
 - Authorisation: Bearer Token: Token vom Anmelden mit Google (Im Browser Log beim Anmelden mit Google)
