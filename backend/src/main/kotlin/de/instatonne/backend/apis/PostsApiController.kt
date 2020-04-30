@@ -6,6 +6,7 @@ import de.instatonne.backend.generated.apis.PostsApi
 import de.instatonne.backend.generated.models.NewPostApiModel
 import de.instatonne.backend.generated.models.PostApiModel
 import de.instatonne.backend.models.Post
+import de.instatonne.backend.models.User
 import de.instatonne.backend.services.PostService
 import de.instatonne.backend.services.UserService
 import org.springframework.core.io.FileSystemResource
@@ -56,5 +57,16 @@ class PostsApiController(
         val filePath = "/var/tmp/instatonne/${postId}.jpg"
         val resource = FileSystemResource(filePath)
         return ResponseEntity.ok(resource)
+    }
+
+    override fun getPostListMyFollowing(): ResponseEntity<List<PostApiModel>> {
+        val user = userService.getCurrentUser()
+        return if (user == null) {
+            ResponseEntity.notFound().build()
+        } else {
+            val following = user.following
+            val posts: List<Post> = following.map(User::posts).flatten()
+            ResponseEntity.ok(posts.map(Post::generateAPIVersion))
+        }
     }
 }
