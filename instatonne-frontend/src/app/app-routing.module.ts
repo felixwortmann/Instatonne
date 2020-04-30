@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'image', component: ImageComponent },
   { path: 'post', component: PostComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'u/:username', component: ProfileComponent }
 ];
 
 @NgModule({

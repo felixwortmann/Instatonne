@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { User } from '../../generated/models/user';
 import { UsersService } from '../../generated/services';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 })
 export class ProfileHeaderComponent implements OnInit {
 
-  user$: Observable<User>;
+  @Input() user$: Observable<User>;
   profilePictureUrl$: Observable<URL>;
 
   constructor(
@@ -22,7 +22,7 @@ export class ProfileHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user$ = this.authService.getUser();
+    // this.user$ = this.authService.getUser();
     this.profilePictureUrl$ = this.authService.getAuthUser().pipe(
       map(x => new URL(x.getBasicProfile().getImageUrl()))
     );

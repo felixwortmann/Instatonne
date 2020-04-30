@@ -48,6 +48,14 @@ class UserService(
         return user
     }
 
+    fun findByUsername(username: String): User? {
+        val user = userRepository.findByUsername(username).toNullable()
+        Hibernate.initialize(user?.followers)
+        Hibernate.initialize(user?.following)
+        Hibernate.initialize(user?.posts)
+        return user
+    }
+
     fun getCurrentUser(): User? {
         return (SecurityContextHolder.getContext().authentication as JwtAuthentication).principal
     }
