@@ -65,6 +65,23 @@ paths:
                 $ref: "#/components/schemas/Post"
         "404":
           $ref: "#/components/responses/NotFound"
+  "/p/mytimeline":
+    get:
+      summary: Returns all posts of all users that the current user is following
+      operationId: getPostListMyFollowing
+      tags:
+        - posts
+      responses:
+        "200":
+          description: Successfully retrieved s.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+        "404":
+          $ref: "#/components/responses/NotFound"
   "/p/{postId}/i.jpg":
     get:
       summary: Returns the image of a post.
