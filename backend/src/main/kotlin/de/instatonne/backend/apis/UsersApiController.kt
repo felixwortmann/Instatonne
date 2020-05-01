@@ -103,4 +103,14 @@ class UsersApiController(val userService: UserService) : UsersApi {
             ResponseEntity.notFound().build()
         }
     }
+
+    override fun updateUser(newUser: UserApiModel): ResponseEntity<UserApiModel> {
+        val currentUser = this.userService.getCurrentUser()
+                ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+
+        currentUser.altName = newUser.altName
+        currentUser.profileDescription = newUser.profileDescription
+        
+        return ResponseEntity.ok(this.userService.save(currentUser).generateAPIVersion(currentUser))
+    }
 }

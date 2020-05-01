@@ -239,6 +239,26 @@ paths:
                 $ref: "#/components/schemas/User"
         "404":
           $ref: "#/components/responses/NotFound"
+    put:
+      summary: Update the user currently signed in user.
+      operationId: updateUser
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: Updated version of the user.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
   "/u/create":
     post:
       summary: Creates a new user.
