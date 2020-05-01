@@ -18,7 +18,10 @@
       </div>
     </div>
 
-    <mat-toolbar-row>{{user.profileDescription}}</mat-toolbar-row>
+    <div class="profile-info" *ngIf="user.altName || user.profileDescription">
+      <div class="name" *ngIf="user.altName">{{user.altName}}</div>
+      <div class="description" *ngIf="user.profileDescription">{{user.profileDescription}}</div>
+    </div>
     <div class="action-section" *ngIf="!user.isSelf; else edit">
       <button mat-stroked-button *ngIf="!user.isBeingFollowed && !user.isFollowingMe" (click)="follow()">Folgen</button>
       <button mat-flat-button color="primary" *ngIf="!user.isBeingFollowed && user.isFollowingMe"

@@ -49,6 +49,11 @@ class StartupListener(val postService: PostService, val userService: UserService
         userService.follow(a, d)
         userService.follow(c, d)
         userService.follow(dev, d)
+
+        val devR = dev
+        devR.profileDescription = "Profilbeschreibung | Steckbrief | ganz viele tolle Infos"
+        devR.altName = "Der Entwickler"
+        userService.save(devR)
     }
 
     fun initUser(name: String) {

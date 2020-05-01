@@ -1,1 +1,15 @@
-<p>profile-edit works!</p>
+<div class="container" *ngIf="user$ | async as user">
+  <img [src]="user.profilePictureUrl" alt="Profilbild" id="profilepicture">
+  <form [formGroup]="profileEditForm" (ngSubmit)="commitEdit()">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input autocomplete="off" matInput formControlName="altName">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Steckbrief</mat-label>
+      <textarea autocomplete="off" matInput placeholder="Beschreibe dich in ein paar Worten."
+        formControlName="profileDescription"></textarea>
+    </mat-form-field>
+    <button mat-flat-button color="accent" type="submit">Speichern</button>
+  </form>
+</div>

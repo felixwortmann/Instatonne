@@ -25,7 +25,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiInterceptor } from './core/ApiInterceptor';
 import { ApiModule } from './generated/api.module';
 import { environment } from 'src/environments/environment';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SigninButtonComponent } from './components/signin-button/signin-button.component';
 import { SubscriptionBottomSheetComponent } from './components/subscription-bottom-sheet/subscription-bottom-sheet.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -60,6 +60,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     MatListModule,
     MatBottomSheetModule,
     MatToolbarModule,

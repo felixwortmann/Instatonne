@@ -57,3 +57,15 @@ a {
     margin: 0 10px;
   }
 }
+
+.profile-info {
+  margin: 10px 20px;
+  .name {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  .description {
+    font-size: 1.1em;
+  }
+}
