@@ -44,8 +44,9 @@ $grey: #cecece;
     cursor: pointer;
     pointer-events: all;
   }
-  span {
+  & > span {
     color: $grey;
+    margin-right: 5px;
   }
   #textnofocus {
     color: #888;
