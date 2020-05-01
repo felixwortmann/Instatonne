@@ -1,5 +1,5 @@
 <div class="container">
-  <mat-tab-group>
+  <mat-tab-group [selectedIndex]="selectedIndex$ | async" (selectedIndexChange)="nextIndex($event)">
     <mat-tab>
       <ng-template mat-tab-label>
         <span [matBadge]="(followers$ | async)?.length || null" matBadgeOverlap="false" matBadgeSize="small">

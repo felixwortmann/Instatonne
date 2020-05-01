@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/generated/services';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, map } from 'rxjs/operators';
 import { ReplaySubject, Observable } from 'rxjs';
 import { User } from 'src/app/generated/models';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-profile-subscriptions',
@@ -17,9 +18,12 @@ export class ProfileSubscriptionsComponent implements OnInit {
   followers$ = new ReplaySubject<User[]>(1);
   following$ = new ReplaySubject<User[]>(1);
 
+  selectedIndex$: Observable<number>;
+
   constructor(
     private usersService: UsersService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +39,18 @@ export class ProfileSubscriptionsComponent implements OnInit {
         return this.usersService.getFollowingForUsername({ username });
       }
     })).subscribe(this.following$);
+
+    this.selectedIndex$ = this.activatedRoute.queryParamMap.pipe(map(x => {
+      if (x.get('tab') === '1') {
+        return 1;
+      } else {
+        return 0;
+      }
+    }));
+  }
+
+  nextIndex($index: MatTabChangeEvent) {
+    this.router.navigate([], { queryParams: { tab: $index }, replaceUrl: true });
   }
 
 }
