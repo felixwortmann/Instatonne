@@ -17,14 +17,14 @@ import { LoginComponent } from './components/login/login.component';
 import { ImageComponent } from './components/image/image.component';
 import { PostHeaderComponent } from './components/post-header/post-header.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ProfileHeaderComponent } from './components/profile-header/profile-header.component';
+import { ProfileHeaderComponent } from './components/profile/profile-header/profile-header.component';
+import { ProfileHeaderStatsComponent } from './components/profile/profile-header-stats/profile-header-stats.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiInterceptor } from './core/ApiInterceptor';
 import { ApiModule } from './generated/api.module';
 import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
 import { SigninButtonComponent } from './components/signin-button/signin-button.component';
-import { ProfileHeaderStatsComponent } from './components/profile-header-stats/profile-header-stats.component';
 import { SubscriptionBottomSheetComponent } from './components/subscription-bottom-sheet/subscription-bottom-sheet.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 

@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User } from '../../generated/models/user';
-import { UsersService } from '../../generated/services';
+import { User } from '../../../generated/models/user';
+import { UsersService } from '../../../generated/services';
 import { Observable, BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { map, switchMap, take } from 'rxjs/operators';
 
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
-import { SubscriptionBottomSheetComponent } from '../subscription-bottom-sheet/subscription-bottom-sheet.component';
+import { SubscriptionBottomSheetComponent } from '../../subscription-bottom-sheet/subscription-bottom-sheet.component';
 
 @Component({
   selector: 'app-profile-header',
