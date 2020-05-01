@@ -5,9 +5,13 @@
         <app-profile-subscriptions-list-item *ngFor="let follower of (followers$ | async)" [user]="follower">
         </app-profile-subscriptions-list-item>
       </div>
-
     </mat-tab>
-    <mat-tab label="Abonniert"> Content 2 </mat-tab>
+    <mat-tab label="Abonniert">
+      <div>
+        <app-profile-subscriptions-list-item *ngFor="let following of (following$ | async)" [user]="following">
+        </app-profile-subscriptions-list-item>
+      </div>
+    </mat-tab>
   </mat-tab-group>
 
 </div>

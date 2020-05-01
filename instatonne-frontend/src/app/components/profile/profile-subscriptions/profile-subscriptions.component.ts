@@ -29,6 +29,12 @@ export class ProfileSubscriptionsComponent implements OnInit {
         return this.usersService.getFollowersForUsername({ username });
       }
     }));
+    this.following$ = this.activatedRoute.paramMap.pipe(switchMap(x => {
+      const username = x.get('username');
+      if (username !== null) {
+        return this.usersService.getFollowingForUsername({ username });
+      }
+    }));
   }
 
 }
