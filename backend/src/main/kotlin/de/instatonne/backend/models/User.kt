@@ -26,13 +26,13 @@ data class User(
         var posts: MutableList<Post> = mutableListOf(),
 
         @ManyToMany(mappedBy = "following")
-        internal var followers: MutableList<User> = mutableListOf(),
+        internal var followers: MutableSet<User> = mutableSetOf(),
 
-        @ManyToMany(cascade = [CascadeType.PERSIST])
+        @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
         @JoinTable(name = "user_followers",
                 joinColumns = [JoinColumn(name = "username")],
                 inverseJoinColumns = [JoinColumn(name = "followed_username")])
-        internal var following: MutableList<User> = mutableListOf()
+        internal var following: MutableSet<User> = mutableSetOf()
 ) : DatabaseWrapper<UserApiModel> {
 
     override fun toString(): String {

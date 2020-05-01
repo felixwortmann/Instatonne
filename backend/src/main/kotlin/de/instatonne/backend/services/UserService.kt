@@ -32,8 +32,8 @@ class UserService(
         if (u1.following.contains(u2)) return u2
         u1.following.add(u2)
         u2.followers.add(u1)
-        val tmp1 = userRepository.save(u1)
-        val tmp2 = userRepository.save(u2)
+        userRepository.save(u1)
+        userRepository.save(u2)
         return u2
     }
 
@@ -64,7 +64,7 @@ class UserService(
 
     fun getFollowers(username: String): List<User>? {
         val user = userRepository.findByUsername(username).toNullable() ?: return null
-        return user.followers
+        return user.followers.toList()
     }
 
     fun getCurrentUser(): User? {
@@ -75,5 +75,10 @@ class UserService(
                 } else {
                     null
                 }
+    }
+
+    fun getFollowing(username: String): List<User>? {
+        val user = userRepository.findByUsername(username).toNullable() ?: return null
+        return user.following.toList()
     }
 }
