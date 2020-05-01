@@ -16,11 +16,14 @@ data class User(
         @Column(nullable = false)
         var username: String = "",
 
-        @Column(nullable = false)
-        var created: OffsetDateTime = OffsetDateTime.now(),
+        @Column(nullable = true)
+        var altName: String? = "",
 
         @Column(nullable = true)
         var profileDescription: String? = null,
+
+        @Column(nullable = false)
+        var created: OffsetDateTime = OffsetDateTime.now(),
 
         @Column(nullable = true)
         var profilePictureUrl: String? = null,
@@ -52,19 +55,21 @@ data class User(
         return UserApiModel()
                 .id(id)
                 .username(username)
+                .altName(altName)
+                .profileDescription(profileDescription)
                 .created(created)
+                .profilePictureUrl(profilePictureUrl)
                 .followerCount(followers.size)
                 .followingCount(following.size)
-                .profilePictureUrl(profilePictureUrl)
-                .isFollowingMe(false)
                 .isBeingFollowed(false)
+                .isFollowingMe(false)
                 .isSelf(false)
     }
 
     override fun generateAPIVersion(currentUser: User): UserApiModel {
         return super.generateAPIVersion(currentUser)
-                .isFollowingMe(this.following.contains(currentUser))
                 .isBeingFollowed(this.followers.contains(currentUser))
+                .isFollowingMe(this.following.contains(currentUser))
                 .isSelf(this.id == currentUser.id)
     }
 }
