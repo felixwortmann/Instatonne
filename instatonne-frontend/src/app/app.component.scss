@@ -29,6 +29,12 @@ nav {
     display: block;
     margin: 0;
   }
+  @media screen and (max-width: 600px) {
+    .seperator,
+    h1 {
+      display: none;
+    }
+  }
 }
 
 mat-icon {
