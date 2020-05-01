@@ -10,6 +10,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -60,6 +61,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     MatListModule,
     MatBottomSheetModule,
     MatToolbarModule,
+    MatBadgeModule,
     MatButtonModule,
     MatCardModule,
     MatDividerModule,

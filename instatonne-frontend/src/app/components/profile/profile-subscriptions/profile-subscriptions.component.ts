@@ -14,8 +14,8 @@ export class ProfileSubscriptionsComponent implements OnInit {
 
   user$ = new ReplaySubject<User>(1);
 
-  followers$: Observable<User[]>;
-  following$: Observable<User[]>;
+  followers$ = new ReplaySubject<User[]>(1);
+  following$ = new ReplaySubject<User[]>(1);
 
   constructor(
     private usersService: UsersService,
@@ -23,18 +23,18 @@ export class ProfileSubscriptionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.followers$ = this.activatedRoute.paramMap.pipe(switchMap(x => {
+    this.activatedRoute.paramMap.pipe(switchMap(x => {
       const username = x.get('username');
       if (username !== null) {
         return this.usersService.getFollowersForUsername({ username });
       }
-    }));
-    this.following$ = this.activatedRoute.paramMap.pipe(switchMap(x => {
+    })).subscribe(this.followers$);
+    this.activatedRoute.paramMap.pipe(switchMap(x => {
       const username = x.get('username');
       if (username !== null) {
         return this.usersService.getFollowingForUsername({ username });
       }
-    }));
+    })).subscribe(this.following$);
   }
 
 }

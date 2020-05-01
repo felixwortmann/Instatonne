@@ -17,21 +17,14 @@ export class ProfileHeaderComponent implements OnInit {
 
   @Input() user$: Subject<User>;
   profilePictureUrl$: Observable<URL>;
-  isSelf$: Observable<boolean>;
 
   constructor(
     private usersService: UsersService,
     private authService: AuthService,
     private bottomSheet: MatBottomSheet
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
-    this.isSelf$ = combineLatest([this.authService.getUser(), this.user$]).pipe(
-      map(users => {
-        return (users[0].username === users[1].username);
-      })
-    );
     this.profilePictureUrl$ = this.authService.getAuthUser().pipe(
       map(x => new URL(x.getBasicProfile().getImageUrl()))
     );

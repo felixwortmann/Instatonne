@@ -52,11 +52,15 @@ data class User(
                 .created(created)
                 .followerCount(followers.size)
                 .followingCount(following.size)
+                .isFollowingMe(false)
+                .isBeingFollowed(false)
+                .isSelf(false)
     }
 
     override fun generateAPIVersion(currentUser: User): UserApiModel {
         return super.generateAPIVersion(currentUser)
                 .isFollowingMe(this.following.contains(currentUser))
                 .isBeingFollowed(this.followers.contains(currentUser))
+                .isSelf(this.id == currentUser.id)
     }
 }

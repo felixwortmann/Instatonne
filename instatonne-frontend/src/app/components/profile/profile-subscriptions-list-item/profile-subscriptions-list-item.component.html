@@ -1,8 +1,13 @@
 <div class="profile-list-view">
-  <img src="https://via.placeholder.com/150?text=(a)" class="profile-picture">
-  <span>{{user.username}}</span>
-  <button mat-flat-button color="primary" *ngIf="!user.isBeingFollowed && !user.isFollowingMe">Folgen</button>
-  <button mat-flat-button color="primary" *ngIf="!user.isBeingFollowed && user.isFollowingMe">Auch
-    folgen</button>
-  <button mat-stroked-button *ngIf="user.isBeingFollowed">Abonniert</button>
+  <a routerLink="/u/{{user.username}}">
+    <img src="https://via.placeholder.com/150?text=(a)" class="profile-picture">
+    <span>{{user.username}}</span>
+  </a>
+  <ng-container *ngIf="!user.isSelf">
+    <button mat-flat-button color="primary" *ngIf="!user.isBeingFollowed && !user.isFollowingMe">Folgen</button>
+    <button mat-flat-button color="primary" *ngIf="!user.isBeingFollowed && user.isFollowingMe">Auch
+      folgen</button>
+    <button mat-stroked-button *ngIf="user.isBeingFollowed">Abonniert</button>
+  </ng-container>
+
 </div>
