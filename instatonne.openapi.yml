@@ -134,6 +134,28 @@ paths:
                   $ref: "#/components/schemas/Post"
         "404":
           $ref: "#/components/responses/NotFound"
+  "/u/{username}/f":
+    get:
+      summary: Follows a user specified by username.
+      operationId: followUserWithName
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The username of the user to follow.
+      responses:
+        "200":
+          description: The new number of users the user is following.
+          content:
+            application/json:
+              schema:
+                type: integer
+        "404":
+          $ref: "#/components/responses/NotFound"
   "/u/me":
     get:
       summary: Returns the user identified by the token.
@@ -185,6 +207,10 @@ components:
           type: integer
         followingCount:
           type: integer
+        isBeingFollowed:
+          type: boolean
+        isFollowingMe:
+          type: boolean
         profileDescription:
           type: string
     NewUser:

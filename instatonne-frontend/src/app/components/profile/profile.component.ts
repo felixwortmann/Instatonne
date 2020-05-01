@@ -23,7 +23,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.user$ = this.authService.getUser();
     this.user$ = this.activatedRoute.paramMap.pipe(switchMap(x => {
       const username = x.get('username');
       if (username === null) {
@@ -36,7 +35,6 @@ export class ProfileComponent implements OnInit {
       return this.usersService.getPostsByUserName({ username: user.username });
     }));
     // for testing
-    // this.posts$ = of([{imageUrl: 'https://via.placeholder.com/1080'}, {imageUrl: 'https://via.placeholder.com/1080'}, {imageUrl: 'https://via.placeholder.com/1080'}, {imageUrl: 'https://via.placeholder.com/1080'}, {imageUrl: 'https://via.placeholder.com/1080'}, {imageUrl: 'https://via.placeholder.com/1080'}, {imageUrl: 'https://via.placeholder.com/1080'}]);
   }
 
 }

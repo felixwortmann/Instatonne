@@ -15,8 +15,11 @@
     </div>
 
     <mat-toolbar-row>{{user.profileDescription}}</mat-toolbar-row>
-    <div class="action-section">
-      <button mat-stroked-button>Folgen</button>
+    <div class="action-section" *ngIf="!(isSelf$ | async)">
+      <button mat-stroked-button (click)="follow()" *ngIf="!user.isBeingFollowed && !user.isFollowingMe">Folgen</button>
+      <button color="primary" mat-flat-button *ngIf="!user.isBeingFollowed && user.isFollowingMe">Auch
+        folgen</button>
+      <button mat-stroked-button *ngIf="user.isBeingFollowed">Abboniert</button>
       <button mat-stroked-button>Nachricht</button>
     </div>
   </ng-container>

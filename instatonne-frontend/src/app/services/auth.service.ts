@@ -1,9 +1,9 @@
-import {Injectable, NgZone} from '@angular/core';
-import {BehaviorSubject, combineLatest, EMPTY, Observable, ReplaySubject, Subject, throwError} from 'rxjs';
-import {User} from '../generated/models';
-import {catchError, map, share, switchMap} from 'rxjs/operators';
-import {UsersService} from '../generated/services';
-import {HttpErrorResponse} from '@angular/common/http';
+import { Injectable, NgZone } from '@angular/core';
+import { BehaviorSubject, combineLatest, EMPTY, Observable, ReplaySubject, Subject, throwError } from 'rxjs';
+import { User } from '../generated/models';
+import { catchError, map, share, switchMap } from 'rxjs/operators';
+import { UsersService } from '../generated/services';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

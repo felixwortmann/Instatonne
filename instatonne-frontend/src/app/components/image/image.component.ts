@@ -20,4 +20,12 @@ export class ImageComponent implements OnInit {
 
   }
 
+  getSrc() {
+    if (this.post.imageUrl.startsWith('/')) {
+      return this.env.apiUrl + this.post.imageUrl;
+    } else {
+      return this.post.imageUrl;
+    }
+  }
+
 }
