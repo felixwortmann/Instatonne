@@ -57,15 +57,12 @@ export class AuthService {
     );
   }
 
-  createUser(username: string) {
-    this.userService.createNewUser({
+  createUser(username: string): Observable<User> {
+    return this.userService.createNewUser({
       body: {
         username,
         profileDescription: ''
       }
-    }).subscribe(_ => {
-      console.log('attempting to reload user');
-      this.reloadUser.next(null);
     });
   }
 

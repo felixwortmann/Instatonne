@@ -4,7 +4,7 @@ import { User } from 'src/app/generated/models';
 import { UsersService } from 'src/app/generated/services';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { shareReplay, take, switchMap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile-edit',
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class ProfileEditComponent implements OnInit {
 
   user$ = new ReplaySubject<User>(1);
+  register = false;
 
   profileEditForm = new FormGroup({
     altName: new FormControl(''),
@@ -23,8 +24,13 @@ export class ProfileEditComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.queryParamMap.subscribe(map => {
+      this.register = map.has('register');
+    });
+  }
 
   ngOnInit(): void {
     this.usersService.getUserMe().subscribe(this.user$);

@@ -1,5 +1,12 @@
 <div class="container" *ngIf="user$ | async as user">
   <img [src]="user.profilePictureUrl" alt="Profilbild" id="profilepicture">
+  <div class="register-intro" *ngIf="register">
+    <h2>Willkommen auf Instatonne, @{{user.username}}!</h2>
+    <p>
+      Du kannst noch deinen Namen und einen Steckbrief angeben.
+      Diese Informationen kannst Du natürlich jederzeit in deinem Profil bearbeiten.
+    </p>
+  </div>
   <form [formGroup]="profileEditForm" (ngSubmit)="commitEdit()">
     <mat-form-field>
       <mat-label>Name</mat-label>
@@ -10,6 +17,6 @@
       <textarea autocomplete="off" matInput placeholder="Beschreibe dich in ein paar Worten."
         formControlName="profileDescription"></textarea>
     </mat-form-field>
-    <button mat-flat-button color="accent" type="submit">Speichern</button>
+    <button mat-flat-button color="accent" type="submit">{{ register ? 'Weiter' : 'Speichern'}}</button>
   </form>
 </div>

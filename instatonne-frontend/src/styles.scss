@@ -7,10 +7,17 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .container {
   max-width: 600px;
   width: 100%;
   margin: 0 auto;
+  @media screen and (max-width: 600px) {
+    padding: 0 10px;
+  }
 }
 
 .color-warn {
