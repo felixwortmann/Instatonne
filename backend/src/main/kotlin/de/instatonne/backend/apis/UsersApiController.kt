@@ -7,6 +7,7 @@ import de.instatonne.backend.generated.models.PostApiModel
 import de.instatonne.backend.generated.models.UserApiModel
 import de.instatonne.backend.models.Post
 import de.instatonne.backend.services.UserService
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.RestController
@@ -15,10 +16,17 @@ import org.springframework.web.bind.annotation.RestController
 class UsersApiController(val userService: UserService) : UsersApi {
     override fun getUserByName(username: String): ResponseEntity<UserApiModel> {
         val user = this.userService.findByUsername(username)
-        return if (user == null) {
-            ResponseEntity.notFound().build()
-        } else {
-            ResponseEntity.ok(user.generateAPIVersion())
+        val currentUser = this.userService.getCurrentUser()
+        return when {
+            user == null -> {
+                ResponseEntity.notFound().build()
+            }
+            currentUser != null -> {
+                ResponseEntity.ok(user.generateAPIVersion(currentUser))
+            }
+            else -> {
+                ResponseEntity.ok(user.generateAPIVersion())
+            }
         }
     }
 
@@ -50,5 +58,15 @@ class UsersApiController(val userService: UserService) : UsersApi {
         }
     }
 
-
+    override fun followUserWithName(username: String): ResponseEntity<Int> {
+        val currentUser = this.userService.getCurrentUser()
+                ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        val otherUser = this.userService.findByUsername(username)
+        return if (otherUser != null) {
+            this.userService.follow(currentUser, otherUser)
+            ResponseEntity.ok(this.userService.getCurrentUser()!!.following.count())
+        } else {
+            ResponseEntity.notFound().build()
+        }
+    }
 }

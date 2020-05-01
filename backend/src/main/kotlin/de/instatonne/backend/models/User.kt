@@ -28,7 +28,7 @@ data class User(
         @ManyToMany(mappedBy = "following")
         internal var followers: MutableList<User> = mutableListOf(),
 
-        @ManyToMany(cascade = [CascadeType.ALL])
+        @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
         @JoinTable(name = "user_followers",
                 joinColumns = [JoinColumn(name = "username")],
                 inverseJoinColumns = [JoinColumn(name = "followed_username")])
@@ -37,6 +37,12 @@ data class User(
 
     override fun toString(): String {
         return "[User@JPA] $id, $username"
+    }
+
+    override fun equals(other: Any?) = other is User && this.id == other.id
+
+    override fun hashCode(): Int {
+        return this.id.hashCode()
     }
 
     override fun generateAPIVersion(): UserApiModel {
@@ -48,4 +54,9 @@ data class User(
                 .followingCount(following.size)
     }
 
+    override fun generateAPIVersion(currentUser: User): UserApiModel {
+        return super.generateAPIVersion(currentUser)
+                .isFollowingMe(this.following.contains(currentUser))
+                .isBeingFollowed(this.followers.contains(currentUser))
+    }
 }
