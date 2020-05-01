@@ -136,6 +136,29 @@ paths:
           $ref: "#/components/responses/NotFound"
   "/u/{username}/f":
     get:
+      summary: Gets a users list of followers.
+      operationId: getFollowersForUsername
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The username to get followers for.
+      responses:
+        "200":
+          description: A list of followers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    put:
       summary: Follows a user specified by username.
       operationId: followUserWithName
       tags:
@@ -157,7 +180,7 @@ paths:
         "404":
           $ref: "#/components/responses/NotFound"
   "/u/{username}/uf":
-    get:
+    put:
       summary: Unfollows a user specified by username.
       operationId: unfollowUserWithName
       tags:

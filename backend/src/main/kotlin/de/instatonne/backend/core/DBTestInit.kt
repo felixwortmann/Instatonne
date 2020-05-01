@@ -21,11 +21,15 @@ class StartupListener(val postService: PostService, val userService: UserService
         val a = initUser("a")
         val b = initUser("b")
         val c = initUser("c")
+        val d = initUser("d")
 
         postService.createPostForUser(a, "https://via.placeholder.com/150?text=(a)")
         userService.follow(a, b)
         userService.follow(b, devUser)
         userService.follow(devUser, c)
+        userService.follow(a, d)
+        userService.follow(c, d)
+        userService.follow(devUser, d)
     }
 
     fun initUser(name: String): User = userService.createUser(name, name)

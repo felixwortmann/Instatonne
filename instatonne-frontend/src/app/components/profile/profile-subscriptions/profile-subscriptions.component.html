@@ -1,1 +1,13 @@
-<p>profile-subscriptions works!</p>
+<div class="container">
+  <mat-tab-group>
+    <mat-tab label="Abonnenten">
+      <div>
+        <app-profile-subscriptions-list-item *ngFor="let follower of (followers$ | async)" [user]="follower">
+        </app-profile-subscriptions-list-item>
+      </div>
+
+    </mat-tab>
+    <mat-tab label="Abonniert"> Content 2 </mat-tab>
+  </mat-tab-group>
+
+</div>

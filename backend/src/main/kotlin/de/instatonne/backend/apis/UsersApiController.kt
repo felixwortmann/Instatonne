@@ -79,4 +79,15 @@ class UsersApiController(val userService: UserService) : UsersApi {
             ResponseEntity.notFound().build()
         }
     }
+
+    override fun getFollowersForUsername(username: String): ResponseEntity<List<UserApiModel>> {
+        val currentUser = this.userService.getCurrentUser()
+                ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        val followers = this.userService.getFollowers(username)
+        return if (followers != null) {
+            ResponseEntity.ok(followers.map { x -> x.generateAPIVersion(currentUser) })
+        } else {
+            ResponseEntity.notFound().build()
+        }
+    }
 }

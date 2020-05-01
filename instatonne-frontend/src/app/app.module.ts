@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,6 +66,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     MatIconModule,
     MatGridListModule,
     MatInputModule,
+    MatTabsModule,
     HttpClientModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
   ],

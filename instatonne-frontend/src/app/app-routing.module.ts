@@ -5,6 +5,7 @@ import { ImageComponent } from './components/image/image.component';
 import { PostComponent } from './components/post/post.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
+import { ProfileSubscriptionsComponent } from './components/profile/profile-subscriptions/profile-subscriptions.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'post', component: PostComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'u/:username', component: ProfileComponent }
+  { path: 'u/:username', component: ProfileComponent },
+  { path: 'u/:username/f', component: ProfileSubscriptionsComponent },
 ];
 
 @NgModule({

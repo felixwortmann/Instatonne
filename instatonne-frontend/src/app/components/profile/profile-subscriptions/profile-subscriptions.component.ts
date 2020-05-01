@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from 'src/app/generated/services';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+import { ReplaySubject, Observable } from 'rxjs';
+import { User } from 'src/app/generated/models';
 
 @Component({
   selector: 'app-profile-subscriptions',
@@ -7,9 +12,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileSubscriptionsComponent implements OnInit {
 
-  constructor() { }
+  user$ = new ReplaySubject<User>(1);
+
+  followers$: Observable<User[]>;
+  following$: Observable<User[]>;
+
+  constructor(
+    private usersService: UsersService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.followers$ = this.activatedRoute.paramMap.pipe(switchMap(x => {
+      const username = x.get('username');
+      if (username !== null) {
+        return this.usersService.getFollowersForUsername({ username });
+      }
+    }));
   }
 
 }

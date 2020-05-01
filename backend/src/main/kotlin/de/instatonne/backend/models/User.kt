@@ -28,7 +28,7 @@ data class User(
         @ManyToMany(mappedBy = "following")
         internal var followers: MutableList<User> = mutableListOf(),
 
-        @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+        @ManyToMany(cascade = [CascadeType.PERSIST])
         @JoinTable(name = "user_followers",
                 joinColumns = [JoinColumn(name = "username")],
                 inverseJoinColumns = [JoinColumn(name = "followed_username")])

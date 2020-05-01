@@ -8,7 +8,9 @@
         <h2>{{user.username}}</h2>
         <div class="stats">
           <app-profile-header-stats value="?" title="Beiträge"></app-profile-header-stats>
-          <app-profile-header-stats [value]="user.followerCount" title="Abonnenten"></app-profile-header-stats>
+          <a routerLink="f">
+            <app-profile-header-stats [value]="user.followerCount" title="Abonnenten"></app-profile-header-stats>
+          </a>
           <app-profile-header-stats [value]="user.followingCount" title="Abonniert"></app-profile-header-stats>
         </div>
       </div>
