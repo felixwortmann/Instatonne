@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/generated/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, map } from 'rxjs/operators';
-import { ReplaySubject, Observable } from 'rxjs';
+import { ReplaySubject, Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { User } from 'src/app/generated/models';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 
@@ -18,6 +18,9 @@ export class ProfileSubscriptionsComponent implements OnInit {
   followers$ = new ReplaySubject<User[]>(1);
   following$ = new ReplaySubject<User[]>(1);
 
+  reloadFollowers$ = new BehaviorSubject<string>('init');
+  reloadFollowing$ = new BehaviorSubject<string>('init');
+
   selectedIndex$: Observable<number>;
 
   constructor(
@@ -27,14 +30,15 @@ export class ProfileSubscriptionsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.pipe(switchMap(x => {
-      const username = x.get('username');
+    combineLatest([this.activatedRoute.paramMap, this.reloadFollowers$]).pipe(switchMap(x => {
+      const username = x[0].get('username');
       if (username !== null) {
         return this.usersService.getFollowersForUsername({ username });
       }
     })).subscribe(this.followers$);
-    this.activatedRoute.paramMap.pipe(switchMap(x => {
-      const username = x.get('username');
+
+    combineLatest([this.activatedRoute.paramMap, this.reloadFollowing$]).pipe(switchMap(x => {
+      const username = x[0].get('username');
       if (username !== null) {
         return this.usersService.getFollowingForUsername({ username });
       }
@@ -51,6 +55,14 @@ export class ProfileSubscriptionsComponent implements OnInit {
 
   nextIndex($index: MatTabChangeEvent) {
     this.router.navigate([], { queryParams: { tab: $index }, replaceUrl: true });
+  }
+
+  reloadFollowers() {
+    this.reloadFollowers$.next('reload');
+  }
+
+  reloadFollowing() {
+    this.reloadFollowing$.next('reload');
   }
 
 }

@@ -7,7 +7,8 @@
         </span>
       </ng-template>
       <div>
-        <app-profile-subscriptions-list-item *ngFor="let follower of (followers$ | async)" [user]="follower">
+        <app-profile-subscriptions-list-item *ngFor="let follower of (followers$ | async)" [user]="follower"
+          (updateTriggered)="reloadFollowers()">
         </app-profile-subscriptions-list-item>
       </div>
     </mat-tab>
@@ -18,7 +19,8 @@
         </span>
       </ng-template>
       <div>
-        <app-profile-subscriptions-list-item *ngFor="let following of (following$ | async)" [user]="following">
+        <app-profile-subscriptions-list-item *ngFor="let following of (following$ | async)" [user]="following"
+          (updateTriggered)="reloadFollowing()">
         </app-profile-subscriptions-list-item>
       </div>
     </mat-tab>

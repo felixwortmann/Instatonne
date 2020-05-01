@@ -4,8 +4,9 @@
     <span>{{user.username}}</span>
   </a>
   <ng-container *ngIf="!user.isSelf">
-    <button mat-flat-button color="primary" *ngIf="!user.isBeingFollowed && !user.isFollowingMe">Folgen</button>
-    <button mat-flat-button color="primary" *ngIf="!user.isBeingFollowed && user.isFollowingMe">Auch
+    <button mat-flat-button color="primary" *ngIf="!user.isBeingFollowed && !user.isFollowingMe"
+      (click)="follow()">Folgen</button>
+    <button mat-flat-button color="primary" *ngIf="!user.isBeingFollowed && user.isFollowingMe" (click)="follow()">Auch
       folgen</button>
     <button mat-stroked-button *ngIf="user.isBeingFollowed">Abonniert</button>
   </ng-container>
