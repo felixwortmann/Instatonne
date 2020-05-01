@@ -20,7 +20,10 @@ export class SearchBarComponent implements OnInit {
   }
 
   clear() {
-    console.log('cleat');
     this.search = '';
+  }
+
+  trigger() {
+    console.log('trigger');
   }
 }

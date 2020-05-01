@@ -15,6 +15,10 @@ $grey: #cecece;
     outline: none;
   }
   margin: 0 0 0 30px;
+  opacity: 0;
+  &:focus {
+    opacity: 1;
+  }
 }
 
 #search-bar {
@@ -43,6 +47,9 @@ $grey: #cecece;
   span {
     color: $grey;
   }
+  #textnofocus {
+    color: #888;
+  }
 }
 
 #search:focus ~ #search-bar {
@@ -52,5 +59,8 @@ $grey: #cecece;
   }
   span {
     flex-grow: 1;
+  }
+  #textnofocus {
+    display: none;
   }
 }

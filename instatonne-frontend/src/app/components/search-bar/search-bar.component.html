@@ -1,10 +1,12 @@
 <div id="search-wrap">
-  <input type="text" id="search" [(ngModel)]="search" (ngModelChange)="searchChange($event)">
+  <input type="text" id="search" [(ngModel)]="search" (ngModelChange)="searchChange($event)" (keyup.enter)="trigger()">
   <div id="search-bar">
     <mat-icon>search</mat-icon>
     <span *ngIf="!search; else spacer">Suchen</span>
     <ng-template #spacer>
-      <span></span>
+      <span>
+        <span id="textnofocus">{{search}}</span>
+      </span>
     </ng-template>
     <mat-icon id="close" (mousedown)="clear()">close</mat-icon>
   </div>
