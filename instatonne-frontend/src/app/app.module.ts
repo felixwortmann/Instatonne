@@ -27,6 +27,8 @@ import { FormsModule } from '@angular/forms';
 import { SigninButtonComponent } from './components/signin-button/signin-button.component';
 import { SubscriptionBottomSheetComponent } from './components/subscription-bottom-sheet/subscription-bottom-sheet.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { ProfileSubscriptionsComponent } from './components/profile/profile-subscriptions/profile-subscriptions.component';
+import { ProfileSubscriptionsListItemComponent } from './components/profile/profile-subscriptions-list-item/profile-subscriptions-list-item.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -46,6 +48,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     SigninButtonComponent,
     ProfileHeaderStatsComponent,
     SubscriptionBottomSheetComponent,
+    ProfileSubscriptionsComponent,
+    ProfileSubscriptionsListItemComponent,
   ],
   imports: [
     BrowserModule,
