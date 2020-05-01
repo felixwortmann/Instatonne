@@ -1,0 +1,36 @@
+nav {
+  width: 100%;
+  height: 80px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+}
+#brand {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  #logo {
+    width: 40px;
+    height: auto;
+    display: block;
+  }
+  .seperator {
+    height: 50%;
+    width: 0;
+    border-right: 1px solid #333;
+    margin: 0 10px;
+  }
+  h1 {
+    display: block;
+    margin: 0;
+  }
+}
+
+mat-icon {
+  justify-self: right;
+}

@@ -1,0 +1,11 @@
+<div id="search-wrap">
+  <input type="text" id="search" [(ngModel)]="search" (ngModelChange)="searchChange($event)">
+  <div id="search-bar">
+    <mat-icon>search</mat-icon>
+    <span *ngIf="!search; else spacer">Suchen</span>
+    <ng-template #spacer>
+      <span></span>
+    </ng-template>
+    <mat-icon id="close" (mousedown)="clear()">close</mat-icon>
+  </div>
+</div>

@@ -32,6 +32,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { ProfileSubscriptionsComponent } from './components/profile/profile-subscriptions/profile-subscriptions.component';
 import { ProfileSubscriptionsListItemComponent } from './components/profile/profile-subscriptions-list-item/profile-subscriptions-list-item.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -54,6 +55,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     ProfileSubscriptionsComponent,
     ProfileSubscriptionsListItemComponent,
     ProfileEditComponent,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,
