@@ -110,7 +110,15 @@ class UsersApiController(val userService: UserService) : UsersApi {
 
         currentUser.altName = newUser.altName
         currentUser.profileDescription = newUser.profileDescription
-        
+
         return ResponseEntity.ok(this.userService.save(currentUser).generateAPIVersion(currentUser))
+    }
+
+    override fun searchUsers(searchTerm: String): ResponseEntity<List<UserApiModel>> {
+        val currentUser = this.userService.getCurrentUser()
+                ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+
+
+        return ResponseEntity.ok(this.userService.searchByUsername(searchTerm).map { x -> x.generateAPIVersion(currentUser) })
     }
 }

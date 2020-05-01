@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+import { User } from 'src/app/generated/models';
+import { UsersService } from 'src/app/generated/services';
 
 @Component({
   selector: 'app-search-bar',
@@ -10,7 +12,9 @@ export class SearchBarComponent implements OnInit {
 
   search = '';
 
-  constructor() { }
+  searchResults$ = new Subject<User[]>();
+
+  constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +28,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   trigger() {
+    this.usersService.searchUsers({ searchTerm: '' }).subscribe(this.searchResults$);
     console.log('trigger');
   }
 }

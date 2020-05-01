@@ -66,6 +66,17 @@ class UserService(
         return user
     }
 
+    fun searchByUsername(username: String): List<User> {
+        val users = userRepository.findAllByUsernameContaining(username)
+        users.forEach {
+            Hibernate.initialize(it.followers)
+            Hibernate.initialize(it.following)
+            Hibernate.initialize(it.posts)
+        }
+        
+        return users
+    }
+
     fun getFollowers(username: String): List<User>? {
         val user = userRepository.findByUsername(username).toNullable() ?: return null
         return user.followers.toList()

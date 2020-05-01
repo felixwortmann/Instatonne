@@ -88,6 +88,30 @@ paths:
                 format: binary
         "404":
           $ref: "#/components/responses/NotFound"
+  "/u":
+    get:
+      summary: Returns a single user by username.
+      operationId: searchUsers
+      tags:
+        - users
+      parameters:
+        - in: query
+          name: searchTerm
+          schema:
+            type: string
+          required: true
+          description: The username to search for.
+      responses:
+        "200":
+          description: Successfully retrieved users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
   "/u/{username}":
     get:
       summary: Returns a single user by username.

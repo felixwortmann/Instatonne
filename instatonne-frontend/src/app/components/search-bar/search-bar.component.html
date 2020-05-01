@@ -10,4 +10,13 @@
     </ng-template>
     <mat-icon id="close" (mousedown)="clear()">close</mat-icon>
   </div>
+  <div id="results" *ngIf="searchResults$ | async as results">
+    <div id="corner"></div>
+    <div *ngFor="let result of results" class="result">
+      <a routerLink="/u/{{result.username}}">
+        <img [src]="result.profilePictureUrl">
+        <span>{{result.username}}</span>
+      </a>
+    </div>
+  </div>
 </div>
