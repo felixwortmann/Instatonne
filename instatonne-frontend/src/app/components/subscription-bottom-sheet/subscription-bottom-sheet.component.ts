@@ -8,7 +8,7 @@ import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 })
 export class SubscriptionBottomSheetComponent implements OnInit {
 
-  constructor(private bottomSheetRef: MatBottomSheetRef<SubscriptionBottomSheetComponent>) { }
+  constructor(private bottomSheetRef: MatBottomSheetRef<SubscriptionBottomSheetComponent, boolean>) { }
 
   ngOnInit() {
 
