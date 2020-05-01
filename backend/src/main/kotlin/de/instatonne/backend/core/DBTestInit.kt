@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 @Profile("!test")
 class StartupListener(val postService: PostService, val userService: UserService) {
-    
+
     val a: User
         get() {
             return userService.findById("a")!!
@@ -51,7 +51,11 @@ class StartupListener(val postService: PostService, val userService: UserService
         userService.follow(dev, d)
     }
 
-    fun initUser(name: String): User = userService.createUser(name, name)
+    fun initUser(name: String) {
+        val user = userService.createUser(name, name)
+        user.profilePictureUrl = "https://via.placeholder.com/150?text=${name}"
+        userService.save(user)
+    }
 
 
 }

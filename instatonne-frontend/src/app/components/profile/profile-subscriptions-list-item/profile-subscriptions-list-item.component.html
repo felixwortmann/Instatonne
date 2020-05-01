@@ -1,6 +1,6 @@
 <div class="profile-list-view">
   <a routerLink="/u/{{user.username}}">
-    <img src="https://via.placeholder.com/150?text=(a)" class="profile-picture">
+    <img [src]="user.profilePictureUrl" class="profile-picture">
     <span>{{user.username}}</span>
   </a>
   <ng-container *ngIf="!user.isSelf">

@@ -2,7 +2,7 @@
   <ng-container *ngIf="user$ | async as user">
     <div class="avatar-stats-section">
       <div class="picturewrapper">
-        <img [src]="profilePictureUrl$ | async" alt="Profilbild" id="profilepicture">
+        <img [src]="user.profilePictureUrl" alt="Profilbild" id="profilepicture">
       </div>
       <div class="info">
         <h2>{{user.username}}</h2>

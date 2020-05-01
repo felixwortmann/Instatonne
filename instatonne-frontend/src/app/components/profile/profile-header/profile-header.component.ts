@@ -16,18 +16,14 @@ import { SubscriptionBottomSheetComponent } from '../../subscription-bottom-shee
 export class ProfileHeaderComponent implements OnInit {
 
   @Input() user$: Subject<User>;
-  profilePictureUrl$: Observable<URL>;
 
   constructor(
     private usersService: UsersService,
-    private authService: AuthService,
     private bottomSheet: MatBottomSheet
   ) { }
 
   ngOnInit(): void {
-    this.profilePictureUrl$ = this.authService.getAuthUser().pipe(
-      map(x => new URL(x.getBasicProfile().getImageUrl()))
-    );
+
   }
 
   follow() {

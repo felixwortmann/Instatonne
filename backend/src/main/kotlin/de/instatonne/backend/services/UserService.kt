@@ -28,6 +28,10 @@ class UserService(
         return userRepository.save(User(id, username))
     }
 
+    fun save(user: User): User {
+        return userRepository.save(user)
+    }
+
     fun follow(u1: User, u2: User): User {
         if (u1.following.contains(u2)) return u2
         u1.following.add(u2)

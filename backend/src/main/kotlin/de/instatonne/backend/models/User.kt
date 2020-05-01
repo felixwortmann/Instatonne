@@ -22,6 +22,9 @@ data class User(
         @Column(nullable = true)
         var profileDescription: String? = null,
 
+        @Column(nullable = true)
+        var profilePictureUrl: String? = null,
+
         @OneToMany(cascade = [CascadeType.ALL], mappedBy = "author")
         var posts: MutableList<Post> = mutableListOf(),
 
@@ -52,6 +55,7 @@ data class User(
                 .created(created)
                 .followerCount(followers.size)
                 .followingCount(following.size)
+                .profilePictureUrl(profilePictureUrl)
                 .isFollowingMe(false)
                 .isBeingFollowed(false)
                 .isSelf(false)

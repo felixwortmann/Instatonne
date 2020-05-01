@@ -39,7 +39,9 @@ class UsersApiController(val userService: UserService) : UsersApi {
         val auth = SecurityContextHolder.getContext().authentication as JwtAuthentication
 
         return try {
-            val user = userService.createUser(auth.getUserId(), newUserApiModel.username)
+            var user = userService.createUser(auth.getUserId(), newUserApiModel.username)
+            user.profilePictureUrl = auth.getTokenPayload()["picture"] as? String
+            user = userService.save(user)
             /* user.profileDescription = newUserApiModel.profileDescription
             userRepository.save(user) */
             ResponseEntity.ok(user.generateAPIVersion())
