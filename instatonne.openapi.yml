@@ -149,11 +149,33 @@ paths:
           description: The username of the user to follow.
       responses:
         "200":
-          description: The new number of users the user is following.
+          description: The updated user that has been followed.
           content:
             application/json:
               schema:
-                type: integer
+                $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  "/u/{username}/uf":
+    get:
+      summary: Unfollows a user specified by username.
+      operationId: unfollowUserWithName
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The username of the user to unfollow.
+      responses:
+        "200":
+          description: The updated user that has been unfollowed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
         "404":
           $ref: "#/components/responses/NotFound"
   "/u/me":

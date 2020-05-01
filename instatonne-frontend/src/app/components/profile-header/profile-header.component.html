@@ -19,7 +19,8 @@
       <button mat-stroked-button (click)="follow()" *ngIf="!user.isBeingFollowed && !user.isFollowingMe">Folgen</button>
       <button color="primary" mat-flat-button *ngIf="!user.isBeingFollowed && user.isFollowingMe">Auch
         folgen</button>
-      <button mat-stroked-button *ngIf="user.isBeingFollowed">Abonniert</button>
+      <button mat-stroked-button *ngIf="user.isBeingFollowed" (click)="unfollow()">Abonniert<mat-icon>expand_more
+        </mat-icon></button>
       <button mat-stroked-button>Nachricht</button>
     </div>
   </ng-container>

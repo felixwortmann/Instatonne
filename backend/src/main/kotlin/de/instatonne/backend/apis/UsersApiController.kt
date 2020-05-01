@@ -58,13 +58,23 @@ class UsersApiController(val userService: UserService) : UsersApi {
         }
     }
 
-    override fun followUserWithName(username: String): ResponseEntity<Int> {
+    override fun followUserWithName(username: String): ResponseEntity<UserApiModel>? {
         val currentUser = this.userService.getCurrentUser()
                 ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         val otherUser = this.userService.findByUsername(username)
         return if (otherUser != null) {
-            this.userService.follow(currentUser, otherUser)
-            ResponseEntity.ok(this.userService.getCurrentUser()!!.following.count())
+            ResponseEntity.ok(this.userService.follow(currentUser, otherUser).generateAPIVersion(currentUser))
+        } else {
+            ResponseEntity.notFound().build()
+        }
+    }
+
+    override fun unfollowUserWithName(username: String): ResponseEntity<UserApiModel> {
+        val currentUser = this.userService.getCurrentUser()
+                ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        val otherUser = this.userService.findByUsername(username)
+        return if (otherUser != null) {
+            ResponseEntity.ok(this.userService.unfollow(currentUser, otherUser).generateAPIVersion(currentUser))
         } else {
             ResponseEntity.notFound().build()
         }

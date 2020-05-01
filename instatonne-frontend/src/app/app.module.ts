@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,6 +25,8 @@ import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
 import { SigninButtonComponent } from './components/signin-button/signin-button.component';
 import { ProfileHeaderStatsComponent } from './components/profile-header-stats/profile-header-stats.component';
+import { SubscriptionBottomSheetComponent } from './components/subscription-bottom-sheet/subscription-bottom-sheet.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -41,16 +45,20 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     ProfileHeaderComponent,
     SigninButtonComponent,
     ProfileHeaderStatsComponent,
+    SubscriptionBottomSheetComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatListModule,
+    MatBottomSheetModule,
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
     MatDividerModule,
+    MatIconModule,
     MatGridListModule,
     MatInputModule,
     HttpClientModule,
