@@ -65,6 +65,10 @@ class UserService(
         Hibernate.initialize(user?.posts)
         return user
     }
+    
+    fun usernameTaken(username: String): Boolean {
+        return userRepository.existsByUsername(username)
+    }
 
     fun searchByUsername(username: String): List<User> {
         val users = userRepository.findAllByUsernameContaining(username)
@@ -73,7 +77,7 @@ class UserService(
             Hibernate.initialize(it.following)
             Hibernate.initialize(it.posts)
         }
-        
+
         return users
     }
 

@@ -13,7 +13,7 @@ data class User(
         @Id
         var id: String = "",
 
-        @Column(nullable = false)
+        @Column(nullable = false, unique = true)
         var username: String = "",
 
         @Column(nullable = true)
