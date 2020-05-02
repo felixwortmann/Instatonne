@@ -1,0 +1,23 @@
+<div class="container" *ngIf="user$ | async as user">
+  <div class="info">
+    <img [src]="user.profilePictureUrl" alt="Profilbild" id="profilepicture">
+    <span class="username">{{user.username}}</span>
+  </div>
+  <div class="messages">
+    <div class="message">
+      Hey, was machst du so?
+    </div>
+    <div class="message sent">
+      Nichts, bin im Homeoffice.
+    </div>
+  </div>
+  <div class="actions">
+    <input id="message-input">
+    <button mat-flat-button color="primary" id="send-button">
+      Senden
+      <mat-icon>
+        send
+      </mat-icon>
+    </button>
+  </div>
+</div>
