@@ -109,8 +109,15 @@ $grey: #cecece;
     margin-right: 10px;
     display: block;
   }
-  span {
-    font-size: 1.2em;
+  .info {
+    display: flex;
+    flex-direction: column;
+  }
+  span.username {
+    font-size: 1.1em;
     font-weight: 500;
+  }
+  span.alt-name {
+    font-size: 0.9em;
   }
 }

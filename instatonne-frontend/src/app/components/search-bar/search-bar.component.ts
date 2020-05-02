@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, EMPTY, of, combineLatest, merge } from 'rxjs';
 import { User } from 'src/app/generated/models';
 import { UsersService } from 'src/app/generated/services';
+import { throttleTime, switchMap, debounceTime, shareReplay, take, filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -12,23 +14,59 @@ export class SearchBarComponent implements OnInit {
 
   search = '';
 
-  searchResults$ = new Subject<User[]>();
+  searchTerm$ = new Subject<string>();
+  searchResults$: Observable<User[]>;
 
-  constructor(private usersService: UsersService) { }
+  constructor(
+    private usersService: UsersService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    const merged = merge(
+      this.searchTerm$.pipe(debounceTime(300)),
+      this.searchTerm$.pipe(filter(term => term === ''))
+    );
+    this.searchResults$ = merged.pipe(
+      // debounceTime(100),
+      switchMap(searchTerm => {
+        if (searchTerm.length === 0) {
+          return of(null);
+        }
+        return this.usersService.searchUsers({ searchTerm });
+      }),
+      switchMap(users => {
+        if (users && users.length > 0) {
+          return of(users);
+        } else {
+          return of(null);
+        }
+      }),
+      shareReplay(1)
+    );
   }
 
   searchChange(next) {
     this.search = next;
+    this.searchTerm$.next(next);
   }
 
   clear() {
-    this.search = '';
+    this.searchChange('');
   }
 
   trigger() {
-    this.usersService.searchUsers({ searchTerm: '' }).subscribe(this.searchResults$);
-    console.log('trigger');
+    this.searchResults$.pipe(
+      take(1),
+      filter(x => !!x),
+      filter(users => users.length > 0)
+    ).subscribe(users => {
+      this.router.navigate(['/u/' + users[0].username]);
+      this.searchChange('');
+    });
+  }
+
+  resultClicked() {
+    this.searchChange('');
   }
 }
