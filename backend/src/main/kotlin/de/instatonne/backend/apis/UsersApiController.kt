@@ -108,6 +108,11 @@ class UsersApiController(val userService: UserService) : UsersApi {
         val currentUser = this.userService.getCurrentUser()
                 ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
 
+        if (newUser.username != currentUser.username && userService.usernameTaken(newUser.username)) {
+            return ResponseEntity.badRequest().build()
+        }
+
+        currentUser.username = newUser.username
         currentUser.altName = newUser.altName
         currentUser.profileDescription = newUser.profileDescription
 

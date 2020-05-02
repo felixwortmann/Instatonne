@@ -8,6 +8,10 @@
     </p>
   </div>
   <form [formGroup]="profileEditForm" (ngSubmit)="commitEdit()">
+    <mat-form-field *ngIf="!register">
+      <mat-label>Benutzername</mat-label>
+      <input autocomplete="off" matInput formControlName="username">
+    </mat-form-field>
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input autocomplete="off" matInput formControlName="altName">

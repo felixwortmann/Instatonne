@@ -13,7 +13,7 @@
           <mat-label>Nutzername</mat-label>
           <input autocomplete="off" matInput name="username" ngModel required #first="ngModel">
         </mat-form-field>
-        <br>
+        <p [class.shown]="usernameTaken" class="error-message">Leider ist dieser Benutzername schon vergeben.</p>
         <button mat-flat-button color="primary">Registrierung abschließen</button>
       </form>
       <button mat-button (click)="logout()">Abbrechen</button>

@@ -19,6 +19,7 @@ export class ProfileEditComponent implements OnInit {
   profileEditForm = new FormGroup({
     altName: new FormControl(''),
     profileDescription: new FormControl(''),
+    username: new FormControl(''),
   });
 
 
@@ -38,7 +39,8 @@ export class ProfileEditComponent implements OnInit {
       console.log('user', user);
       this.profileEditForm.setValue({
         altName: user.altName,
-        profileDescription: user.profileDescription
+        profileDescription: user.profileDescription,
+        username: user.username
       });
     });
   }

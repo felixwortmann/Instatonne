@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   user$: Observable<User>;
   authUser$: Observable<gapi.auth2.GoogleUser>;
+  usernameTaken = false;
 
   constructor(
     private authService: AuthService,
@@ -38,6 +39,9 @@ export class LoginComponent implements OnInit {
     }
     this.authService.createUser(f.value.username).subscribe(user => {
       this.router.navigate(['/editProfile'], { queryParams: { register: true } });
+    }, error => {
+      this.usernameTaken = true;
+      console.log('error creating new user');
     });
   }
 
