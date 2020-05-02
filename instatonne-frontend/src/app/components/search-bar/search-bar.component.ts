@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject, Observable, EMPTY, of, combineLatest, merge } from 'rxjs';
 import { User } from 'src/app/generated/models';
 import { UsersService } from 'src/app/generated/services';
-import { throttleTime, switchMap, debounceTime, shareReplay, take, filter, map } from 'rxjs/operators';
+import { throttleTime, switchMap, debounceTime, shareReplay, take, filter, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
@@ -30,6 +30,7 @@ export class SearchBarComponent implements OnInit {
     );
     this.searchResults$ = merged.pipe(
       // debounceTime(100),
+      tap(_ => this.focus = null),
       switchMap(searchTerm => {
         if (searchTerm.length === 0) {
           return of(null);

@@ -12,7 +12,7 @@ import { ProfileEditComponent } from './components/profile/profile-edit/profile-
 const routes: Routes = [
   { path: 'image', component: ImageComponent },
   { path: 'post', component: PostComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: 'u', component: ProfileComponent },
   { path: 'login', component: LoginComponent },
   { path: 'u/:username', component: ProfileComponent },
   { path: 'u/:username/f', component: ProfileSubscriptionsComponent },

@@ -14,6 +14,7 @@ nav {
   display: flex;
   align-items: center;
   height: 100%;
+  cursor: pointer;
   #logo {
     width: 40px;
     height: auto;
@@ -35,8 +36,14 @@ nav {
       display: none;
     }
   }
+  &:focus {
+    outline: none;
+  }
 }
 
 mat-icon {
-  justify-self: right;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
 }

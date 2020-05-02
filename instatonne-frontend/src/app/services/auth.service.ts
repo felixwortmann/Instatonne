@@ -44,14 +44,7 @@ export class AuthService {
     return combineLatest([this.authUser, this.reloadUser]).pipe(
       switchMap(_ => {
         console.log('reloading user');
-        return this.userService.getUserMe().pipe(catchError(err => {
-          if (err instanceof HttpErrorResponse && err.status === 404) {
-            // if the user does not yet exist, we are fine with it and ask the user to register
-            return EMPTY;
-          }
-          console.log('a bad error :( ', err);
-          throwError(err);
-        }));
+        return this.userService.getUserMe();
       }),
       share()
     );

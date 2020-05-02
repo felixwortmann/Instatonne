@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Post, User } from '../../generated/models';
 import { UsersService } from '../../generated/services';
 import { AuthService } from '../../services/auth.service';
-import { Observable, of, ReplaySubject } from 'rxjs';
+import { Observable, of, ReplaySubject, EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +18,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
   }
 
@@ -26,7 +27,14 @@ export class ProfileComponent implements OnInit {
     this.activatedRoute.paramMap.pipe(switchMap(x => {
       const username = x.get('username');
       if (username === null) {
-        return this.authService.getUser();
+        this.authService.getUser().subscribe(user => {
+          this.router.navigate(['/u/' + user.username]);
+        }, _ => {
+          // if the current user cannot be retrieved, then the user
+          // probably needs to register first. redirect to login page
+          this.router.navigate(['/login']);
+        });
+        return EMPTY;
       } else {
         return this.usersService.getUserByName({ username });
       }
