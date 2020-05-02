@@ -1,11 +1,8 @@
 package de.instatonne.backend.core
 
-import de.instatonne.backend.core.repositories.PostRepository
-import de.instatonne.backend.core.repositories.UserRepository
-import de.instatonne.backend.models.Comment
-import de.instatonne.backend.models.Post
 import de.instatonne.backend.models.User
-import org.slf4j.LoggerFactory
+import de.instatonne.backend.services.PostService
+import de.instatonne.backend.services.UserService
 import org.springframework.context.annotation.Profile
 import org.springframework.context.event.ContextRefreshedEvent
 import org.springframework.context.event.EventListener
@@ -13,26 +10,61 @@ import org.springframework.stereotype.Component
 
 @Component
 @Profile("!test")
-class StartupListener(val postRepository: PostRepository, val userRepository: UserRepository) {
+class StartupListener(val postService: PostService, val userService: UserService) {
 
-    private val log = LoggerFactory.getLogger(StartupListener::class.java)
+    val a: User
+        get() {
+            return userService.findById("a")!!
+        }
+    val b: User
+        get() {
+            return userService.findById("b")!!
+        }
+    val c: User
+        get() {
+            return userService.findById("c")!!
+        }
+    val d: User
+        get() {
+            return userService.findById("d")!!
+        }
+
+    val dev: User
+        get() {
+            return userService.findById("dev")!!
+        }
 
     @EventListener
     fun onApplicationEvent(ev: ContextRefreshedEvent) {
-        val tim = User()
-        tim.id = "*test-id"
-        tim.username = "*test-username"
-        userRepository.save(tim)
+        initUser("dev")
+        initUser("a")
+        initUser("b")
+        initUser("c")
+        initUser("d")
 
-        val post = Post()
-        post.imageUrl = "http://example.com/80x80.png"
-        post.author = tim
-        tim.posts.add(post)
+        for (x in listOf("anna", "marie", "franziska", "unknwonuser")) {
+            initUser(x)
+        }
 
-        val comment = Comment()
-        comment.comment = "*Testkommentar"
-        comment.forPost = post
-        post.comments.add(comment)
-        postRepository.save(post)
+        postService.createPostForUser(a, "https://via.placeholder.com/150?text=(a)")
+        userService.follow(a, b)
+        userService.follow(b, dev)
+        userService.follow(a, c)
+        userService.follow(a, d)
+        userService.follow(c, d)
+        userService.follow(dev, d)
+
+        val devR = dev
+        devR.profileDescription = "Profilbeschreibung | Steckbrief | ganz viele tolle Infos"
+        devR.altName = "Der Entwickler"
+        userService.save(devR)
     }
+
+    fun initUser(name: String) {
+        val user = userService.createUser(name, name)
+        user.profilePictureUrl = "https://via.placeholder.com/150?text=${name}"
+        userService.save(user)
+    }
+
+
 }

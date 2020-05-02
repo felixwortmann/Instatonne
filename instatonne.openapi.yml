@@ -88,6 +88,30 @@ paths:
                 format: binary
         "404":
           $ref: "#/components/responses/NotFound"
+  "/u":
+    get:
+      summary: Returns a single user by username.
+      operationId: searchUsers
+      tags:
+        - users
+      parameters:
+        - in: query
+          name: searchTerm
+          schema:
+            type: string
+          required: true
+          description: The username to search for.
+      responses:
+        "200":
+          description: Successfully retrieved users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
   "/u/{username}":
     get:
       summary: Returns a single user by username.
@@ -134,6 +158,96 @@ paths:
                   $ref: "#/components/schemas/Post"
         "404":
           $ref: "#/components/responses/NotFound"
+  "/u/{username}/f":
+    get:
+      summary: Gets a users list of followers.
+      operationId: getFollowersForUsername
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The username to get followers for.
+      responses:
+        "200":
+          description: A list of followers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    put:
+      summary: Follows a user specified by username.
+      operationId: followUserWithName
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The username of the user to follow.
+      responses:
+        "200":
+          description: The updated user that has been followed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    delete:
+      summary: Unfollows a user specified by username.
+      operationId: unfollowUserWithName
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The username of the user to unfollow.
+      responses:
+        "200":
+          description: The updated user that has been unfollowed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  "/u/{username}/s":
+    get:
+      summary: Gets a list of users the user follows.
+      operationId: getFollowingForUsername
+      tags:
+        - users
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The username to get subscribed users for.
+      responses:
+        "200":
+          description: A list of subscribed users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
   "/u/me":
     get:
       summary: Returns the user identified by the token.
@@ -143,6 +257,26 @@ paths:
       responses:
         "200":
           description: Successfully retrieved user.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    put:
+      summary: Update the user currently signed in user.
+      operationId: updateUser
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "200":
+          description: Updated version of the user.
           content:
             application/json:
               schema:
@@ -178,15 +312,25 @@ components:
           type: string
         username:
           type: string
+        altName:
+          type: string
+        profileDescription:
+          type: string
         created:
           type: string
           format: date-time
+        profilePictureUrl:
+          type: string
         followerCount:
           type: integer
         followingCount:
           type: integer
-        profileDescription:
-          type: string
+        isBeingFollowed:
+          type: boolean
+        isFollowingMe:
+          type: boolean
+        isSelf:
+          type: boolean
     NewUser:
       properties:
         username:

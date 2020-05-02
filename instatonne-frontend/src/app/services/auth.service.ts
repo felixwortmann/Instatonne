@@ -1,9 +1,9 @@
-import {Injectable, NgZone} from '@angular/core';
-import {BehaviorSubject, combineLatest, EMPTY, Observable, ReplaySubject, Subject, throwError} from 'rxjs';
-import {User} from '../generated/models';
-import {catchError, map, share, switchMap} from 'rxjs/operators';
-import {UsersService} from '../generated/services';
-import {HttpErrorResponse} from '@angular/common/http';
+import { Injectable, NgZone } from '@angular/core';
+import { BehaviorSubject, combineLatest, EMPTY, Observable, ReplaySubject, Subject, throwError } from 'rxjs';
+import { User } from '../generated/models';
+import { catchError, map, share, switchMap } from 'rxjs/operators';
+import { UsersService } from '../generated/services';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -44,28 +44,18 @@ export class AuthService {
     return combineLatest([this.authUser, this.reloadUser]).pipe(
       switchMap(_ => {
         console.log('reloading user');
-        return this.userService.getUserMe().pipe(catchError(err => {
-          if (err instanceof HttpErrorResponse && err.status === 404) {
-            // if the user does not yet exist, we are fine with it and ask the user to register
-            return EMPTY;
-          }
-          console.log('a bad error :( ', err);
-          throwError(err);
-        }));
+        return this.userService.getUserMe();
       }),
       share()
     );
   }
 
-  createUser(username: string) {
-    this.userService.createNewUser({
+  createUser(username: string): Observable<User> {
+    return this.userService.createNewUser({
       body: {
         username,
         profileDescription: ''
       }
-    }).subscribe(_ => {
-      console.log('attempting to reload user');
-      this.reloadUser.next(null);
     });
   }
 

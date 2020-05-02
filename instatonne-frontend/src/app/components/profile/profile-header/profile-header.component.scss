@@ -1,0 +1,71 @@
+.header {
+  margin-top: 15px;
+}
+
+h2 {
+  text-align: center;
+  font-weight: 300;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.picturewrapper {
+  border-radius: 100%;
+  border: 2px solid #cecece;
+  padding: 4px;
+  margin: 0 30px;
+  width: 20%;
+}
+
+#profilepicture {
+  border-radius: 100%;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.avatar-stats-section {
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  flex: 1 0;
+  justify-items: center;
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.stats {
+  display: flex;
+  flex: 1 0;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.action-section {
+  display: flex;
+  justify-items: stretch;
+  margin-top: 10px;
+  button {
+    flex: 1 0;
+    margin: 0 10px;
+  }
+}
+
+.profile-info {
+  margin: 10px 20px;
+  .name {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  .description {
+    font-size: 1.1em;
+  }
+}

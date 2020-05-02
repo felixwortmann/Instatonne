@@ -9,3 +9,7 @@ Please do not add stuff to the API without adding to the spec :)
 
 [Readme](https://github.com/felixwortmann/Instatonne/blob/master/CONTRIBUTING.md)
 
+## Spring Profile
+
+Für Testdaten und ein verändertes Anmeldeverhalten (keine Registrierung notwendig, angemelteder Nutzer ist automatisch "dev"),
+kann das Spring-Profil `dev` aktiviert werden.

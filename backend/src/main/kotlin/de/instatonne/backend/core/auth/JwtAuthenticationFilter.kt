@@ -31,7 +31,7 @@ class JwtAuthenticationFilter(val userService: UserService) : OncePerRequestFilt
                 if (parsedToken != null) {
                     val id = parsedToken.payload.subject
                     val user = userService.findById(id)
-                    SecurityContextHolder.getContext().authentication = JwtAuthentication(id, user)
+                    SecurityContextHolder.getContext().authentication = JwtAuthentication(parsedToken.payload, user)
                 }
             } catch (e: Exception) {
                 log.info("Token could not be verified.")
