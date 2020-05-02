@@ -93,8 +93,12 @@ $grey: #cecece;
 .result {
   padding: 5px;
   border-bottom: 1px solid $grey;
+  z-index: 11;
   &:last-child {
     border-bottom: none;
+  }
+  &.focused {
+    background-color: #f0f0f5;
   }
   a {
     display: flex;

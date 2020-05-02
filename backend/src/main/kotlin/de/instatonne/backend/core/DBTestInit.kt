@@ -42,6 +42,10 @@ class StartupListener(val postService: PostService, val userService: UserService
         initUser("c")
         initUser("d")
 
+        for (x in listOf("anna", "marie", "franziska", "unknwonuser")) {
+            initUser(x)
+        }
+
         postService.createPostForUser(a, "https://via.placeholder.com/150?text=(a)")
         userService.follow(a, b)
         userService.follow(b, dev)
