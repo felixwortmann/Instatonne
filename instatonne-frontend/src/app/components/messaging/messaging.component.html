@@ -3,17 +3,34 @@
     <img [src]="user.profilePictureUrl" alt="Profilbild" id="profilepicture">
     <span class="username">{{user.username}}</span>
   </div>
-  <div class="messages">
-    <div class="message">
-      Hey, was machst du so?
-    </div>
-    <div class="message sent">
-      Nichts, bin im Homeoffice.
+  <div class="messages-wrap">
+    <div class="messages" *ngIf="messages$ | async as messages">
+      <div class="timestamp">
+        Gestern, 11:10 Uhr
+      </div>
+      <div class="message">
+        Hey, was machst du so?
+      </div>
+      <div class="message">
+        Ich hab Langeweile :(
+      </div>
+      <div class="message">
+        Huhu?
+      </div>
+      <div class="message sent">
+        Nichts, bin im Homeoffice.
+      </div>
+      <div class="timestamp">
+        {{ messages[0]?.timestamp }}
+      </div>
+      <div class="message" *ngFor="let message of messages" [class.sent]="message.receiver === user.username">
+        {{ message.message }}
+      </div>
     </div>
   </div>
   <div class="actions">
-    <input id="message-input">
-    <button mat-flat-button color="primary" id="send-button">
+    <input id="message-input" [(ngModel)]="messageText" (keyup.enter)="sendMessage()">
+    <button mat-flat-button color="primary" id="send-button" (click)="sendMessage()">
       Senden
       <mat-icon>
         send

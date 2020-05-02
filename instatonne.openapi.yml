@@ -9,6 +9,7 @@ openapi: "3.0.3"
 tags:
   - name: posts
   - name: users
+  - name: messages
 paths:
   "/p":
     get:
@@ -304,6 +305,55 @@ paths:
                 $ref: "#/components/schemas/User"
         "404":
           $ref: "#/components/responses/NotFound"
+  "/m/{username}":
+    get:
+      summary: Retrieves all messages in the conversation with {username}
+      operationId: getMessagesWithUser
+      tags:
+        - messages
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The username to get subscribed users for.
+      responses:
+        "200":
+          description: An array of messages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Message"
+    post:
+      summary: Sends a new message.
+      operationId: sendMessageToUser
+      tags:
+        - messages
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: The username to get subscribed users for.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewMessage"
+      responses:
+        "200":
+          description: The message that was sent.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+        "404":
+          $ref: "#/components/responses/NotFound"
 components:
   schemas:
     User:
@@ -362,7 +412,25 @@ components:
           description: A base64 encoded version of the image in jpg format
           type: string
           format: base64
-
+    Message:
+      properties:
+        id:
+          type: string
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        author:
+          type: string
+          description: The username of the message's sender.
+        receiver:
+          type: string
+          description: The recipient's username.
+    NewMessage:
+      properties:
+        message:
+          type: string
     Comment:
       properties:
         created:
