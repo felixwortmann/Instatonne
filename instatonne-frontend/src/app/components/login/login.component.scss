@@ -10,3 +10,14 @@ h1 {
 hr {
   margin-bottom: 2em;
 }
+
+.error-message {
+  color: var(--warn-color);
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  &.shown {
+    height: 3em;
+  }
+}
