@@ -50,7 +50,6 @@ export class MessagingComponent implements OnInit {
     });
 
     this.websocketService.messages().subscribe(m => {
-      console.log(m);
       this.messages.push(m);
     });
   }
@@ -60,6 +59,15 @@ export class MessagingComponent implements OnInit {
       this.websocketService.send({ message: this.messageText }, user.username);
       this.messageText = '';
     });
+  }
+
+  trackByFn(m: Message): string {
+    return m.id;
+  }
+
+  timestamp(index: number): boolean {
+    if (index === 0) { return true; }
+    return (new Date(this.messages[index].timestamp).getTime() - new Date(this.messages[index - 1].timestamp).getTime()) > 60000;
   }
 
 }

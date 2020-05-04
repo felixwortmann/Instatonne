@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Provider, forwardRef } from '@angular/core';
+import { NgModule, Provider, forwardRef, LOCALE_ID } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
@@ -34,12 +34,16 @@ import { ProfileSubscriptionsListItemComponent } from './components/profile/prof
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { MessagingComponent } from './components/messaging/messaging.component';
+import { registerLocaleData } from '@angular/common';
+import localeDE from '@angular/common/locales/de';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
   useExisting: forwardRef(() => ApiInterceptor),
   multi: true
 };
+
+registerLocaleData(localeDE);
 
 @NgModule({
   declarations: [
@@ -81,7 +85,8 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
   ],
   providers: [
     ApiInterceptor,
-    API_INTERCEPTOR_PROVIDER
+    API_INTERCEPTOR_PROVIDER,
+    { provide: LOCALE_ID, useValue: 'de' },
   ],
   bootstrap: [AppComponent]
 })
