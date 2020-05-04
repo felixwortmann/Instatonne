@@ -1,0 +1,15 @@
+<div class="content">
+  <h1>Hier kannst du einen Pfosten erstellen!</h1>
+  <img [src]="url" width="400" height="400" class="hidden"><br>
+  <button type="button" mat-raised-button (click)="fileInput.click()">Bild auswählen</button>
+  <input hidden (change)="onSelectFile($event)" #fileInput type="file"  alife-file-to-base64 (onFileChanged)="onFileChanged($event)" [(fileModel)]="file" id="file">
+  <br>
+  <br>
+  <mat-form-field class="input">
+    <input matInput type="text" #text (keyup)="save(text.value)" placeholder="Bildunterschrift verfassen ...">
+  </mat-form-field>
+  <br>
+  <button mat-raised-button color="primary" (click)="upload()">Hochladen</button>
+</div>
+
+
