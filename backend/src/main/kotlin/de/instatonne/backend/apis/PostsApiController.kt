@@ -42,7 +42,7 @@ class PostsApiController(
         val user = userService.getCurrentUser() ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         val post = postService.createPostForUser(user)
 
-        val filePath = "`/var/tmp/instatonne/${post.id}.jpg"
+        val filePath = "/var/tmp/instatonne/${post.id}.jpg"
         val file = File(filePath)
         val fileOS = FileOutputStream(file)
         val decodedImage = Base64.getDecoder().decode(data.image)
