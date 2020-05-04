@@ -11,10 +11,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PostComponent } from './components/post/post.component';
+import { CreateComponent } from './components/create/create.component';
 import { LoginComponent } from './components/login/login.component';
 import { ImageComponent } from './components/image/image.component';
 import { PostHeaderComponent } from './components/post-header/post-header.component';
@@ -36,6 +35,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { MessagingComponent } from './components/messaging/messaging.component';
 import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
+import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -48,7 +48,7 @@ registerLocaleData(localeDE);
 @NgModule({
   declarations: [
     AppComponent,
-    PostComponent,
+    CreateComponent,
     LoginComponent,
     ImageComponent,
     PostHeaderComponent,
@@ -62,6 +62,7 @@ registerLocaleData(localeDE);
     ProfileEditComponent,
     SearchBarComponent,
     MessagingComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,
@@ -82,6 +83,7 @@ registerLocaleData(localeDE);
     MatTabsModule,
     HttpClientModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
+    AlifeFileToBase64Module
   ],
   providers: [
     ApiInterceptor,
