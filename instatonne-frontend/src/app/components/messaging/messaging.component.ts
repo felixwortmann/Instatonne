@@ -41,7 +41,7 @@ export class MessagingComponent implements OnInit {
 
     this.user$.pipe(
       switchMap(result => {
-        const user = result[0];
+        const user = result;
         return this.messagesService.getMessagesWithUser({ username: user.username });
       }),
       shareReplay(1)

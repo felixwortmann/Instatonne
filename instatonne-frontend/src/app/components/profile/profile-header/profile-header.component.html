@@ -29,7 +29,7 @@
         folgen</button>
       <button mat-stroked-button *ngIf="user.isBeingFollowed" (click)="unfollow()">Abonniert<mat-icon>expand_more
         </mat-icon></button>
-      <button mat-stroked-button>Nachricht</button>
+      <button mat-stroked-button routerLink="/m/{{user.username}}">Nachricht</button>
     </div>
     <ng-template #edit>
       <div class="action-section">

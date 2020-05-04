@@ -1,5 +1,5 @@
 <div class="container" *ngIf="user$ | async as user">
-  <div class="info">
+  <div class="info" routerLink="/u/{{user.username}}">
     <img [src]="user.profilePictureUrl" alt="Profilbild" id="profilepicture">
     <span class="username">{{user.username}}</span>
   </div>
