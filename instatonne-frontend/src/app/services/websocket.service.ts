@@ -20,8 +20,7 @@ export class WebsocketService {
         brokerURL: 'ws://localhost:8080/ws-stomp',
         connectHeaders: {
           passcode: token
-        },
-        debug: console.log
+        }
       });
       this.stomp.activate();
     });
