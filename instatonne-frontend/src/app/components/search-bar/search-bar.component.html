@@ -1,0 +1,25 @@
+<div id="search-wrap" (keyup.arrowup)="moveFocus(-1)" (keyup.arrowdown)="moveFocus(1)">
+  <input type="text" id="search" [(ngModel)]="search" (ngModelChange)="searchChange($event)" (keyup.enter)="trigger()">
+  <div id="search-bar">
+    <mat-icon>search</mat-icon>
+    <span *ngIf="!search; else spacer">Suchen</span>
+    <ng-template #spacer>
+      <span>
+        <span id="textnofocus">{{search}}</span>
+      </span>
+    </ng-template>
+    <mat-icon id="close" (mousedown)="clear()">close</mat-icon>
+  </div>
+  <div id="results" *ngIf="(searchResults$ | async) as results">
+    <div id="corner"></div>
+    <div *ngFor="let result of results; let i = index" class="result" [class.focused]="i === focus">
+      <a routerLink="/u/{{result.username}}" (click)="clear()">
+        <img [src]="result.profilePictureUrl">
+        <div class="info">
+          <span class="username">{{result.username}}</span>
+          <span class="alt-name" *ngIf="result.altName">{{result.altName}}</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

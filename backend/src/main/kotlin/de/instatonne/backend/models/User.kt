@@ -6,35 +6,70 @@ import java.time.OffsetDateTime
 import javax.persistence.*
 
 @Entity
+@Table(
+        indexes = [Index(name = "i_username", columnList = "username", unique = true)]
+)
 data class User(
         @Id
-        val username: String,
+        var id: String = "",
+
+        @Column(nullable = false, unique = true)
+        var username: String = "",
+
+        @Column(nullable = true)
+        var altName: String? = "",
+
+        @Column(nullable = true)
+        var profileDescription: String? = null,
 
         @Column(nullable = false)
-        val created: OffsetDateTime = OffsetDateTime.now()
+        var created: OffsetDateTime = OffsetDateTime.now(),
+
+        @Column(nullable = true)
+        var profilePictureUrl: String? = null,
+
+        @OneToMany(cascade = [CascadeType.ALL], mappedBy = "author")
+        var posts: MutableList<Post> = mutableListOf(),
+
+        @ManyToMany(mappedBy = "following")
+        internal var followers: MutableSet<User> = mutableSetOf(),
+
+        @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE])
+        @JoinTable(name = "user_followers",
+                joinColumns = [JoinColumn(name = "username")],
+                inverseJoinColumns = [JoinColumn(name = "followed_username")])
+        internal var following: MutableSet<User> = mutableSetOf()
 ) : DatabaseWrapper<UserApiModel> {
-    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "author")
-    val posts: MutableList<Post> = mutableListOf()
 
-    @ManyToMany(mappedBy = "following")
-    internal val followers: MutableList<User> = mutableListOf()
+    override fun toString(): String {
+        return "[User@JPA] $id, $username"
+    }
 
-    @ManyToMany(cascade = [CascadeType.ALL])
-    @JoinTable(name = "user_followers",
-            joinColumns = [JoinColumn(name = "username")],
-            inverseJoinColumns = [JoinColumn(name = "followed_username")])
-    internal val following: MutableList<User> = mutableListOf()
+    override fun equals(other: Any?) = other is User && this.id == other.id
+
+    override fun hashCode(): Int {
+        return this.id.hashCode()
+    }
 
     override fun generateAPIVersion(): UserApiModel {
         return UserApiModel()
+                .id(id)
                 .username(username)
+                .altName(altName)
+                .profileDescription(profileDescription)
                 .created(created)
+                .profilePictureUrl(profilePictureUrl)
                 .followerCount(followers.size)
                 .followingCount(following.size)
+                .isBeingFollowed(false)
+                .isFollowingMe(false)
+                .isSelf(false)
     }
 
-    fun follow(user: User) {
-        this.following.add(user)
-        user.followers.add(this)
+    override fun generateAPIVersion(currentUser: User): UserApiModel {
+        return super.generateAPIVersion(currentUser)
+                .isBeingFollowed(this.followers.contains(currentUser))
+                .isFollowingMe(this.following.contains(currentUser))
+                .isSelf(this.id == currentUser.id)
     }
 }

@@ -1,8 +1,11 @@
 package de.instatonne.backend.core.repositories
 
 import de.instatonne.backend.models.User
-import org.springframework.data.jpa.repository.JpaRepository
-import javax.transaction.Transactional
+import org.springframework.data.repository.CrudRepository
+import java.util.*
 
-@Transactional(Transactional.TxType.MANDATORY)
-interface UserRepository : JpaRepository<User, String>
+interface UserRepository : CrudRepository<User, String> {
+    fun existsByUsername(username: String): Boolean
+    fun findByUsername(username: String): Optional<User>
+    fun findAllByUsernameContaining(username: String): List<User>
+}

@@ -1,0 +1,29 @@
+<div class="container">
+  <mat-tab-group [selectedIndex]="selectedIndex$ | async" (selectedIndexChange)="nextIndex($event)">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span [matBadge]="(followers$ | async)?.length || null" matBadgeOverlap="false" matBadgeSize="small">
+          Abonnenten
+        </span>
+      </ng-template>
+      <div>
+        <app-profile-subscriptions-list-item *ngFor="let follower of (followers$ | async)" [user]="follower"
+          (updateTriggered)="reloadFollowers()">
+        </app-profile-subscriptions-list-item>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span [matBadge]="(following$ | async)?.length  || null" matBadgeOverlap="false" matBadgeSize="small">
+          Abonniert
+        </span>
+      </ng-template>
+      <div>
+        <app-profile-subscriptions-list-item *ngFor="let following of (following$ | async)" [user]="following"
+          (updateTriggered)="reloadFollowing()">
+        </app-profile-subscriptions-list-item>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>

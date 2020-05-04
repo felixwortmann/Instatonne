@@ -1,0 +1,40 @@
+<div class="header">
+  <ng-container *ngIf="user$ | async as user">
+    <div class="avatar-stats-section">
+      <div class="picturewrapper">
+        <img [src]="user.profilePictureUrl" alt="Profilbild" id="profilepicture">
+      </div>
+      <div class="info">
+        <h2>{{user.username}}</h2>
+        <div class="stats">
+          <app-profile-header-stats value="?" title="Beiträge"></app-profile-header-stats>
+          <a routerLink="f">
+            <app-profile-header-stats [value]="user.followerCount" title="Abonnenten"></app-profile-header-stats>
+          </a>
+          <a routerLink="f" [queryParams]="{tab: 1}">
+            <app-profile-header-stats [value]="user.followingCount" title="Abonniert"></app-profile-header-stats>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-info" *ngIf="user.altName || user.profileDescription">
+      <div class="name" *ngIf="user.altName">{{user.altName}}</div>
+      <div class="description" *ngIf="user.profileDescription">{{user.profileDescription}}</div>
+    </div>
+    <div class="action-section" *ngIf="!user.isSelf; else edit">
+      <button mat-stroked-button *ngIf="!user.isBeingFollowed && !user.isFollowingMe" (click)="follow()">Folgen</button>
+      <button mat-flat-button color="primary" *ngIf="!user.isBeingFollowed && user.isFollowingMe"
+        (click)="follow()">Auch
+        folgen</button>
+      <button mat-stroked-button *ngIf="user.isBeingFollowed" (click)="unfollow()">Abonniert<mat-icon>expand_more
+        </mat-icon></button>
+      <button mat-stroked-button>Nachricht</button>
+    </div>
+    <ng-template #edit>
+      <div class="action-section">
+        <button mat-stroked-button routerLink="/editProfile">Profil bearbeiten</button>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>
