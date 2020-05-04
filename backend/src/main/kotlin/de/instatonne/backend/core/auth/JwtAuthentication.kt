@@ -22,10 +22,14 @@ class JwtAuthentication(
         return user
     }
 
+    override fun getName(): String {
+        return user?.id ?: super.getName()
+    }
+
     fun getUserId(): String {
         return payload.subject
     }
-    
+
     fun getTokenPayload(): IdToken.Payload {
         return payload
     }
