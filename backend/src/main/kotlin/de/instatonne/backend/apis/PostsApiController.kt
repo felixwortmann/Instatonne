@@ -42,7 +42,7 @@ class PostsApiController(
         val user = userService.getCurrentUser() ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         val post = postService.createPostForUser(user)
 
-        val filePath = "/var/tmp/instatonne/${post.id}.jpg"
+        val filePath = "C:\\Users\\A14AEC9\\Documents\\DHBW\\Fächer\\Semester 4\\Web Engineering II\\tmp\\${post.id}.jpg"
         val file = File(filePath)
         val fileOS = FileOutputStream(file)
         val decodedImage = Base64.getDecoder().decode(data.image)
@@ -53,7 +53,7 @@ class PostsApiController(
     }
 
     override fun getPostImageById(postId: String): ResponseEntity<Resource> {
-        val filePath = "/var/tmp/instatonne/${postId}.jpg"
+        val filePath = "C:\\Users\\A14AEC9\\Documents\\DHBW\\Fächer\\Semester 4\\Web Engineering II\\tmp\\${postId}.jpg"
         val resource = FileSystemResource(filePath)
         return ResponseEntity.ok(resource)
     }

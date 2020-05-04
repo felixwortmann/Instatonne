@@ -11,10 +11,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PostComponent } from './components/post/post.component';
+import { CreateComponent } from './components/create/create.component';
 import { LoginComponent } from './components/login/login.component';
 import { ImageComponent } from './components/image/image.component';
 import { PostHeaderComponent } from './components/post-header/post-header.component';
@@ -32,9 +31,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { ProfileSubscriptionsComponent } from './components/profile/profile-subscriptions/profile-subscriptions.component';
 import { ProfileSubscriptionsListItemComponent } from './components/profile/profile-subscriptions-list-item/profile-subscriptions-list-item.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
-import { CreateComponent } from './components/create/create.component';
+import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -45,7 +43,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
 @NgModule({
   declarations: [
     AppComponent,
-    PostComponent,
+    CreateComponent,
     LoginComponent,
     ImageComponent,
     PostHeaderComponent,
@@ -58,7 +56,6 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     ProfileSubscriptionsListItemComponent,
     ProfileEditComponent,
     SearchBarComponent,
-    PostComponent,
     CreateComponent
   ],
   imports: [
@@ -80,6 +77,7 @@ export const API_INTERCEPTOR_PROVIDER: Provider = {
     MatTabsModule,
     HttpClientModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
+    AlifeFileToBase64Module
   ],
   providers: [
     ApiInterceptor,
