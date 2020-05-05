@@ -6,6 +6,7 @@
     "start": "npm run generate && ng serve",
     "build": "npm run generate && ng build",
     "build:prod": "npm run generate && ng build --prod",
+    "build:prod:docker": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --prod",
     "test": "npm run generate && ng test",
     "lint": "npm run generate && ng lint",
     "generate": "ng-openapi-gen --input ../instatonne.openapi.yml --output src/app/generated"
