@@ -1,6 +1,5 @@
 package de.instatonne.backend.core.auth
 
-import de.instatonne.backend.services.UserService
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -15,7 +14,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableWebSecurity
-class WebSecurityConfig(val userService: UserService) : WebSecurityConfigurerAdapter() {
+class WebSecurityConfig(val jwtAuthenticationFilter: JwtAuthenticationFilter) : WebSecurityConfigurerAdapter() {
 
     override fun configure(httpSecurity: HttpSecurity) {
         httpSecurity
@@ -24,9 +23,10 @@ class WebSecurityConfig(val userService: UserService) : WebSecurityConfigurerAda
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers("/p/*/i.jpg").permitAll()
+                .antMatchers("/ws-stomp/**").permitAll()
                 .antMatchers("/**").hasRole("USER")
 
-        httpSecurity.addFilterBefore(JwtAuthenticationFilter(userService), UsernamePasswordAuthenticationFilter::class.java)
+        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
         httpSecurity.headers().cacheControl()
     }
 
