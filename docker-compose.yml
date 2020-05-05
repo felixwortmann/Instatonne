@@ -4,7 +4,7 @@ services:
         build:
             context: .
             dockerfile: ./instatonne-frontend/Dockerfile
-        image: timgrohmann/it-app
+        image: timgrohmann/it-app:1
         ports:
             - "80:80"
         deploy:
@@ -13,7 +13,7 @@ services:
         build:
             context: .
             dockerfile: ./backend/Dockerfile
-        image: timgrohmann/it-backend
+        image: timgrohmann/it-backend:1
         ports:
             - "8080:8080"
         deploy:
