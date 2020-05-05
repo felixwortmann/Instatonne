@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "npm run generate && ng serve",
     "build": "npm run generate && ng build",
+    "build:prod": "npm run generate && ng build --prod",
     "test": "npm run generate && ng test",
     "lint": "npm run generate && ng lint",
     "generate": "ng-openapi-gen --input ../instatonne.openapi.yml --output src/app/generated"
