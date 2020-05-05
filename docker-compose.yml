@@ -4,17 +4,13 @@ services:
         build:
             context: .
             dockerfile: ./instatonne-frontend/Dockerfile
-        image: timgrohmann/it-app:1
+        image: timgrohmann/it-app
         ports:
             - "80:80"
-        deploy:
-            replicas: 1
     spring:
         build:
             context: .
             dockerfile: ./backend/Dockerfile
-        image: timgrohmann/it-backend:1
+        image: timgrohmann/it-backend
         ports:
             - "8080:8080"
-        deploy:
-            replicas: 1
