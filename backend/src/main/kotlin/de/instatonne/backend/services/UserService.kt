@@ -65,7 +65,7 @@ class UserService(
         Hibernate.initialize(user?.posts)
         return user
     }
-    
+
     fun usernameTaken(username: String): Boolean {
         return userRepository.existsByUsername(username)
     }
@@ -87,13 +87,7 @@ class UserService(
     }
 
     fun getCurrentUser(): User? {
-        val user = (SecurityContextHolder.getContext().authentication as JwtAuthentication).principal
-        return user
-                ?: if (environment.activeProfiles.contains("dev")) {
-                    return userRepository.findById("dev").toNullable()!!
-                } else {
-                    null
-                }
+        return (SecurityContextHolder.getContext().authentication as JwtAuthentication).principal
     }
 
     fun getFollowing(username: String): List<User>? {

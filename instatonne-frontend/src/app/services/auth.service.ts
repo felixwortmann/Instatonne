@@ -1,9 +1,8 @@
 import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, combineLatest, EMPTY, Observable, ReplaySubject, Subject, throwError } from 'rxjs';
 import { User } from '../generated/models';
-import { catchError, map, share, switchMap } from 'rxjs/operators';
+import { map, share, switchMap, shareReplay } from 'rxjs/operators';
 import { UsersService } from '../generated/services';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +32,7 @@ export class AuthService {
   }
 
   getToken(): Observable<string> {
-    return this.authUser.pipe(map(x => x?.getAuthResponse().id_token));
+    return this.authUser.pipe(map(x => x?.getAuthResponse().id_token), shareReplay(1));
   }
 
   getAuthUser(): Observable<gapi.auth2.GoogleUser> {

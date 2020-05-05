@@ -7,6 +7,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileSubscriptionsComponent } from './components/profile/profile-subscriptions/profile-subscriptions.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
+import { MessagingComponent } from './components/messaging/messaging.component';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'u/:username', component: ProfileComponent },
   { path: 'u/:username/f', component: ProfileSubscriptionsComponent },
-  { path: 'editProfile', component: ProfileEditComponent }
+  { path: 'editProfile', component: ProfileEditComponent },
+  { path: 'm/:username', component: MessagingComponent },
 ];
 
 @NgModule({
