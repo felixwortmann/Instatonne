@@ -13,7 +13,7 @@ spec:
         app: backend
     spec:
       containers:
-        - image: timgrohmann/it-backend
+        - image: timgrohmann/it-backend:0.0.1-SNAPSHOT
           imagePullPolicy: Always
           name: it-backend
           ports:
