@@ -13,7 +13,7 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: timgrohmann/it-app
+        - image: timgrohmann/it-app:1.0.1
           imagePullPolicy: Always
           name: it-app
       restartPolicy: Always
