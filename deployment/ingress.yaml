@@ -1,0 +1,21 @@
+apiVersion: "extensions/v1beta1"
+kind: "Ingress"
+metadata:
+  name: "it-ingress"
+  namespace: "default"
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: it-static-ip
+spec:
+  rules:
+    - host: it.timgrohmann.de
+      http:
+        paths:
+          - backend:
+              serviceName: "frontend-service"
+              servicePort: 80
+    - host: it-api.timgrohmann.de
+      http:
+        paths:
+          - backend:
+              serviceName: "backend-service"
+              servicePort: 8080
