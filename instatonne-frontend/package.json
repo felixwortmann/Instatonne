@@ -1,6 +1,6 @@
 {
   "name": "instatonne-frontend",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "scripts": {
     "ng": "ng",
     "start": "npm run generate && ng serve",
