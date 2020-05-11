@@ -90,15 +90,8 @@ class UserService(
         return (SecurityContextHolder.getContext().authentication as JwtAuthentication).principal
     }
 
-    fun getFollowingUsernames(username: String): List<User>? {
+    fun getFollowing(username: String): List<User>? {
         val user = userRepository.findByUsername(username).toNullable() ?: return null
         return user.following.toList()
     }
-
-    fun getFollowingIds(username: String): List<String>? {
-        val user = userRepository.findByUsername(username).toNullable() ?: return null
-        return user.following.map { u->u.id }
-    }
-
-
 }
