@@ -22,6 +22,7 @@ class WebSecurityConfig(val jwtAuthenticationFilter: JwtAuthenticationFilter) : 
                 .cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
+                .antMatchers("/actuator/health").permitAll()
                 .antMatchers("/p/*/i.jpg").permitAll()
                 .antMatchers("/ws-stomp/**").permitAll()
                 .antMatchers("/**").hasRole("USER")
