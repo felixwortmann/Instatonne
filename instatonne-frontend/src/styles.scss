@@ -5,10 +5,26 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #fafafc;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 .container {
-  max-width: 600px;
   width: 100%;
-  margin: 0 auto;
+  padding: 0 10px;
+  @media screen and (min-width: 600px) {
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  @media screen and (min-width: 1200px) {
+    max-width: 900px;
+  }
+}
+
+.color-warn {
+  color: var(--warn-color) !important;
 }

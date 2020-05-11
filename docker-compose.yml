@@ -1,0 +1,16 @@
+version: "3"
+services:
+    app:
+        build:
+            context: .
+            dockerfile: ./instatonne-frontend/Dockerfile
+        image: timgrohmann/it-app
+        ports:
+            - "80:80"
+    spring:
+        build:
+            context: .
+            dockerfile: ./backend/Dockerfile
+        image: timgrohmann/it-backend
+        ports:
+            - "8080:8080"

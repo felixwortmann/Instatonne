@@ -24,10 +24,21 @@ class PostsApiController(
         val postService: PostService,
         val userService: UserService
 ) : PostsApi {
-    override fun getPosts(): ResponseEntity<List<PostApiModel>> {
-        val posts = this.postRepository.findAll().map(Post::generateAPIVersion)
 
-        return ResponseEntity.ok(posts)
+    companion object {
+        const val fileBasePath: String = "/var/tmp/instatonne/$"
+    }
+
+
+    override fun getPosts(): ResponseEntity<List<PostApiModel>> {
+        val user = userService.getCurrentUser()
+        return if (user == null) {
+            ResponseEntity.notFound().build()
+        } else {
+            val following = user.following
+            val posts: List<Post> = following.map(User::posts).flatten()
+            ResponseEntity.ok(posts.map(Post::generateAPIVersion))
+        }
     }
 
     override fun getPostById(postId: String): ResponseEntity<PostApiModel> {
@@ -43,7 +54,7 @@ class PostsApiController(
         val user = userService.getCurrentUser() ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         val post = postService.createPostForUser(user)
 
-        val filePath = "/var/tmp/instatonne/${post.id}.jpg"
+        val filePath = fileBasePath + "${post.id}.jpg"
         val file = File(filePath)
         val fileOS = FileOutputStream(file)
         val decodedImage = Base64.getDecoder().decode(data.image)
@@ -54,19 +65,8 @@ class PostsApiController(
     }
 
     override fun getPostImageById(postId: String): ResponseEntity<Resource> {
-        val filePath = "/var/tmp/instatonne/${postId}.jpg"
+        val filePath = fileBasePath + "${postId}.jpg"
         val resource = FileSystemResource(filePath)
         return ResponseEntity.ok(resource)
-    }
-
-    override fun getPostListMyFollowing(): ResponseEntity<List<PostApiModel>> {
-        val user = userService.getCurrentUser()
-        return if (user == null) {
-            ResponseEntity.notFound().build()
-        } else {
-            val following = user.following
-            val posts: List<Post> = following.map(User::posts).flatten()
-            ResponseEntity.ok(posts.map(Post::generateAPIVersion))
-        }
     }
 }

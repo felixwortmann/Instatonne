@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "npm run generate && ng serve",
     "build": "npm run generate && ng build",
+    "build:prod": "npm run generate && ng build --prod",
+    "build:prod:docker": "npm run generate && node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --prod",
     "test": "npm run generate && ng test",
     "lint": "npm run generate && ng lint",
     "generate": "ng-openapi-gen --input ../instatonne.openapi.yml --output src/app/generated"
@@ -21,6 +23,8 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
+    "@stomp/rx-stomp": "^0.3.5",
+    "alife-file-to-base64": "0.0.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

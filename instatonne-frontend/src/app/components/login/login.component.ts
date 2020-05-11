@@ -1,10 +1,10 @@
-import {Component, OnInit, AfterViewInit, ChangeDetectorRef, ApplicationRef, NgZone} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {AuthService} from 'src/app/services/auth.service';
-import {Observable, of, Subject} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {Router} from '@angular/router';
-import {User} from 'src/app/generated/models';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, ApplicationRef, NgZone } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { Observable, of, Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { User } from 'src/app/generated/models';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   user$: Observable<User>;
   authUser$: Observable<gapi.auth2.GoogleUser>;
+  usernameTaken = false;
 
   constructor(
     private authService: AuthService,
@@ -26,8 +27,8 @@ export class LoginComponent implements OnInit {
     this.user$ = this.authService.getUser();
     this.authUser$ = this.authService.getAuthUser();
 
-    this.user$.pipe(filter(user => !!user)).subscribe(_ => {
-      this.router.navigate(['profile'], {replaceUrl: true});
+    this.user$.pipe(filter(user => !!user)).subscribe(user => {
+      this.router.navigate(['/u/' + user.username], { replaceUrl: true });
     });
   }
 
@@ -36,8 +37,12 @@ export class LoginComponent implements OnInit {
     if (!f.valid) {
       return;
     }
-    this.authService.createUser(f.value.username);
-    console.log(f.value);
+    this.authService.createUser(f.value.username).subscribe(user => {
+      this.router.navigate(['/editProfile'], { queryParams: { register: true } });
+    }, error => {
+      this.usernameTaken = true;
+      console.log('error creating new user');
+    });
   }
 
   logout() {
