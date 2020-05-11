@@ -23,6 +23,12 @@ class PostsApiController(
         val postService: PostService,
         val userService: UserService
 ) : PostsApi {
+
+    companion object {
+        val fileBasePath: String = "/var/tmp/instatonne/$";
+    }
+
+
     override fun getPosts(): ResponseEntity<List<PostApiModel>> {
         val posts = this.postRepository.findAll().map(Post::generateAPIVersion)
 
@@ -42,7 +48,7 @@ class PostsApiController(
         val user = userService.getCurrentUser() ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         val post = postService.createPostForUser(user)
 
-        val filePath = "/var/tmp/instatonne/${post.id}.jpg"
+        val filePath = fileBasePath + "${post.id}.jpg"
         val file = File(filePath)
         val fileOS = FileOutputStream(file)
         val decodedImage = Base64.getDecoder().decode(data.image)
@@ -53,7 +59,7 @@ class PostsApiController(
     }
 
     override fun getPostImageById(postId: String): ResponseEntity<Resource> {
-        val filePath = "/var/tmp/instatonne/${postId}.jpg"
+        val filePath = fileBasePath + "${postId}.jpg"
         val resource = FileSystemResource(filePath)
         return ResponseEntity.ok(resource)
     }
