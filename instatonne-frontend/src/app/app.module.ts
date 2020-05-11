@@ -36,6 +36,9 @@ import { MessagingComponent } from './components/messaging/messaging.component';
 import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
+import {CommentSectionComponent} from "./components/comment-section/comment-section.component";
+import {AuthorCommentComponent} from "./components/author-comment/author-comment.component";
+import {CommentComponent} from "./components/comment/comment.component";
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -62,7 +65,9 @@ registerLocaleData(localeDE);
     ProfileEditComponent,
     SearchBarComponent,
     MessagingComponent,
-    CreateComponent
+    CommentSectionComponent,
+    AuthorCommentComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +88,7 @@ registerLocaleData(localeDE);
     MatTabsModule,
     HttpClientModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
-    AlifeFileToBase64Module
+    AlifeFileToBase64Module,
   ],
   providers: [
     ApiInterceptor,
