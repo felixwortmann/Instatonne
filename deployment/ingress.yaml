@@ -5,6 +5,7 @@ metadata:
   namespace: "default"
   annotations:
     kubernetes.io/ingress.global-static-ip-name: it-static-ip
+    networking.gke.io/managed-certificates: it-certificate, it-api-certificate
 spec:
   rules:
     - host: it.timgrohmann.de
