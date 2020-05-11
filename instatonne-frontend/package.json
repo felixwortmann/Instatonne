@@ -1,6 +1,6 @@
 {
   "name": "instatonne-frontend",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "scripts": {
     "ng": "ng",
     "start": "npm run generate && ng serve",
@@ -10,7 +10,9 @@
     "test": "npm run generate && ng test",
     "lint": "npm run generate && ng lint",
     "generate": "ng-openapi-gen --input ../instatonne.openapi.yml --output src/app/generated",
-    "build-image": "VERSION=$(npm version patch) && cd ../ && docker build -f instatonne-frontend/Dockerfile -t timgrohmann/it-app:$VERSION ."
+    "read-version": "cd ../ && echo $npm_package_version",
+    "image:build": "cd ../ && docker build -f instatonne-frontend/Dockerfile -t timgrohmann/it-app:$npm_package_version .",
+    "image:push": "docker push timgrohmann/it-app:$npm_package_version"
   },
   "private": true,
   "dependencies": {
