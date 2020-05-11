@@ -124,6 +124,11 @@ class UsersApiController(val userService: UserService) : UsersApi {
                 ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
 
 
-        return ResponseEntity.ok(this.userService.searchByUsername(searchTerm).map { x -> x.generateAPIVersion(currentUser) })
+        val byUsername = this.userService.searchByUsername(searchTerm)
+        val byAltName = this.userService.searchByAltName(searchTerm)
+
+        val both = byUsername.union(byAltName)
+
+        return ResponseEntity.ok(both.map { x -> x.generateAPIVersion(currentUser) })
     }
 }
