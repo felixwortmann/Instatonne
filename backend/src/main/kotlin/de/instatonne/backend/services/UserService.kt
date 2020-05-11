@@ -71,7 +71,18 @@ class UserService(
     }
 
     fun searchByUsername(username: String): List<User> {
-        val users = userRepository.findAllByUsernameContaining(username)
+        val users = userRepository.findAllByUsernameContainingIgnoreCase(username)
+        users.forEach {
+            Hibernate.initialize(it.followers)
+            Hibernate.initialize(it.following)
+            Hibernate.initialize(it.posts)
+        }
+
+        return users
+    }
+
+    fun searchByAltName(altName: String): List<User> {
+        val users = userRepository.findAllByAltNameContainingIgnoreCase(altName)
         users.forEach {
             Hibernate.initialize(it.followers)
             Hibernate.initialize(it.following)
@@ -87,7 +98,7 @@ class UserService(
     }
 
     fun getCurrentUser(): User? {
-        return (SecurityContextHolder.getContext().authentication as JwtAuthentication).principal
+        return (SecurityContextHolder.getContext().authentication as? JwtAuthentication)?.principal
     }
 
     fun getFollowing(username: String): List<User>? {
