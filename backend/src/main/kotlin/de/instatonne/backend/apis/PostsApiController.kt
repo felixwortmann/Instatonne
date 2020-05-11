@@ -25,12 +25,14 @@ class PostsApiController(
 ) : PostsApi {
 
     companion object {
-        val fileBasePath: String = "/var/tmp/instatonne/$"
+        const val fileBasePath: String = "/var/tmp/instatonne/$"
     }
 
 
     override fun getPosts(): ResponseEntity<List<PostApiModel>> {
-        val posts = this.postRepository.findAll().map(Post::generateAPIVersion)
+
+        val following: List<String> = this.userService.getFollowingIds(this.userService.getCurrentUser()!!.username)!!
+        val posts = this.postRepository.findAll().map(Post::generateAPIVersion).filter { postApiModel->following.contains(postApiModel.author) }
 
         return ResponseEntity.ok(posts)
     }
