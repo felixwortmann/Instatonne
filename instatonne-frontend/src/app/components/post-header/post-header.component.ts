@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Post } from 'src/app/generated/models';
+import {Component, Input, OnInit} from '@angular/core';
+import {Post} from 'src/app/generated/models';
+import {UsersService} from '../../generated/services/users.service';
+import {MatBottomSheet} from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-post-header',
@@ -7,9 +9,12 @@ import { Post } from 'src/app/generated/models';
   styleUrls: ['./post-header.component.scss']
 })
 export class PostHeaderComponent implements OnInit {
-  post: Post;
-  constructor() { }
+  @Input() post: Post;
+  constructor(
+
+  ) {
+  }
+
   ngOnInit(): void {
-    this.post = { author: 'My Name' };
   }
 }

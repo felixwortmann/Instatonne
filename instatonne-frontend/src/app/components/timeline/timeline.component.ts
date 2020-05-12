@@ -1,26 +1,26 @@
-import { Post, User } from '../../generated/models';
-import { UsersService } from '../../generated/services';
-import { AuthService } from '../../services/auth.service';
-import {EMPTY, Observable, ReplaySubject} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
 import {Component, OnInit} from '@angular/core';
+import {EMPTY, Observable, ReplaySubject} from 'rxjs';
+import {User} from '../../generated/models/user';
+import {Post} from '../../generated/models/post';
 import {switchMap} from 'rxjs/operators';
+import {UsersService} from '../../generated/services/users.service';
+import {AuthService} from '../../services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-timeline',
+  templateUrl: './timeline.component.html',
+  styleUrls: ['./timeline.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class TimelineComponent implements OnInit {
+
   user$ = new ReplaySubject<User>(1);
   posts$: Observable<Post[]>;
 
-  constructor(
-    private authService: AuthService,
-    private usersService: UsersService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {
+  constructor(private authService: AuthService,
+              private usersService: UsersService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class ProfileComponent implements OnInit {
       }
     })).subscribe(this.user$);
     this.posts$ = this.user$.pipe(switchMap(user => {
-      return this.usersService.getPostsByUserName({ username: user.username });
+      return this.usersService.getPostsByUserName({username: user.username});
     }));
   }
 

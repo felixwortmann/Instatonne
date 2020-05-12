@@ -33,9 +33,11 @@ import { ProfileSubscriptionsListItemComponent } from './components/profile/prof
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { MessagingComponent } from './components/messaging/messaging.component';
+import {PostComponent} from './components/post/post.component';
 import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -62,7 +64,9 @@ registerLocaleData(localeDE);
     ProfileEditComponent,
     SearchBarComponent,
     MessagingComponent,
-    CreateComponent
+    CreateComponent,
+    PostComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,
