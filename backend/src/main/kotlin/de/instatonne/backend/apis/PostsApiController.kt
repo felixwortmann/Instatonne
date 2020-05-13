@@ -35,8 +35,9 @@ class PostsApiController(
         return if (user == null) {
             ResponseEntity.notFound().build()
         } else {
-            val following = user.following
-            val posts: List<Post> = following.map(User::posts).flatten()
+            val following: List<User> = user.following.toList()
+            print("following: $following")
+            val posts: List<Post> = following.map { follower -> follower.posts }.flatten()
             ResponseEntity.ok(posts.map(Post::generateAPIVersion))
         }
     }

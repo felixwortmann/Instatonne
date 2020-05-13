@@ -53,6 +53,7 @@ class UsersApiController(val userService: UserService) : UsersApi {
 
     override fun getPostsByUserName(username: String): ResponseEntity<List<PostApiModel>> {
         val user = this.userService.findByUsername(username)
+        print("user: $user")
         return if (user == null) {
             ResponseEntity.notFound().build()
         } else {

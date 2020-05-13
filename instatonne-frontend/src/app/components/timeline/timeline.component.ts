@@ -6,6 +6,7 @@ import {switchMap} from 'rxjs/operators';
 import {UsersService} from '../../generated/services/users.service';
 import {AuthService} from '../../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {PostsService} from '../../generated/services/posts.service';
 
 @Component({
   selector: 'app-timeline',
@@ -20,28 +21,32 @@ export class TimelineComponent implements OnInit {
   constructor(private authService: AuthService,
               private usersService: UsersService,
               private activatedRoute: ActivatedRoute,
+              private postsService: PostsService,
               private router: Router) {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.pipe(switchMap(x => {
-      const username = x.get('username');
-      if (username === null) {
-        this.authService.getUser().subscribe(user => {
-          this.router.navigate(['/u/' + user.username]);
-        }, _ => {
-          // if the current user cannot be retrieved, then the user
-          // probably needs to register first. redirect to login page
-          this.router.navigate(['/login']);
-        });
-        return EMPTY;
-      } else {
-        return this.usersService.getUserByName({ username });
-      }
-    })).subscribe(this.user$);
-    this.posts$ = this.user$.pipe(switchMap(user => {
-      return this.usersService.getPostsByUserName({username: user.username});
-    }));
+    // console.log('init');
+    // this.activatedRoute.paramMap.pipe(switchMap(x => {
+    //   const username = x.get('username');
+    //   if (username === null) {
+    //     this.authService.getUser().subscribe(user => {
+    //       this.router.navigate(['/timeline']);
+    //     }, _ => {
+    //       // if the current user cannot be retrieved, then the user
+    //       // probably needs to register first. redirect to login page
+    //       this.router.navigate(['/login']);
+    //     });
+    //     return EMPTY;
+    //   } else {
+    //     return this.usersService.getUserByName({username});
+    //   }
+    // })).subscribe(this.user$);
+    // this.posts$ = this.user$.pipe(switchMap(user => {
+    //   return this.postsService.getPosts();
+    // }));
+    this.posts$ = this.postsService.getPosts();
+    // this.posts$.subscribe((a) => console.log('posts' + a));
   }
 
 }
