@@ -95,6 +95,14 @@ class UserService(
         return user.following.toList()
     }
 
+    fun getFollowingWithPosts(username: String): List<User>? {
+        val user = userRepository.findByUsername(username).toNullable() ?: return null
+        Hibernate.initialize(user.followers)
+        Hibernate.initialize(user.following)
+        Hibernate.initialize(user.posts)
+        return user.following.toList()
+    }
+
     fun getFollowingIds(username: String): List<String>? {
         val user = userRepository.findByUsername(username).toNullable() ?: return null
         return user.following.map { u->u.id }

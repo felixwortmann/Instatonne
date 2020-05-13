@@ -26,7 +26,7 @@ class PostsApiController(
 ) : PostsApi {
 
     companion object {
-        const val fileBasePath: String = "/var/tmp/instatonne/$"
+        const val fileBasePath: String = "C:\\Users\\user\\instatonne\\"
     }
 
 
@@ -35,8 +35,8 @@ class PostsApiController(
         return if (user == null) {
             ResponseEntity.notFound().build()
         } else {
-            val following: List<User> = user.following.toList()
-            print("following: $following")
+            val following: List<User> = userService.getFollowingWithPosts(user.username)
+                    ?: return ResponseEntity.notFound().build()
             val posts: List<Post> = following.map { follower -> follower.posts }.flatten()
             ResponseEntity.ok(posts.map(Post::generateAPIVersion))
         }
