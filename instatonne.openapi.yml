@@ -305,6 +305,21 @@ paths:
                 $ref: "#/components/schemas/User"
         "404":
           $ref: "#/components/responses/NotFound"
+  "/m":
+    get:
+      summary: Retrieves all conversations a user has.
+      operationId: getConversations
+      tags:
+        - messages
+      responses:
+        "200":
+          description: An array of conversations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Conversation"
   "/m/{username}":
     get:
       summary: Retrieves all messages in the conversation with {username}
@@ -431,6 +446,14 @@ components:
       properties:
         message:
           type: string
+    Conversation:
+      properties:
+        withUser:
+          $ref: "#/components/schemas/User"
+        lastMessage:
+          $ref: "#/components/schemas/Message"
+        unreadMessageCount:
+          type: integer
     Comment:
       properties:
         created:

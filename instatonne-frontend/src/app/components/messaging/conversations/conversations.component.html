@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="conversations" *ngIf="conversations$ | async as conversations">
+    <div class="conversation" *ngFor="let conversation of conversations"
+      [routerLink]="'/m/' + conversation.withUser.username">
+      <img class="profilepicture" [src]="conversation.withUser.profilePictureUrl">
+      <div>
+        <span class="name">{{conversation.withUser.altName || conversation.withUser.username}}</span>
+        <p>
+          <span class="time">{{conversation.lastMessage.timestamp | date:'shortTime'}}:</span>
+          <span class="last-message">{{conversation.lastMessage.message}}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

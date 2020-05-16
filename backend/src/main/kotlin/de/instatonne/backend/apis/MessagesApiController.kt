@@ -1,6 +1,7 @@
 package de.instatonne.backend.apis
 
 import de.instatonne.backend.generated.apis.MessagesApi
+import de.instatonne.backend.generated.models.ConversationApiModel
 import de.instatonne.backend.generated.models.MessageApiModel
 import de.instatonne.backend.generated.models.NewMessageApiModel
 import de.instatonne.backend.models.Message
@@ -19,7 +20,7 @@ class MessagesApiController(
         val currentUser = userService.getCurrentUser() ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
         val otherUser = userService.findByUsername(username) ?: return ResponseEntity.badRequest().build()
         val messages = this.messageService.getMessagesBetween(currentUser, otherUser)
-        
+
         return ResponseEntity.ok(messages.map(Message::generateAPIVersion))
     }
 
@@ -28,5 +29,18 @@ class MessagesApiController(
         val otherUser = userService.findByUsername(username) ?: return ResponseEntity.badRequest().build()
 
         return ResponseEntity.ok(messageService.createMessage(newMessageApiModel.message, currentUser, otherUser).generateAPIVersion())
+    }
+
+    override fun getConversations(): ResponseEntity<List<ConversationApiModel>> {
+        val currentUser = userService.getCurrentUser() ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+
+        val c = messageService.getConversationsIncluding(currentUser)
+
+        return ResponseEntity.ok(c.map {
+            ConversationApiModel()
+                    .withUser(it.withUser.generateAPIVersion(currentUser))
+                    .unreadMessageCount(it.messageCount.toInt())
+                    .lastMessage(messageService.getMostRecentMessageBetween(currentUser, it.withUser).generateAPIVersion())
+        }.sortedByDescending { it.lastMessage.timestamp })
     }
 }
