@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap, shareReplay, take } from 'rxjs/operators';
 import { UsersService, MessagesService } from 'src/app/generated/services';
 import { RxStomp } from '@stomp/rx-stomp';
-import { WebsocketService } from 'src/app/services/websocket.service';
+import { InstantMessagingService } from 'src/app/services/instant-messaging.service';
 
 @Component({
   selector: 'app-messaging',
@@ -23,7 +23,7 @@ export class MessagingComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private usersService: UsersService,
     private messagesService: MessagesService,
-    private websocketService: WebsocketService
+    private websocketService: InstantMessagingService
   ) { }
 
   ngOnInit(): void {
