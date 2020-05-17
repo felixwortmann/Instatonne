@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, EMPTY, BehaviorSubject, combineLatest, timer } from 'rxjs';
 import { User, Message } from 'src/app/generated/models';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap, shareReplay, take } from 'rxjs/operators';
+import { switchMap, shareReplay, take, first } from 'rxjs/operators';
 import { UsersService, MessagesService } from 'src/app/generated/services';
 import { RxStomp } from '@stomp/rx-stomp';
 import { InstantMessagingService } from 'src/app/services/instant-messaging.service';
@@ -33,6 +33,7 @@ export class MessagingComponent implements OnInit {
         if (username === null) {
           return EMPTY;
         } else {
+          this.websocketService.resetUnreadMessageCount(username);
           return this.usersService.getUserByName({ username });
         }
       }),
@@ -47,6 +48,11 @@ export class MessagingComponent implements OnInit {
       shareReplay(1)
     ).subscribe(m => {
       this.messages = m;
+      this.messages.forEach(msg => {
+        if (!msg.read) {
+          this.messagesService.readMessage({ id: msg.id }).pipe(take(1)).subscribe();
+        }
+      });
     });
 
     this.websocketService.messages().subscribe(m => {
