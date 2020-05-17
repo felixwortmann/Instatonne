@@ -1,5 +1,6 @@
 package de.instatonne.backend.websockets.messages
 
+import de.instatonne.backend.generated.models.MessageApiModel
 import de.instatonne.backend.generated.models.NewMessageApiModel
 import de.instatonne.backend.services.MessageService
 import de.instatonne.backend.services.UserService
@@ -17,12 +18,14 @@ class MessagesWSController(
 ) {
 
     @MessageMapping("/msg/{to}")
-    fun greeting(@DestinationVariable to: String, message: NewMessageApiModel) {
-        val currentUser = userService.getCurrentUser() ?: return
-        val otherUser = userService.findByUsername(to) ?: return
+    fun sendMessage(@DestinationVariable to: String, message: NewMessageApiModel): MessageApiModel? {
+        val currentUser = userService.getCurrentUser() ?: return null
+        val otherUser = userService.findByUsername(to) ?: return null
         val sentMsg = messageService.createMessage(message.message, currentUser, otherUser).generateAPIVersion()
 
         template.convertAndSendToUser(otherUser.id, "/queue/msg", sentMsg)
         template.convertAndSendToUser(currentUser.id, "/queue/msg", sentMsg)
+
+        return sentMsg
     }
 }

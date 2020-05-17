@@ -7,6 +7,7 @@ import de.instatonne.backend.generated.models.NewMessageApiModel
 import de.instatonne.backend.models.Message
 import de.instatonne.backend.services.MessageService
 import de.instatonne.backend.services.UserService
+import de.instatonne.backend.websockets.messages.MessagesWSController
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestController
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class MessagesApiController(
         val messageService: MessageService,
-        val userService: UserService
+        val userService: UserService,
+        val messagesWSController: MessagesWSController
 ) : MessagesApi {
     override fun getMessagesWithUser(username: String): ResponseEntity<List<MessageApiModel>> {
         val currentUser = userService.getCurrentUser() ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
@@ -25,10 +27,12 @@ class MessagesApiController(
     }
 
     override fun sendMessageToUser(username: String, newMessageApiModel: NewMessageApiModel): ResponseEntity<MessageApiModel> {
-        val currentUser = userService.getCurrentUser() ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
-        val otherUser = userService.findByUsername(username) ?: return ResponseEntity.badRequest().build()
-
-        return ResponseEntity.ok(messageService.createMessage(newMessageApiModel.message, currentUser, otherUser).generateAPIVersion())
+        val m = messagesWSController.sendMessage(username, newMessageApiModel)
+        return if (m == null) {
+            ResponseEntity.badRequest().build()
+        } else {
+            ResponseEntity.ok(m);
+        }
     }
 
     override fun getConversations(): ResponseEntity<List<ConversationApiModel>> {
@@ -42,5 +46,10 @@ class MessagesApiController(
                     .unreadMessageCount(it.messageCount.toInt())
                     .lastMessage(messageService.getMostRecentMessageBetween(currentUser, it.withUser).generateAPIVersion())
         }.sortedByDescending { it.lastMessage.timestamp })
+    }
+
+    override fun readMessage(id: String): ResponseEntity<MessageApiModel> {
+        val message = messageService.markMessageAsRead(id) ?: return ResponseEntity.badRequest().build()
+        return ResponseEntity.ok(message.generateAPIVersion())
     }
 }

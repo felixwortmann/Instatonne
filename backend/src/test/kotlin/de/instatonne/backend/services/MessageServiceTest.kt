@@ -36,4 +36,21 @@ class MessageServiceTest @Autowired constructor(
         assertThat(con.messageCount).isEqualTo(4)
         assertThat(con.withUser).isEqualTo(u2)
     }
+
+    @Test
+    fun testReadMessageCount() {
+        val u1 = userService.createUser("1", "1")
+        val u2 = userService.createUser("2", "2")
+        messageService.createMessage("Lorem ipsum", u1, u2)
+        messageService.createMessage("dolor sed", u2, u1)
+        val m = messageService.createMessage("amed hoc", u1, u2)
+
+        messageService.markMessageAsRead(m.id)
+
+        val c = messageService.getConversationsIncluding(u1)
+
+        assertThat(c).hasSize(1)
+        val con = c[0]
+        assertThat(con.unreadMessageCount).isEqualTo(3)
+    }
 }

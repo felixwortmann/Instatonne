@@ -1,6 +1,7 @@
 package de.instatonne.backend.services
 
 import de.instatonne.backend.core.repositories.MessageRepository
+import de.instatonne.backend.core.toNullable
 import de.instatonne.backend.models.Conversation
 import de.instatonne.backend.models.Message
 import de.instatonne.backend.models.User
@@ -29,7 +30,7 @@ class MessageService(val messageRepository: MessageRepository) {
 
         val conversations = total.map {
             val item = it as Array<*>
-            Conversation(item[0] as Long, item[1] as User)
+            Conversation(item[0] as Long, item[1] as Long, item[2] as User)
         }
 
         return conversations.groupingBy { it.withUser }.aggregate { _, accumulator: Conversation?, element, _ ->
@@ -37,13 +38,20 @@ class MessageService(val messageRepository: MessageRepository) {
                 element
             } else {
                 accumulator.messageCount += element.messageCount
+                accumulator.unreadMessageCount += element.unreadMessageCount
                 accumulator
             }
         }.values.toList().filterNotNull()
     }
 
     fun createMessage(text: String, from: User, to: User): Message {
-        val message = Message("", text, OffsetDateTime.now(), from, to)
+        val message = Message("", text, OffsetDateTime.now(), false, from, to)
+        return messageRepository.save(message)
+    }
+
+    fun markMessageAsRead(id: String): Message? {
+        val message = messageRepository.findById(id).toNullable() ?: return null
+        message.read = true
         return messageRepository.save(message)
     }
 }

@@ -320,6 +320,26 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Conversation"
+  "/m/{id}/r":
+    put:
+      summary: Marks a message as read.
+      operationId: readMessage
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The message id.
+      tags:
+        - messages
+      responses:
+        "200":
+          description: The modified message.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
   "/m/{username}":
     get:
       summary: Retrieves all messages in the conversation with {username}
@@ -442,6 +462,9 @@ components:
         receiver:
           type: string
           description: The recipient's username.
+        read:
+          type: boolean
+          description: If the message has been read by the receiver or not.
     NewMessage:
       properties:
         message:
