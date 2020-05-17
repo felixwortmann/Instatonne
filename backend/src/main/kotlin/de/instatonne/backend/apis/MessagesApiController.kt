@@ -43,7 +43,7 @@ class MessagesApiController(
         return ResponseEntity.ok(c.map {
             ConversationApiModel()
                     .withUser(it.withUser.generateAPIVersion(currentUser))
-                    .unreadMessageCount(it.messageCount.toInt())
+                    .unreadMessageCount(it.unreadMessageCount.toInt())
                     .lastMessage(messageService.getMostRecentMessageBetween(currentUser, it.withUser).generateAPIVersion())
         }.sortedByDescending { it.lastMessage.timestamp })
     }

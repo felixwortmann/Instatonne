@@ -51,6 +51,6 @@ class MessageServiceTest @Autowired constructor(
 
         assertThat(c).hasSize(1)
         val con = c[0]
-        assertThat(con.unreadMessageCount).isEqualTo(3)
+        assertThat(con.unreadMessageCount).isEqualTo(2)
     }
 }
