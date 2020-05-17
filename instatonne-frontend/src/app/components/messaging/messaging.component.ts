@@ -47,7 +47,7 @@ export class MessagingComponent implements OnInit {
       }),
       shareReplay(1)
     ).subscribe(m => {
-      this.messages = m;
+      this.messages.push(...m);
       this.messages.forEach(msg => {
         if (!msg.read) {
           this.messagesService.readMessage({ id: msg.id }).pipe(take(1)).subscribe();
