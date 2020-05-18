@@ -1,5 +1,3 @@
 <div class="container" *ngFor="let post of posts$ | async">
-  <mat-card id="timeline-tile">
-    <app-post [post] = post></app-post>
-  </mat-card>
+  <app-post [post] = post></app-post>
 </div>

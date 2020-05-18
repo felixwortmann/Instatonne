@@ -1,8 +1,8 @@
 <div *ngIf="(author$ | async) as author">
-  <div [routerLink]="['/u/' + author.username]">
+  <div id="header-component" [routerLink]="['/u/' + author.username]">
     <img [src]="author.profilePictureUrl">
     <p>{{this.post.author}}</p>
     <p class="fill-remaining-space"></p>
-    <p>{{(this.post.created | date)}}</p>
+    <p id="date-time">{{(this.post.created | date)}}</p>
   </div>
 </div>
