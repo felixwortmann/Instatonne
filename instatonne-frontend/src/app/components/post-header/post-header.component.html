@@ -1,5 +1,5 @@
 <div *ngIf="(author$ | async) as author">
-  <div>
+  <div [routerLink]="['/u/' + author.username]">
     <img [src]="author.profilePictureUrl">
     <p>{{this.post.author}}</p>
     <p class="fill-remaining-space"></p>
