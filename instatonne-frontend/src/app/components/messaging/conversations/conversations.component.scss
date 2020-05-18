@@ -30,6 +30,9 @@
       font-size: 0.8em;
       margin-right: 5px;
     }
+    .last-message.not-read {
+      font-weight: 500;
+    }
   }
 
   .unread {
@@ -37,12 +40,13 @@
     min-width: 30px;
     height: 30px;
     line-height: 27px;
+    font-size: 18px;
     text-align: center;
     padding: 0 5px;
     margin: 0 10px;
     border: 2px solid var(--accent-color);
     color: var(--accent-color);
-    font-weight: bold;
+    font-weight: 900;
     border-radius: 15px;
   }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 class WebSocketConfiguration(private val webSocketInterceptor: WebSocketInterceptor) : WebSocketMessageBrokerConfigurer {
     override fun configureMessageBroker(config: MessageBrokerRegistry) {
-        config.enableSimpleBroker("/topic", "/queue/msg")
+        config.enableSimpleBroker("/topic", "/queue/msg", "/queue/read")
         config.setApplicationDestinationPrefixes("/app")
         config.setUserDestinationPrefix("/user")
     }

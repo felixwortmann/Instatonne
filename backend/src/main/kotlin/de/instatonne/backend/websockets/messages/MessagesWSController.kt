@@ -28,4 +28,18 @@ class MessagesWSController(
 
         return sentMsg
     }
+
+    @MessageMapping("/msg/{id}/r")
+    fun readMessage(@DestinationVariable id: String): MessageApiModel? {
+        val currentUser = userService.getCurrentUser() ?: return null
+        val msg = messageService.getMessageById(id) ?: return null
+        if (msg.receiver.id != currentUser.id) return null
+
+        val readMessage = messageService.markMessageAsRead(id)?.generateAPIVersion() ?: return null
+
+        template.convertAndSendToUser(msg.author.id, "/queue/read", readMessage)
+        template.convertAndSendToUser(currentUser.id, "/queue/read", readMessage)
+
+        return readMessage
+    }
 }

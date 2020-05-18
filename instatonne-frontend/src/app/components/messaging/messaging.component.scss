@@ -44,12 +44,22 @@ $grey: #cecece;
     padding: 10px 20px;
     border: 1px solid $grey;
     border-radius: 20px;
+  }
+  .message-wrap {
     align-self: flex-start;
+    display: flex;
     margin-bottom: 8px;
-    &.sent {
-      border: none;
-      background-color: #e5e5ea;
+    mat-icon {
+      transform: scale(0.8);
+      color: #cecece;
       align-self: flex-end;
+    }
+    &.sent {
+      align-self: flex-end;
+      .message {
+        background-color: #e5e5ea;
+        border: none;
+      }
     }
   }
 }

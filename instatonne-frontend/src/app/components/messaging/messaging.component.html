@@ -10,8 +10,11 @@
         <div class="timestamp" *ngIf="timestamp(i)">
           {{ message.timestamp | date:'medium'}}
         </div>
-        <div class="message" [class.sent]="message.receiver === user.username">
-          {{ message.message }}
+        <div class="message-wrap" [class.sent]="message.receiver === user.username">
+          <mat-icon *ngIf="message.receiver === user.username && message.read">done</mat-icon>
+          <div class="message">
+            {{ message.message }}
+          </div>
         </div>
       </ng-template>
     </div>

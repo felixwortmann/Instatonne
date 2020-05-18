@@ -15,6 +15,7 @@ export class InstantMessagingService {
   private stomp = new RxStomp();
 
   private newMessage$: Observable<Message>;
+  private readMessage$: Observable<Message>;
   private unreadMessageCountMap = new Map<string, number>();
   private unreadMessageCount$ = new Subject<null>();
 
@@ -33,6 +34,13 @@ export class InstantMessagingService {
     });
 
     this.newMessage$ = this.stomp.watch('/user/queue/msg').pipe(
+      map(m => {
+        return JSON.parse(m.body) as Message;
+      }),
+      share()
+    );
+
+    this.readMessage$ = this.stomp.watch('/user/queue/read').pipe(
       map(m => {
         return JSON.parse(m.body) as Message;
       }),
@@ -62,6 +70,10 @@ export class InstantMessagingService {
 
   messages(): Observable<Message> {
     return this.newMessage$;
+  }
+
+  getReadMessage(): Observable<Message> {
+    return this.readMessage$;
   }
 
   getTotalNewMessageCount(): Observable<number> {

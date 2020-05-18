@@ -63,9 +63,17 @@ export class MessagingComponent implements OnInit, OnDestroy {
       this.subscriptions.add(this.websocketService.messages().pipe(
         filter(m => m.author === user.username || m.receiver === user.username)
       ).subscribe(m => {
+        console.log(m.id);
         this.messages.push(m);
         this.websocketService.resetUnreadMessageCount(m.author);
-        this.messagesService.readMessage({ id: m.id }).subscribe();
+        if (m.author === user.username) {
+          this.messagesService.readMessage({ id: m.id }).subscribe();
+        }
+      }));
+      this.subscriptions.add(this.websocketService.getReadMessage().pipe(
+        filter(m => m.author === user.username || m.receiver === user.username)
+      ).subscribe(m => {
+        this.messages.find(val => val.id === m.id).read = m.read;
       }));
     });
 

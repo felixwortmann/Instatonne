@@ -49,7 +49,11 @@ class MessagesApiController(
     }
 
     override fun readMessage(id: String): ResponseEntity<MessageApiModel> {
-        val message = messageService.markMessageAsRead(id) ?: return ResponseEntity.badRequest().build()
-        return ResponseEntity.ok(message.generateAPIVersion())
+        val m = messagesWSController.readMessage(id)
+        return if (m == null) {
+            ResponseEntity.badRequest().build()
+        } else {
+            ResponseEntity.ok(m);
+        }
     }
 }

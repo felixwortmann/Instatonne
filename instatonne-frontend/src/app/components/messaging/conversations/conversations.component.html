@@ -7,7 +7,8 @@
         <span class="name">{{conversation.withUser.altName || conversation.withUser.username}}</span>
         <p>
           <span class="time">{{conversation.lastMessage.timestamp | date:'shortTime'}}:</span>
-          <span class="last-message">{{conversation.lastMessage.message}}</span>
+          <span class="last-message"
+            [class.not-read]="!conversation.lastMessage.read">{{conversation.lastMessage.message}}</span>
         </p>
       </div>
       <div class="unread" *ngIf="conversation.unreadMessageCount > 0">

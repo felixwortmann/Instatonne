@@ -49,6 +49,10 @@ class MessageService(val messageRepository: MessageRepository) {
         return messageRepository.save(message)
     }
 
+    fun getMessageById(id: String): Message? {
+        return messageRepository.findById(id).toNullable()
+    }
+
     fun markMessageAsRead(id: String): Message? {
         val message = messageRepository.findById(id).toNullable() ?: return null
         message.read = true
