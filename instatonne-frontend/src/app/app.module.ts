@@ -38,8 +38,15 @@ import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { CommentSectionComponent } from './components/comment-section/comment-section.component';
+import { AuthorCommentComponent } from './components/author-comment/author-comment.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
-export const API_INTERCEPTOR_PROVIDER: Provider = {
+export const API_INTERCEPTOR_PROVIDER
+
+
+: Provider = {
   provide: HTTP_INTERCEPTORS,
   useExisting: forwardRef(() => ApiInterceptor),
   multi: true
@@ -66,7 +73,10 @@ registerLocaleData(localeDE);
     MessagingComponent,
     CreateComponent,
     PostComponent,
-    TimelineComponent
+    TimelineComponent,
+    CommentComponent,
+    CommentSectionComponent,
+    AuthorCommentComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +97,8 @@ registerLocaleData(localeDE);
     MatTabsModule,
     HttpClientModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
-    AlifeFileToBase64Module
+    AlifeFileToBase64Module,
+    MatFormFieldModule,
   ],
   providers: [
     ApiInterceptor,
@@ -96,4 +107,5 @@ registerLocaleData(localeDE);
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

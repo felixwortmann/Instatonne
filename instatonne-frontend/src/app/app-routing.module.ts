@@ -12,20 +12,23 @@ import {TimelineComponent} from './components/timeline/timeline.component';
 
 
 const routes: Routes = [
-  {path: 'image', component: ImageComponent},
   {path: 'create', component: CreateComponent},
   {path: 'u', component: ProfileComponent},
-  {path: 'login', component: LoginComponent},
   {path: 'u/:username', component: ProfileComponent},
   {path: 'u/:username/f', component: ProfileSubscriptionsComponent},
   {path: 'editProfile', component: ProfileEditComponent},
   {path: 'm/:username', component: MessagingComponent},
-  {path: 'timeline', component: TimelineComponent}
+  {path: 'timeline', component: TimelineComponent},
+  { path: 'image', component: ImageComponent },
+  { path: 'post', component: PostComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
   imports: [HttpClientModule, RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {
 }
