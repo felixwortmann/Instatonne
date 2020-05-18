@@ -7,5 +7,6 @@ import java.util.*
 interface UserRepository : CrudRepository<User, String> {
     fun existsByUsername(username: String): Boolean
     fun findByUsername(username: String): Optional<User>
-    fun findAllByUsernameContaining(username: String): List<User>
+    fun findAllByUsernameContainingIgnoreCase(username: String): List<User>
+    fun findAllByAltNameContainingIgnoreCase(altName: String): List<User>
 }

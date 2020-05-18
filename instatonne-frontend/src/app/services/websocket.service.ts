@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { take, filter, map, switchMap } from 'rxjs/operators';
 import { NewMessage, Message } from '../generated/models';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class WebsocketService {
   ) {
     authService.getToken().pipe(take(1)).subscribe(token => {
       this.stomp.configure({
-        brokerURL: 'ws://localhost:8080/ws-stomp',
+        brokerURL: environment.websocketEndpoint,
         connectHeaders: {
           passcode: token
         }
