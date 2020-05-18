@@ -7,24 +7,13 @@ import {Comment} from 'src/app/generated/models';
   styleUrls: ['./comment-section.component.scss']
 })
 export class CommentSectionComponent implements OnInit {
-  comments: Comment[];
+
+  @Input() comments: Comment[];
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.comments = [
-      {
-        author: 'Hendrik',
-        created: '2019-01-01',
-        comment: 'Krasses Bild am Start123'
-      },
-      {
-        author: 'Hendrik',
-        created: '2019-01-01',
-        comment: 'Krasses Bild am Start123'
-      }
-    ];
   }
 
 }
