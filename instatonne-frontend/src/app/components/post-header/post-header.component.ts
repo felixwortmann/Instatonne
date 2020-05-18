@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Post, User} from 'src/app/generated/models';
-import {UsersService} from '../../generated/services/users.service';
-import {Observable} from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
+import { Post, User } from 'src/app/generated/models';
+import { UsersService } from '../../generated/services/users.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-post-header',
@@ -17,6 +17,6 @@ export class PostHeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.author$ = this.usersService.getUserByName({username: this.post.author});
+    this.author$ = this.usersService.getUserByName({ username: this.post.author });
   }
 }

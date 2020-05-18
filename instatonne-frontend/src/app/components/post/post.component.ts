@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Post} from '../../generated/models';
+import { Component, Input, OnInit } from '@angular/core';
+import { Post } from '../../generated/models';
 
 @Component({
   selector: 'app-post',
