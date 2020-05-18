@@ -42,6 +42,7 @@ import { CommentComponent } from './components/comment/comment.component';
 import { CommentSectionComponent } from './components/comment-section/comment-section.component';
 import { AuthorCommentComponent } from './components/author-comment/author-comment.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTableModule} from '@angular/material/table';
 
 export const API_INTERCEPTOR_PROVIDER
 
@@ -99,7 +100,8 @@ registerLocaleData(localeDE);
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     AlifeFileToBase64Module,
     MatFormFieldModule,
-  ],
+    MatTableModule
+    ],
   providers: [
     ApiInterceptor,
     API_INTERCEPTOR_PROVIDER,

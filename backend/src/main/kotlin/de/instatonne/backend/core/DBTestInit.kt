@@ -53,6 +53,7 @@ class StartupListener(val postService: PostService, val userService: UserService
         userService.follow(a, d)
         userService.follow(c, d)
         userService.follow(dev, d)
+        userService.follow(dev, a)
 
         val devR = dev
         devR.profileDescription = "Profilbeschreibung | Steckbrief | ganz viele tolle Infos"

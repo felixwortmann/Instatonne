@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:8080'
+  apiUrl: 'https://it-api.timgrohmann.de',
+  websocketEndpoint: 'wss://it-api.timgrohmann.de/ws-stomp'
 };

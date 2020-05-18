@@ -26,7 +26,7 @@ class PostsApiController(
 ) : PostsApi {
 
     companion object {
-        const val fileBasePath: String = "C:\\Users\\user\\instatonne\\"
+        const val fileBasePath: String = "/var/tmp/instatonne/$"
     }
 
 
