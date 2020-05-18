@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Post} from 'src/app/generated/models';
+import {Post, User} from 'src/app/generated/models';
 import {UsersService} from '../../generated/services/users.service';
-import {MatBottomSheet} from '@angular/material/bottom-sheet';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-post-header',
@@ -10,11 +10,13 @@ import {MatBottomSheet} from '@angular/material/bottom-sheet';
 })
 export class PostHeaderComponent implements OnInit {
   @Input() post: Post;
+  author$: Observable<User>;
   constructor(
-
+    private usersService: UsersService,
   ) {
   }
 
   ngOnInit(): void {
+    this.author$ = this.usersService.getUserByName({username: this.post.author});
   }
 }

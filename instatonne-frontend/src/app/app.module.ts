@@ -38,6 +38,7 @@ import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import {MatTableModule} from '@angular/material/table';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -68,27 +69,28 @@ registerLocaleData(localeDE);
     PostComponent,
     TimelineComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatListModule,
-    MatBottomSheetModule,
-    MatToolbarModule,
-    MatBadgeModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDividerModule,
-    MatIconModule,
-    MatGridListModule,
-    MatInputModule,
-    MatTabsModule,
-    HttpClientModule,
-    ApiModule.forRoot({ rootUrl: environment.apiUrl }),
-    AlifeFileToBase64Module
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatListModule,
+        MatBottomSheetModule,
+        MatToolbarModule,
+        MatBadgeModule,
+        MatButtonModule,
+        MatCardModule,
+        MatDividerModule,
+        MatIconModule,
+        MatGridListModule,
+        MatInputModule,
+        MatTabsModule,
+        HttpClientModule,
+        ApiModule.forRoot({rootUrl: environment.apiUrl}),
+        AlifeFileToBase64Module,
+        MatTableModule
+    ],
   providers: [
     ApiInterceptor,
     API_INTERCEPTOR_PROVIDER,

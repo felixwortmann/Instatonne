@@ -32,7 +32,7 @@ data class Post(
                 .created(created)
                 .imageUrl(imageUrl)
                 .id(id)
-                .author(author.id)
+                .author(author.username)
                 .comments(comments.map(Comment::generateAPIVersion))
     }
 }
