@@ -20,7 +20,8 @@ const routes: Routes = [
   { path: 'u/:username/f', component: ProfileSubscriptionsComponent },
   { path: 'editProfile', component: ProfileEditComponent },
   { path: 'm/:username', component: MessagingComponent },
-  { path: 'timeline', component: TimelineComponent }
+  { path: 'timeline', component: TimelineComponent },
+  { path: '', component: TimelineComponent }
 ];
 
 @NgModule({
