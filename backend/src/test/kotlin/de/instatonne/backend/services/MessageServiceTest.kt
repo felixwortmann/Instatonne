@@ -3,7 +3,6 @@ package de.instatonne.backend.services
 import de.instatonne.backend.core.repositories.MessageRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
@@ -15,9 +14,7 @@ class MessageServiceTest @Autowired constructor(
         val userService: UserService,
         val messageRepository: MessageRepository
 ) {
-
-    val log = LoggerFactory.getLogger(MessageServiceTest::class.java)
-
+    
     @Test
     fun test() {
         val u1 = userService.createUser("1", "1")
