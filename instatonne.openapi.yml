@@ -66,6 +66,50 @@ paths:
                 $ref: "#/components/schemas/Post"
         "404":
           $ref: "#/components/responses/NotFound"
+  "/p/{postId}/c":
+    get:
+      summary: Returns all comments under a given post.
+      operationId: getPostComments
+      tags:
+        - posts
+        - comments
+      parameters:
+        - in: path
+          name: postId
+          schema:
+            type: string
+          required: true
+          description: The post id in uuid format
+      responses:
+        "200":
+          description: Successfully retrieved post comments.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Comment"
+
+    post:
+      summary: Author comment under post.
+      operationId: authorComment
+      tags:
+        - posts
+        - comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewComment"
+      responses:
+        "200":
+          description: Successfully authored comment.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Comment"
+
   "/p/{postId}/i.jpg":
     get:
       summary: Returns the image of a post.
@@ -430,6 +474,10 @@ components:
     NewMessage:
       properties:
         message:
+          type: string
+    NewComment:
+      properties:
+        comment:
           type: string
     Comment:
       properties:
