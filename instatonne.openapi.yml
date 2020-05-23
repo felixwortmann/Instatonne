@@ -27,7 +27,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Post"
     post:
-      summary: Create a new.
+      summary: Create a new Post.
       operationId: createPost
       tags:
         - posts
