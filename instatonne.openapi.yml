@@ -305,6 +305,41 @@ paths:
                 $ref: "#/components/schemas/User"
         "404":
           $ref: "#/components/responses/NotFound"
+  "/m":
+    get:
+      summary: Retrieves all conversations a user has.
+      operationId: getConversations
+      tags:
+        - messages
+      responses:
+        "200":
+          description: An array of conversations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Conversation"
+  "/m/{id}/r":
+    put:
+      summary: Marks a message as read.
+      operationId: readMessage
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The message id.
+      tags:
+        - messages
+      responses:
+        "200":
+          description: The modified message.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
   "/m/{username}":
     get:
       summary: Retrieves all messages in the conversation with {username}
@@ -427,10 +462,21 @@ components:
         receiver:
           type: string
           description: The recipient's username.
+        read:
+          type: boolean
+          description: If the message has been read by the receiver or not.
     NewMessage:
       properties:
         message:
           type: string
+    Conversation:
+      properties:
+        withUser:
+          $ref: "#/components/schemas/User"
+        lastMessage:
+          $ref: "#/components/schemas/Message"
+        unreadMessageCount:
+          type: integer
     Comment:
       properties:
         created:

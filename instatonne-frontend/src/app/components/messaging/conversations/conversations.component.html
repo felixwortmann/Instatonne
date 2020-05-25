@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="conversations" *ngIf="conversations$ | async as conversations">
+    <div class="conversation" *ngFor="let conversation of conversations; trackBy: trackConv"
+      [routerLink]="'/m/' + conversation.withUser.username">
+      <img class="profilepicture" [src]="conversation.withUser.profilePictureUrl">
+      <div class="content">
+        <span class="name">{{conversation.withUser.altName || conversation.withUser.username}}</span>
+        <div>
+          <div class="time">{{conversation.lastMessage.timestamp | date:'shortTime'}}:</div>
+          <div class="last-message" [class.not-read]="!conversation.lastMessage.read">
+            {{conversation.lastMessage.message}}</div>
+        </div>
+      </div>
+      <div class="unread" *ngIf="conversation.unreadMessageCount > 0">
+        {{ conversation.unreadMessageCount }}
+      </div>
+    </div>
+  </div>
+</div>

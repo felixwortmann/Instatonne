@@ -8,7 +8,10 @@
       </h1>
     </div>
     <app-search-bar></app-search-bar>
-    <mat-icon routerLink="/u">person</mat-icon>
+    <div class="icons">
+      <mat-icon routerLink="/u">person</mat-icon>
+      <mat-icon routerLink="/m" [matBadge]="newMessages$ | async">mail</mat-icon>
+    </div>
   </div>
 </nav>
 <router-outlet></router-outlet>

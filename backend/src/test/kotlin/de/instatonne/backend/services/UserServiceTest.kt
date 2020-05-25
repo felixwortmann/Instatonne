@@ -67,4 +67,15 @@ class UserServiceTest @Autowired constructor(
         userService.createUser("*1", "*first-user")
         assertThatThrownBy { userService.createUser("*2", "*first-user") }.hasMessageContaining("username")
     }
+
+    @Test
+    fun searchIsCaseInsensitive() {
+        val username = userService.createUser("*1", "username")
+
+        assertThat(userService.searchByUsername("Username")).contains(username)
+        assertThat(userService.searchByUsername("uSerNAme")).contains(username)
+        assertThat(userService.searchByUsername("username")).contains(username)
+
+        assertThat(userService.searchByUsername("cake")).doesNotContain(username)
+    }
 }
