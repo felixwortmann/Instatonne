@@ -3,6 +3,8 @@ package de.instatonne.backend.apis
 import de.instatonne.backend.core.repositories.PostRepository
 import de.instatonne.backend.core.toNullable
 import de.instatonne.backend.generated.apis.PostsApi
+import de.instatonne.backend.generated.models.CommentApiModel
+import de.instatonne.backend.generated.models.NewCommentApiModel
 import de.instatonne.backend.generated.models.NewPostApiModel
 import de.instatonne.backend.generated.models.PostApiModel
 import de.instatonne.backend.models.Post
@@ -63,4 +65,26 @@ class PostsApiController(
         val resource = FileSystemResource(filePath)
         return ResponseEntity.ok(resource)
     }
+
+    override fun getPostComments(postId: String): ResponseEntity<MutableList<CommentApiModel>> {
+        return ResponseEntity.notFound().build()
+        /*
+        val post = this.postRepository.findById(postId).toNullable()
+        return if (post == null) {
+            ResponseEntity.notFound().build()
+        } else {
+            ResponseEntity.notFound().build()
+        }*/
+}
+
+override fun authorComment(postId: String, newCommentApiModel: NewCommentApiModel?): ResponseEntity<CommentApiModel> {
+return ResponseEntity.notFound().build()
+/*
+val post = this.postRepository.findById(postId).toNullable()
+return if (post == null) {
+    ResponseEntity.notFound().build()
+} else {
+    ResponseEntity.notFound().build()
+}*/
+}
 }
