@@ -36,6 +36,7 @@ import { MessagingComponent } from './components/messaging/messaging.component';
 import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
+import { ConversationsComponent } from './components/messaging/conversations/conversations.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -62,7 +63,8 @@ registerLocaleData(localeDE);
     ProfileEditComponent,
     SearchBarComponent,
     MessagingComponent,
-    CreateComponent
+    CreateComponent,
+    ConversationsComponent
   ],
   imports: [
     BrowserModule,

@@ -35,6 +35,7 @@ $grey: #cecece;
 .messages {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   .timestamp {
     align-self: center;
     color: $grey;
@@ -44,12 +45,24 @@ $grey: #cecece;
     padding: 10px 20px;
     border: 1px solid $grey;
     border-radius: 20px;
+    // flex-shrink: 0;
+  }
+  .message-wrap {
     align-self: flex-start;
-    margin-bottom: 8px;
-    &.sent {
-      border: none;
-      background-color: #e5e5ea;
+    display: flex;
+    padding-bottom: 8px;
+    max-width: 80%;
+    mat-icon {
+      transform: scale(0.8);
+      color: #cecece;
       align-self: flex-end;
+    }
+    &.sent {
+      align-self: flex-end;
+      .message {
+        background-color: #e5e5ea;
+        border: none;
+      }
     }
   }
 }
