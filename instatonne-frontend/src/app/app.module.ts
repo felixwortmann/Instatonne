@@ -39,6 +39,7 @@ import localeDE from '@angular/common/locales/de';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { MatTableModule } from '@angular/material/table';
+import { ConversationsComponent } from './components/messaging/conversations/conversations.component';
 
 export const API_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -67,7 +68,8 @@ registerLocaleData(localeDE);
     MessagingComponent,
     CreateComponent,
     PostComponent,
-    TimelineComponent
+    TimelineComponent,
+    ConversationsComponent
   ],
   imports: [
     BrowserModule,
