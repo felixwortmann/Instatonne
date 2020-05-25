@@ -9,6 +9,7 @@ import { ProfileSubscriptionsComponent } from './components/profile/profile-subs
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 import { MessagingComponent } from './components/messaging/messaging.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { ConversationsComponent } from './components/messaging/conversations/conversations.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'u/:username', component: ProfileComponent },
   { path: 'u/:username/f', component: ProfileSubscriptionsComponent },
   { path: 'editProfile', component: ProfileEditComponent },
+  { path: 'm', component: ConversationsComponent },
   { path: 'm/:username', component: MessagingComponent },
   { path: 'timeline', component: TimelineComponent },
   { path: '', component: TimelineComponent }

@@ -19,6 +19,9 @@ data class Message(
         @Column(nullable = false)
         var created: OffsetDateTime = OffsetDateTime.now(),
 
+        @Column(nullable = false)
+        var read: Boolean = false,
+
         @ManyToOne
         var author: User = User(),
 
@@ -32,6 +35,7 @@ data class Message(
                 .timestamp(created)
                 .author(author.username)
                 .receiver(receiver.username)
+                .read(read)
     }
 
 
