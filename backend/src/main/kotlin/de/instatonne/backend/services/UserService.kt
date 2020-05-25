@@ -100,5 +100,10 @@ class UserService(
         return user.following.map { u->u.id }
     }
 
+    fun getFollowing(username: String): List<User>? {
+        val user = userRepository.findByUsername(username).toNullable() ?: return null
+        return user.following.map {u -> u }
+    }
+
 
 }
