@@ -6,6 +6,7 @@ import de.instatonne.backend.generated.apis.PostsApi
 import de.instatonne.backend.generated.models.NewPostApiModel
 import de.instatonne.backend.generated.models.PostApiModel
 import de.instatonne.backend.models.Post
+import de.instatonne.backend.models.User
 import de.instatonne.backend.services.PostService
 import de.instatonne.backend.services.UserService
 import org.springframework.core.io.FileSystemResource
@@ -25,14 +26,20 @@ class PostsApiController(
 ) : PostsApi {
 
     companion object {
-        val fileBasePath: String = "/var/tmp/instatonne/$"
+        const val fileBasePath: String = "/var/tmp/instatonne/$"
     }
 
 
     override fun getPosts(): ResponseEntity<List<PostApiModel>> {
-        val posts = this.postRepository.findAll().map(Post::generateAPIVersion)
-
-        return ResponseEntity.ok(posts)
+        val user = userService.getCurrentUser()
+        return if (user == null) {
+            ResponseEntity.notFound().build()
+        } else {
+            val following: List<User> = userService.getFollowingWithPosts(user.username)
+                    ?: return ResponseEntity.notFound().build()
+            val posts: List<Post> = following.map { follower -> follower.posts }.flatten()
+            ResponseEntity.ok(posts.map(Post::generateAPIVersion))
+        }
     }
 
     override fun getPostById(postId: String): ResponseEntity<PostApiModel> {

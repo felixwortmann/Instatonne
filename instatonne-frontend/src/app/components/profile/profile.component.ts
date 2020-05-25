@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
 import { Post, User } from '../../generated/models';
 import { UsersService } from '../../generated/services';
 import { AuthService } from '../../services/auth.service';
-import { Observable, of, ReplaySubject, EMPTY } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { EMPTY, Observable, ReplaySubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',

@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileSubscriptionsComponent } from './components/profile/profile-subscriptions/profile-subscriptions.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 import { MessagingComponent } from './components/messaging/messaging.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 import { ConversationsComponent } from './components/messaging/conversations/conversations.component';
 
 
@@ -21,6 +22,8 @@ const routes: Routes = [
   { path: 'editProfile', component: ProfileEditComponent },
   { path: 'm', component: ConversationsComponent },
   { path: 'm/:username', component: MessagingComponent },
+  { path: 'timeline', component: TimelineComponent },
+  { path: '', component: TimelineComponent }
 ];
 
 @NgModule({
