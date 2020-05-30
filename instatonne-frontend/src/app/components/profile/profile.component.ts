@@ -1,10 +1,10 @@
-import {Post, User} from '../../generated/models';
-import {UsersService} from '../../generated/services';
-import {AuthService} from '../../services/auth.service';
-import {EMPTY, Observable, ReplaySubject} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Component, OnInit} from '@angular/core';
-import {switchMap} from 'rxjs/operators';
+import { Post, User } from '../../generated/models';
+import { UsersService } from '../../generated/services';
+import { AuthService } from '../../services/auth.service';
+import { EMPTY, Observable, ReplaySubject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -36,11 +36,11 @@ export class ProfileComponent implements OnInit {
         });
         return EMPTY;
       } else {
-        return this.usersService.getUserByName({username});
+        return this.usersService.getUserByName({ username });
       }
     })).subscribe(this.user$);
     this.posts$ = this.user$.pipe(switchMap(user => {
-      return this.usersService.getPostsByUserName({username: user.username});
+      return this.usersService.getPostsByUserName({ username: user.username });
     }));
   }
 

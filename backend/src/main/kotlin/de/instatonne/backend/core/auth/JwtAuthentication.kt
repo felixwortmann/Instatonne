@@ -6,7 +6,7 @@ import org.springframework.security.authentication.AbstractAuthenticationToken
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 
 class JwtAuthentication(
-        private val payload: IdToken.Payload,
+        private val payload: IdToken.Payload?,
         private val user: User?
 ) : AbstractAuthenticationToken(listOf(SimpleGrantedAuthority("ROLE_USER"))) {
 
@@ -27,10 +27,10 @@ class JwtAuthentication(
     }
 
     fun getUserId(): String {
-        return payload.subject
+        return payload!!.subject
     }
 
     fun getTokenPayload(): IdToken.Payload {
-        return payload
+        return payload!!
     }
 }

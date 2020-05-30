@@ -33,7 +33,7 @@ import { ProfileSubscriptionsListItemComponent } from './components/profile/prof
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { MessagingComponent } from './components/messaging/messaging.component';
-import {PostComponent} from './components/post/post.component';
+import { PostComponent } from './components/post/post.component';
 import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
@@ -41,8 +41,9 @@ import { TimelineComponent } from './components/timeline/timeline.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { CommentSectionComponent } from './components/comment-section/comment-section.component';
 import { AuthorCommentComponent } from './components/author-comment/author-comment.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatTableModule} from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTableModule } from '@angular/material/table';
+import { ConversationsComponent } from './components/messaging/conversations/conversations.component';
 
 export const API_INTERCEPTOR_PROVIDER
 
@@ -77,7 +78,8 @@ registerLocaleData(localeDE);
     TimelineComponent,
     CommentComponent,
     CommentSectionComponent,
-    AuthorCommentComponent
+    AuthorCommentComponent,
+    ConversationsComponent
   ],
   imports: [
     BrowserModule,
@@ -99,9 +101,8 @@ registerLocaleData(localeDE);
     HttpClientModule,
     ApiModule.forRoot({ rootUrl: environment.apiUrl }),
     AlifeFileToBase64Module,
-    MatFormFieldModule,
     MatTableModule
-    ],
+  ],
   providers: [
     ApiInterceptor,
     API_INTERCEPTOR_PROVIDER,
