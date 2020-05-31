@@ -44,6 +44,59 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Post"
+  "/p/{postId}/comments":
+    get:
+      summary: Returns a post's comments by post id.
+      operationId: getPostComments
+      tags:
+        - posts
+        - comments
+      parameters:
+        - in: path
+          name: postId
+          schema:
+            type: string
+          required: true
+          description: The post id in uuid format
+      responses:
+        "200":
+          description: Successfully retrieved comments.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Comment"
+        "404":
+          $ref: "#/components/responses/NotFound"
+    post:
+      summary: Author a comment.
+      operationId: authorComment
+      tags:
+        - posts
+        - comments
+      parameters:
+        - in: path
+          name: postId
+          schema:
+            type: string
+          required: true
+          description: The post id in uuid format
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewComment"
+      responses:
+        "200":
+          description: Successfully created post.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Comment"
   "/p/{postId}":
     get:
       summary: Returns a single post by id.
@@ -484,6 +537,10 @@ components:
           format: date-time
         author:
           type: string
+        comment:
+          type: string
+    NewComment:
+      properties:
         comment:
           type: string
   responses:

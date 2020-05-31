@@ -10,6 +10,8 @@ import { ProfileEditComponent } from './components/profile/profile-edit/profile-
 import { MessagingComponent } from './components/messaging/messaging.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ConversationsComponent } from './components/messaging/conversations/conversations.component';
+import {CommentComponent} from "./components/comment/comment.component";
+import {CommentSectionComponent} from "./components/comment-section/comment-section.component";
 
 
 const routes: Routes = [
@@ -23,7 +25,8 @@ const routes: Routes = [
   { path: 'm', component: ConversationsComponent },
   { path: 'm/:username', component: MessagingComponent },
   { path: 'timeline', component: TimelineComponent },
-  { path: '', component: TimelineComponent }
+  { path: '', component: TimelineComponent },
+  { path: 'comment', component: CommentSectionComponent }
 ];
 
 @NgModule({

@@ -20,7 +20,11 @@ data class Comment(
         var forPost: Post = Post(),
 
         @Column(nullable = false)
-        var created: OffsetDateTime = OffsetDateTime.now()
+        var created: OffsetDateTime = OffsetDateTime.now(),
+
+        @ManyToOne(cascade = [CascadeType.PERSIST])
+        var author: User = User()
+
 ) : DatabaseWrapper<CommentApiModel> {
 
     override fun generateAPIVersion(): CommentApiModel {

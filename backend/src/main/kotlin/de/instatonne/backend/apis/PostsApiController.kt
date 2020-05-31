@@ -3,8 +3,11 @@ package de.instatonne.backend.apis
 import de.instatonne.backend.core.repositories.PostRepository
 import de.instatonne.backend.core.toNullable
 import de.instatonne.backend.generated.apis.PostsApi
+import de.instatonne.backend.generated.models.CommentApiModel
+import de.instatonne.backend.generated.models.NewCommentApiModel
 import de.instatonne.backend.generated.models.NewPostApiModel
 import de.instatonne.backend.generated.models.PostApiModel
+import de.instatonne.backend.models.Comment
 import de.instatonne.backend.models.Post
 import de.instatonne.backend.models.User
 import de.instatonne.backend.services.PostService
@@ -69,5 +72,27 @@ class PostsApiController(
         val filePath = fileBasePath + "${postId}.jpg"
         val resource = FileSystemResource(filePath)
         return ResponseEntity.ok(resource)
+    }
+
+    override fun getPostComments(postId: String): ResponseEntity<List<CommentApiModel>> {
+        val post = this.postRepository.findById(postId).toNullable()
+        return if (post == null) {
+            ResponseEntity.notFound().build()
+        } else {
+            ResponseEntity.ok(post.comments.map(Comment::generateAPIVersion))
+        }
+
+    }
+
+    override fun authorComment(postId: String, newComment: NewCommentApiModel): ResponseEntity<List<CommentApiModel>> {
+        val user = userService.getCurrentUser() ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        val post = this.postRepository.findById(postId).toNullable()
+
+        return if (post == null) {
+            ResponseEntity.notFound().build()
+        } else {
+            Comment(comment=newComment.comment, forPost=post, author=user)
+            ResponseEntity.ok(post.comments.map(Comment::generateAPIVersion))
+        }
     }
 }
