@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { Post } from '../../generated/models';
 import { PostsService } from "../../generated/services/posts.service";
 import { ActivatedRoute } from '@angular/router';
@@ -9,16 +9,19 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
-  postId: string;
+  @Input()
   post: Post;
+  postId: string;
 
   constructor(private postsService: PostsService, private route: ActivatedRoute){
   }
 
   ngOnInit(): void {
     this.postId = this.route.snapshot.paramMap.get("postId");
-    this.postsService.getPostById({postId: this.postId}).subscribe(post => {
-      this.post = post;
-    });
+    if (this.postId !== null){
+      this.postsService.getPostById({postId: this.postId}).subscribe(post => {
+        this.post = post;
+      });
+    }
   }
 }
