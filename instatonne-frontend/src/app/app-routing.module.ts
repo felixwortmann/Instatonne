@@ -8,7 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileSubscriptionsComponent } from './components/profile/profile-subscriptions/profile-subscriptions.component';
 import { ProfileEditComponent } from './components/profile/profile-edit/profile-edit.component';
 import { MessagingComponent } from './components/messaging/messaging.component';
-import {CommentSectionComponent} from "./components/comment-section/comment-section.component";
+import { CommentSectionComponent } from './components/comment-section/comment-section.component';
 
 
 const routes: Routes = [
