@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Comment} from 'src/app/generated/models';
 
 @Component({
@@ -7,17 +7,13 @@ import {Comment} from 'src/app/generated/models';
   styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent implements OnInit {
-  comment: Comment
+  @Input()
+  comment: Comment;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    this.comment = {
-      author: 'Hendrik',
-      created: '2019-01-01 :: 9:03:66',
-      comment: 'Krasses Bild am Start'
-    };
   }
 
 }

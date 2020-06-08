@@ -4,6 +4,7 @@ import de.instatonne.backend.core.DatabaseWrapper
 import de.instatonne.backend.generated.models.CommentApiModel
 import org.hibernate.annotations.GenericGenerator
 import java.time.OffsetDateTime
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -15,9 +16,6 @@ data class Comment(
 
         @Column(nullable = false)
         var comment: String = "",
-
-        @ManyToOne(cascade = [CascadeType.PERSIST])
-        var forPost: Post = Post(),
 
         @Column(nullable = false)
         var created: OffsetDateTime = OffsetDateTime.now(),

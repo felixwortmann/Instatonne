@@ -10,6 +10,7 @@ import de.instatonne.backend.generated.models.PostApiModel
 import de.instatonne.backend.models.Comment
 import de.instatonne.backend.models.Post
 import de.instatonne.backend.models.User
+import de.instatonne.backend.services.CommentService
 import de.instatonne.backend.services.PostService
 import de.instatonne.backend.services.UserService
 import org.springframework.core.io.FileSystemResource
@@ -25,7 +26,8 @@ import java.util.*
 class PostsApiController(
         val postRepository: PostRepository,
         val postService: PostService,
-        val userService: UserService
+        val userService: UserService,
+        val commentService: CommentService
 ) : PostsApi {
 
     companion object {
@@ -79,6 +81,8 @@ class PostsApiController(
         return if (post == null) {
             ResponseEntity.notFound().build()
         } else {
+            println("Post comments:")
+            println(post.comments)
             ResponseEntity.ok(post.comments.map(Comment::generateAPIVersion))
         }
 
@@ -91,7 +95,11 @@ class PostsApiController(
         return if (post == null) {
             ResponseEntity.notFound().build()
         } else {
-            Comment(comment=newComment.comment, forPost=post, author=user)
+            println("New Comment!")
+            println(newComment.comment)
+            val comment = commentService.authorComment(author = user, post = post, content = newComment.comment)
+            println("created new comment")
+            println(comment)
             ResponseEntity.ok(post.comments.map(Comment::generateAPIVersion))
         }
     }

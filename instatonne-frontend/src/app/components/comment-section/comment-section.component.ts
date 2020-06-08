@@ -1,5 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Comment} from 'src/app/generated/models';
+import {CommentsService} from "../../generated/services/comments.service";
+import {Observable} from "rxjs";
+import {ActivatedRoute, RouterEvent} from "@angular/router";
 
 @Component({
   selector: 'app-comment-section',
@@ -7,19 +10,25 @@ import {Comment} from 'src/app/generated/models';
   styleUrls: ['./comment-section.component.scss']
 })
 export class CommentSectionComponent implements OnInit {
-  comments: [Comment];
+  comments$: Observable<Comment[]>;
+  @Input()
+  postId: string;
 
-  constructor() {
+  constructor(private commentsService: CommentsService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.comments = [
-      {
-        author: 'Hendrik',
-        created: '2019-01-01',
-        comment: 'Krasses Bild am Start'
-      }
-    ];
+    if (this.postId === null){
+      this.postId = this.route.snapshot.paramMap.get("postId");
+    }
+    this.comments$ = this.commentsService.getPostComments({'postId': this.postId});
+    console.log("Comments:");
+    console.log(this.comments$);
+    console.log("post id:");
+    console.log(this.postId);
+    this.comments$.subscribe(data => {
+      console.log(data);
+    })
   }
 
 }

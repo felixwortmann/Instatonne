@@ -1,8 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MatFormField} from '@angular/material/form-field';
-import {MatInput} from '@angular/material/input';
 import { CommentsService } from "../../generated/services/comments.service";
-import {NewComment } from '../../generated/models';
 
 @Component({
   selector: 'app-author-comment',
@@ -11,7 +8,7 @@ import {NewComment } from '../../generated/models';
 })
 export class AuthorCommentComponent implements OnInit {
   @Input()
-  postUuid: string;
+  postId: string;
   comment: string;
 
   constructor(private commentsService: CommentsService) {
@@ -21,9 +18,9 @@ export class AuthorCommentComponent implements OnInit {
   }
 
   authorComment() {
-    const comment = this.comment;
-    console.log(comment);
-    const body = {postId: "123", body: {comment: comment}};
+    console.log("this is comment")
+    console.log(this.comment);
+    const body = {postId: this.postId, body: {comment: this.comment}};
     this.commentsService.authorComment(body).subscribe();
   }
 

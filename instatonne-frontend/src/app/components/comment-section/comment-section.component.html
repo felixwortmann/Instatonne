@@ -1,2 +1,2 @@
-<app-comment ng-repeat="comment in comments"></app-comment>
-<app-author-comment></app-author-comment>
+<app-comment *ngFor="let comment of comments$ | async" [comment]="comment"></app-comment>
+<app-author-comment [postId]="postId"></app-author-comment>
