@@ -95,11 +95,7 @@ class PostsApiController(
         return if (post == null) {
             ResponseEntity.notFound().build()
         } else {
-            println("New Comment!")
-            println(newComment.comment)
             val comment = commentService.authorComment(author = user, post = post, content = newComment.comment)
-            println("created new comment")
-            println(comment)
             ResponseEntity.ok(post.comments.map(Comment::generateAPIVersion))
         }
     }

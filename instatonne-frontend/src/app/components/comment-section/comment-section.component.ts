@@ -22,12 +22,7 @@ export class CommentSectionComponent implements OnInit {
       this.postId = this.route.snapshot.paramMap.get("postId");
     }
     this.comments$ = this.commentsService.getPostComments({'postId': this.postId});
-    console.log("Comments:");
-    console.log(this.comments$);
-    console.log("post id:");
-    console.log(this.postId);
     this.comments$.subscribe(data => {
-      console.log(data);
     })
   }
 

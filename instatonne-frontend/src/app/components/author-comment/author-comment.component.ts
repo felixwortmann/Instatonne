@@ -18,8 +18,6 @@ export class AuthorCommentComponent implements OnInit {
   }
 
   authorComment() {
-    console.log("this is comment")
-    console.log(this.comment);
     const body = {postId: this.postId, body: {comment: this.comment}};
     this.commentsService.authorComment(body).subscribe();
   }
