@@ -1,8 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Comment} from 'src/app/generated/models';
-import {CommentsService} from "../../generated/services/comments.service";
-import {Observable} from "rxjs";
-import {ActivatedRoute, RouterEvent} from "@angular/router";
+import { Component, Input, OnInit } from '@angular/core';
+import { Comment } from 'src/app/generated/models';
+import { CommentsService } from '../../generated/services/comments.service';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-comment-section',

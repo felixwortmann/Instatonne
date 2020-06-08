@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Post } from '../../generated/models';
-import { PostsService } from "../../generated/services/posts.service";
+import { PostsService } from '../../generated/services/posts.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
