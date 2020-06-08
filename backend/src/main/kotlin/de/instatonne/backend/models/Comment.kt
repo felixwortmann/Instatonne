@@ -26,6 +26,7 @@ data class Comment(
 ) : DatabaseWrapper<CommentApiModel> {
 
     override fun generateAPIVersion(): CommentApiModel {
-        return CommentApiModel().comment(comment).created(created)
+        val com = CommentApiModel().comment(comment).created(created).author(author.username)
+        return com
     }
 }
