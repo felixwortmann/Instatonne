@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PostsService } from '../../generated/services/posts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -12,7 +13,7 @@ export class CreateComponent {
   file: File;
   encodedImg: string;
 
-  constructor(private postsService: PostsService) {
+  constructor(private postsService: PostsService, private router: Router) {
   }
 
   onSelectFile(event) {
@@ -32,8 +33,9 @@ export class CreateComponent {
   }
 
   upload() {
-    const body = {image: this.encodedImg, text: this.caption};
-    this.postsService.createPost({body}).subscribe();
+    const body = { image: this.encodedImg, text: this.caption };
+    this.postsService.createPost({ body }).subscribe();
+    this.router.navigate(['/']);
   }
 
   save(value) {
