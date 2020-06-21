@@ -12,7 +12,7 @@ COPY instatonne.openapi.yml instatonne.openapi.yml
 WORKDIR /usr/src/app/instatonne-frontend
 
 RUN npm ci
-RUN npm run build:prod:docker
+RUN npm run build:docker
 
 
 ###

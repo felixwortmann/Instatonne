@@ -27,5 +27,7 @@ ENV app.version=$VERSION
 ARG COMMIT=unkown
 ENV app.commit=$COMMIT
 
+RUN mkdir /var/tmp/instatonne
+
 COPY --from=build-mvn /usr/src/app/backend/target/backend-*.jar /root/backend.jar
 CMD ["java","-jar","/root/backend.jar"]
