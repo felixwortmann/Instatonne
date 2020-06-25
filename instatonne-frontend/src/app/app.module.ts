@@ -38,10 +38,17 @@ import { registerLocaleData } from '@angular/common';
 import localeDE from '@angular/common/locales/de';
 import { AlifeFileToBase64Module } from 'alife-file-to-base64';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { CommentSectionComponent } from './components/comment-section/comment-section.component';
+import { AuthorCommentComponent } from './components/author-comment/author-comment.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { ConversationsComponent } from './components/messaging/conversations/conversations.component';
 
-export const API_INTERCEPTOR_PROVIDER: Provider = {
+export const API_INTERCEPTOR_PROVIDER
+
+
+: Provider = {
   provide: HTTP_INTERCEPTORS,
   useExisting: forwardRef(() => ApiInterceptor),
   multi: true
@@ -69,6 +76,9 @@ registerLocaleData(localeDE);
     CreateComponent,
     PostComponent,
     TimelineComponent,
+    CommentComponent,
+    CommentSectionComponent,
+    AuthorCommentComponent,
     ConversationsComponent
   ],
   imports: [
@@ -100,4 +110,5 @@ registerLocaleData(localeDE);
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

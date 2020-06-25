@@ -2,7 +2,7 @@
   <app-profile-header [user$]="user$"></app-profile-header>
   <mat-grid-list cols="3" rowHeight="1:1">
     <mat-grid-tile *ngFor="let post of posts$ | async">
-      <mat-card>
+      <mat-card routerLink="/p/{{post.id}}" style="cursor: pointer">
         <app-image [post]="post"></app-image>
       </mat-card>
     </mat-grid-tile>

@@ -3,10 +3,14 @@ package de.instatonne.backend.apis
 import de.instatonne.backend.core.repositories.PostRepository
 import de.instatonne.backend.core.toNullable
 import de.instatonne.backend.generated.apis.PostsApi
+import de.instatonne.backend.generated.models.CommentApiModel
+import de.instatonne.backend.generated.models.NewCommentApiModel
 import de.instatonne.backend.generated.models.NewPostApiModel
 import de.instatonne.backend.generated.models.PostApiModel
+import de.instatonne.backend.models.Comment
 import de.instatonne.backend.models.Post
 import de.instatonne.backend.models.User
+import de.instatonne.backend.services.CommentService
 import de.instatonne.backend.services.PostService
 import de.instatonne.backend.services.UserService
 import org.springframework.core.io.FileSystemResource
@@ -22,7 +26,8 @@ import java.util.*
 class PostsApiController(
         val postRepository: PostRepository,
         val postService: PostService,
-        val userService: UserService
+        val userService: UserService,
+        val commentService: CommentService
 ) : PostsApi {
 
     companion object {
@@ -69,5 +74,29 @@ class PostsApiController(
         val filePath = fileBasePath + "${postId}.jpg"
         val resource = FileSystemResource(filePath)
         return ResponseEntity.ok(resource)
+    }
+
+    override fun getPostComments(postId: String): ResponseEntity<List<CommentApiModel>> {
+        val post = this.postRepository.findById(postId).toNullable()
+        return if (post == null) {
+            ResponseEntity.notFound().build()
+        } else {
+            println("Post comments:")
+            println(post.comments)
+            ResponseEntity.ok(post.comments.map(Comment::generateAPIVersion))
+        }
+
+    }
+
+    override fun authorComment(postId: String, newComment: NewCommentApiModel): ResponseEntity<List<CommentApiModel>> {
+        val user = userService.getCurrentUser() ?: return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+        val post = this.postRepository.findById(postId).toNullable()
+
+        return if (post == null) {
+            ResponseEntity.notFound().build()
+        } else {
+            val comment = commentService.authorComment(author = user, post = post, content = newComment.comment)
+            ResponseEntity.ok(post.comments.map(Comment::generateAPIVersion))
+        }
     }
 }

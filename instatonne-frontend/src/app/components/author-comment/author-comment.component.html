@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-content>
+    <form class="comment-form">
+      <mat-form-field class="comment-form-field">
+        <mat-label>kommentier</mat-label>
+        <input type="text" matInput #message #text maxlength="512" (keyup)="save(text.value)" placeholder="Das ist ein toller Pfosten!">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="authorComment()">Abschicken</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+

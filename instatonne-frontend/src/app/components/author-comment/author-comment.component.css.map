@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,mBAAoB;EAClB,KAAK,EAAE,IAAI;;AAGb,aAAc;EACZ,KAAK,EAAE,IAAI",
+"sources": ["author-comment.component.scss"],
+"names": [],
+"file": "author-comment.component.css"
+}
